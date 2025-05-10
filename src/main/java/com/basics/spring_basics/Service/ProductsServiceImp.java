@@ -2,13 +2,9 @@ package com.basics.spring_basics.Service;
 
 import com.basics.spring_basics.Exceptions.APIExceptions;
 import com.basics.spring_basics.Exceptions.ResourceNotFoundException;
-import com.basics.spring_basics.Model.Cart;
 import com.basics.spring_basics.Model.CategoryModel;
-import com.basics.spring_basics.Model.Product;
-import com.basics.spring_basics.Payload.CartDTO;
 import com.basics.spring_basics.Payload.ProductResponse;
 import com.basics.spring_basics.Payload.ProductsDTO;
-import com.basics.spring_basics.Repository.CartRepository;
 import com.basics.spring_basics.Repository.CategoryRepository;
 import com.basics.spring_basics.Repository.ProductRepository;
 import org.modelmapper.ModelMapper;
@@ -31,32 +27,17 @@ public class ProductsServiceImp implements ProductsService{
     private CategoryRepository categoryRepository;
 
     @Autowired
-    private CartRepository cartRepository;
-
-    @Autowired
     private ModelMapper modelMapper;
-
-    @Autowired
-    private CartService cartService;
 
     @Override
     public ProductsDTO createProduct(ProductsDTO productsDTO, Long id) {
         CategoryModel category = categoryRepository.findById(id).
                 orElseThrow(()->new ResourceNotFoundException("Category","CategoryId",id));
-        Product product = modelMapper.map(productsDTO, Product.class);
-        Product saved = productRepository.findByproductName(product.getProductName());
         if(saved!=null){
             throw new APIExceptions("This Product Already exist");
         }
 
-        product.setCategory(category);
-        product.setImage("default.png");
-        double price = product.getPrice();
-        double discount = product.getDiscount();
         double specialPrice = price - (discount/100)*price;
-        product.setSpecialPrice(specialPrice);
-        productRepository.save(product);
-        return modelMapper.map(product, ProductsDTO.class);
     }
 
     @Override
@@ -65,8 +46,6 @@ public class ProductsServiceImp implements ProductsService{
                 ? Sort.by(sortBy).ascending():
                 Sort.by(sortBy).descending();
         Pageable pageDetails = PageRequest.of(pageNumber,pageSize,sortByAndOrder);
-        Page<Product> productsPage = productRepository.findAll(pageDetails);
-        List<Product> products = productsPage.getContent();
         if(products.isEmpty()){
             throw new APIExceptions("there are no products");
         }
@@ -93,8 +72,6 @@ public class ProductsServiceImp implements ProductsService{
                 : Sort.by(sortBy).descending();
 
         Pageable pageDetails = PageRequest.of(pageNumber,pageSize,sortByAndOrder);
-        Page<Product> productsPage = productRepository.findByCategoryOrderByPriceAsc(pageDetails,category);
-        List<Product> products = productsPage.getContent();
         if (products.isEmpty()){
             throw new APIExceptions("This category does not contain any products");
         }
@@ -118,8 +95,6 @@ public class ProductsServiceImp implements ProductsService{
                 ? Sort.by(sortBy).ascending()
                 :Sort.by(sortBy).descending();
         Pageable pageDetails = PageRequest.of(pageNumber,pageSize,sortByAndOrder);
-        Page<Product> productsPage = productRepository.findByproductNameLikeIgnoreCase(pageDetails,'%'+keyword+'%');
-        List<Product> products = productsPage.getContent();
         if (products.isEmpty()){
             throw new APIExceptions("No Product with the keyword "+keyword);
         }
@@ -139,10 +114,7 @@ public class ProductsServiceImp implements ProductsService{
 
     @Override
     public ProductsDTO updateProduct(Long productId,ProductsDTO productsDTO) {
-        Product product1 = productRepository.findById(productId)
                 .orElseThrow(()->new ResourceNotFoundException("product","productId",productId));
-        Product product = modelMapper.map(productsDTO, Product.class);
-        Product saved = productRepository.findByproductName(product.getProductName());
         if (saved!=null){
             throw new APIExceptions("this product already exists");
         }
@@ -156,29 +128,12 @@ public class ProductsServiceImp implements ProductsService{
         double specialPrice = price - (discount/100)*price;
         product1.setSpecialPrice(specialPrice);
         productRepository.save(product1);
-
-        List<Cart> carts = cartRepository.findCartByProductId(productId);
-
-        List<CartDTO> cartDTOS = carts.stream().map(cart -> {
-            CartDTO cartDTO = modelMapper.map(cart,CartDTO.class);
-
-            List<ProductsDTO> productsDTOS = cart.getCartItems().stream().map(p->
-                 modelMapper.map(p.getProduct(),ProductsDTO.class)).toList();
-            cartDTO.setProducts(productsDTOS);
-            return cartDTO;
-        }).toList();
-        cartDTOS.forEach(cart->cartService.updateProductInCart(cart.getCartId(),productId));
-
-        return modelMapper.map(product, ProductsDTO.class);
     }
 
     @Override
     public ProductsDTO deleteProduct(Long productId) {
-        Product product = productRepository.findById(productId)
                 .orElseThrow(()->new ResourceNotFoundException("Product","ProductID",productId));
         productRepository.delete(product);
-        List<Cart> carts = cartRepository.findCartByProductId(productId);
-        carts.forEach(cart -> cartService.deleteProductFromCart(cart.getCartId(), productId));
         return modelMapper.map(product, ProductsDTO.class);
     }
 }
