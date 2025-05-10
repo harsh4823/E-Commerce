@@ -1,6 +1,7 @@
 package com.basics.spring_basics.Service;
 
 import com.basics.spring_basics.Exceptions.ResourceNotFoundException;
+import com.basics.spring_basics.Model.Product;
 import com.basics.spring_basics.Payload.ProductsDTO;
 import com.basics.spring_basics.Repository.ProductRepository;
 import org.modelmapper.ModelMapper;
@@ -29,6 +30,7 @@ public class FileServiceImp implements FileService{
 
     @Override
     public ProductsDTO updateProductImage(Long productID, MultipartFile image) throws IOException {
+        Product product = productRepository.findById(productID)
                 .orElseThrow(()->new ResourceNotFoundException("Product","ProductID",productID));
         String fileName = uploadImage(path,image);
         product.setImage(fileName);
