@@ -3,14 +3,14 @@ import {FaExclamationTriangle} from "react-icons/fa";
 
 const Products = () => {
     const isLoading = false;
-    const errorMessage = "An error occurred";
-   const products = [
+    const errorMessage = "";
+    const products = [
         {
             productId: 652,
             productName: "Iphone Xs max",
             image: "https://placehold.co/600x400",
             description: "Experience the latest in mobile technology with advanced cameras, powerful processing, and an all-day battery.",
-            quantity: 0,
+            quantity: 10,
             price: 1450.0,
             discount: 10.0,
             specialPrice: 1305.0,
