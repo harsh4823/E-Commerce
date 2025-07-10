@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {FaShoppingCart} from "react-icons/fa";
+import ProductViewModal from "./ProductViewModal.jsx";
 
 const ProductCard = (
     {
@@ -26,6 +27,8 @@ const ProductCard = (
 
     return(
         <div className="border rounded-lg shadow-xl overflow-hidden transition-shadow duration-300">
+
+            {/*image section*/}
             <div onClick={()=>{
                 handleProductView({
                     id:productId,
@@ -41,6 +44,8 @@ const ProductCard = (
                  className="w-full overflow-hidden aspect-[3/2]">
                 <img src={image} alt={productName}  className="w-full h-full cursor-pointer transition-transform duration-300 transform hover:scale-105"/>
             </div>
+
+            {/*product details section*/}
             <div className="p-4">
 
                 <h2 onClick={()=>{
@@ -61,7 +66,9 @@ const ProductCard = (
                     <p className="text-gray-600 text-sm">{description}</p>
                 </div>
 
+                {/* price section*/}
                 <div className={'flex items-center justify-between'}>
+
                 {specialPrice?
                     (
                         <div className="flex flex-col">
@@ -86,6 +93,7 @@ const ProductCard = (
                     )
                 }
 
+                {/*add to cart button*/}
                 <button
                     disabled={!isAvailable || btnLoader}
                     className={`
@@ -104,6 +112,12 @@ const ProductCard = (
                 </button>
                 </div>
             </div>
+            <ProductViewModal
+            open={openProductViewModal}
+            setOpen={setOpenProductViewModal}
+            product={selectedViewProduct}
+            isAvailable={isAvailable}
+            />
         </div>
     )
 }
