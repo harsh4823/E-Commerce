@@ -1,4 +1,4 @@
-import {Button, Dialog, DialogBackdrop, DialogPanel, DialogTitle} from '@headlessui/react'
+import {Dialog, DialogBackdrop, DialogPanel, DialogTitle} from '@headlessui/react'
 import {Divider} from "@mui/material";
 import Status from "./Status.jsx";
 import {MdClose, MdDone} from "react-icons/md";
@@ -11,8 +11,6 @@ function ProductViewModal(
         isAvailable,
     }
 ) {
-
-
     const {
         productId,
         productName,
