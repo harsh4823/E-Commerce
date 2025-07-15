@@ -3,7 +3,7 @@ package com.basics.spring_basics.Controller;
 import com.basics.spring_basics.Payload.OrderDTO;
 import com.basics.spring_basics.Payload.OrderRequestDTO;
 import com.basics.spring_basics.Service.OrderService;
-import com.basics.spring_basics.security.Util.AuthUtil;
+import com.basics.spring_basics.Security.Util.AuthUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

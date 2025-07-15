@@ -1,13 +1,13 @@
-package com.basics.spring_basics.security.Configuration;
+package com.basics.spring_basics.Security.Configuration;
 
 import com.basics.spring_basics.Model.AppRole;
 import com.basics.spring_basics.Model.Role;
 import com.basics.spring_basics.Model.User;
 import com.basics.spring_basics.Repository.RoleRepository;
 import com.basics.spring_basics.Repository.UserRepository;
-import com.basics.spring_basics.security.JWT.AuthEntryPointJWT;
-import com.basics.spring_basics.security.JWT.AuthTokenFilter;
-import com.basics.spring_basics.security.Services.UserDetailServiceImp;
+import com.basics.spring_basics.Security.JWT.AuthEntryPointJWT;
+import com.basics.spring_basics.Security.JWT.AuthTokenFilter;
+import com.basics.spring_basics.Security.Services.UserDetailServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -67,7 +67,7 @@ public class SecurityConfig {
         return http.authorizeHttpRequests(authorizeRequest ->
                 authorizeRequest.
                         requestMatchers("/h2-console/**","/api/auth/**",
-                                "/images/**","/api/test/**","/sign-in")
+                                "/images/**","/api/test/**","/sign-in","/api/public/**")
                         .permitAll()
                         .requestMatchers("/api/carts/**").authenticated()
                         .anyRequest().authenticated()

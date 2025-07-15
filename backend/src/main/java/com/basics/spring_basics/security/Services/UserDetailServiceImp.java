@@ -1,4 +1,4 @@
-package com.basics.spring_basics.security.Services;
+package com.basics.spring_basics.Security.Services;
 
 import com.basics.spring_basics.Model.User;
 import com.basics.spring_basics.Repository.UserRepository;

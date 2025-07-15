@@ -1,10 +1,9 @@
-package com.basics.spring_basics.security.Request;
+package com.basics.spring_basics.Security.Request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor

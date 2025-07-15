@@ -1,6 +1,6 @@
-package com.basics.spring_basics.security.JWT;
+package com.basics.spring_basics.Security.JWT;
 
-import com.basics.spring_basics.security.Services.UserDetailsImp;
+import com.basics.spring_basics.Security.Services.UserDetailsImp;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
@@ -11,7 +11,6 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseCookie;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.WebUtils;

@@ -3,7 +3,7 @@ package com.basics.spring_basics.Controller;
 import com.basics.spring_basics.Model.User;
 import com.basics.spring_basics.Payload.AddressDTO;
 import com.basics.spring_basics.Service.AddressService;
-import com.basics.spring_basics.security.Util.AuthUtil;
+import com.basics.spring_basics.Security.Util.AuthUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

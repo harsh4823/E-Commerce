@@ -1,4 +1,4 @@
-package com.basics.spring_basics.security.Response;
+package com.basics.spring_basics.Security.Response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

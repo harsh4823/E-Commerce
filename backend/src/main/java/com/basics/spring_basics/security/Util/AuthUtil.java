@@ -1,6 +1,5 @@
-package com.basics.spring_basics.security.Util;
+package com.basics.spring_basics.Security.Util;
 
-import com.basics.spring_basics.Exceptions.ResourceNotFoundException;
 import com.basics.spring_basics.Model.User;
 import com.basics.spring_basics.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

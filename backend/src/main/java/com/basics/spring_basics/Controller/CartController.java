@@ -3,7 +3,7 @@ package com.basics.spring_basics.Controller;
 import com.basics.spring_basics.Payload.CartDTO;
 import com.basics.spring_basics.Repository.CartRepository;
 import com.basics.spring_basics.Service.CartService;
-import com.basics.spring_basics.security.Util.AuthUtil;
+import com.basics.spring_basics.Security.Util.AuthUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

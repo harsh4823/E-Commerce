@@ -1,4 +1,4 @@
-package com.basics.spring_basics.security.JWT;
+package com.basics.spring_basics.Security.JWT;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

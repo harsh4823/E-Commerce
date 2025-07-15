@@ -10,7 +10,7 @@ import com.basics.spring_basics.Payload.ProductsDTO;
 import com.basics.spring_basics.Repository.CartItemsRepository;
 import com.basics.spring_basics.Repository.CartRepository;
 import com.basics.spring_basics.Repository.ProductRepository;
-import com.basics.spring_basics.security.Util.AuthUtil;
+import com.basics.spring_basics.Security.Util.AuthUtil;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
