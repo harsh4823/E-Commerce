@@ -42,14 +42,14 @@ function ProductViewModal(
                                 </div>
                             )}
 
-                            <div className={'px-6 pt-10 pb-2'}>
+                            <div className={'px-6 pt-10'}>
                             <DialogTitle
                                 as="h1"
                                 className="lg:text-3xl sm:text-2xl font-semibold leading-6 text-gray-800 mb-4">
                                     {productName}
                             </DialogTitle>
 
-                            <div className={'space-y-2 text-gray-700 pb-4'}>
+                            <div className={'space-y-2 text-gray-700'}>
 
                                 <div className={'flex items-center justify-end gap-2'}>
                                 {isAvailable ? (
@@ -96,7 +96,7 @@ function ProductViewModal(
                             </div>
                             </div>
 
-                            <div className={'flex justify-end px-6 py-4 gap-4'}>
+                            <div className={'flex justify-end px-6 pb-4 gap-4'}>
                                 <button
                                     onClick={()=>{setOpen(false)}}
                                     type={'button'}
