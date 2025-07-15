@@ -49,7 +49,7 @@ function ProductViewModal(
                                     {productName}
                             </DialogTitle>
 
-                            <div className={'space-y-2 text-gray-700'}>
+                            <div className={'space-y-2 text-gray-700 pb-4'}>
 
                                 <div className={'flex items-center justify-end gap-2'}>
                                 {isAvailable ? (
