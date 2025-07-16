@@ -28,6 +28,7 @@ public class FileServiceImp implements FileService{
     @Value("${project.image}")
     private String path;
 
+
     @Override
     public ProductsDTO updateProductImage(Long productID, MultipartFile image) throws IOException {
         Product product = productRepository.findById(productID)
@@ -52,4 +53,6 @@ public class FileServiceImp implements FileService{
         Files.copy(image.getInputStream(), Path.of(filePath));
         return fileName;
     }
+
+
 }

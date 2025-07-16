@@ -10,6 +10,7 @@ import com.basics.spring_basics.Repository.CategoryRepository;
 import com.basics.spring_basics.Repository.ProductRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -29,6 +30,10 @@ public class ProductsServiceImp implements ProductsService{
 
     @Autowired
     private ModelMapper modelMapper;
+
+
+    @Value("${image.base.url}")
+    private String url;
 
     @Override
     public ProductsDTO createProduct(ProductsDTO productsDTO, Long id) {
@@ -62,7 +67,11 @@ public class ProductsServiceImp implements ProductsService{
             throw new APIExceptions("there are no products");
         }
         List<ProductsDTO> productsDTOs = products.stream()
-                .map(product ->modelMapper.map(product, ProductsDTO.class))
+                .map(product ->{
+                ProductsDTO productsDTO =  modelMapper.map(product, ProductsDTO.class);
+                productsDTO.setImage(constructImageUrl(productsDTO.getImage()));
+                return productsDTO;
+                })
                 .toList();
         ProductResponse productResponse = new ProductResponse();
         productResponse.setContent(productsDTOs);
@@ -72,6 +81,10 @@ public class ProductsServiceImp implements ProductsService{
         productResponse.setTotalItems(productsPage.getTotalElements());
         productResponse.setLastPage(productsPage.isLast());
         return productResponse;
+    }
+
+    private String constructImageUrl(String imageName){
+        return url.endsWith("/") ? url+imageName: url+"/"+imageName;
     }
 
     @Override
