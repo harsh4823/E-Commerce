@@ -67,7 +67,8 @@ public class SecurityConfig {
         return http.authorizeHttpRequests(authorizeRequest ->
                 authorizeRequest.
                         requestMatchers("/h2-console/**","/api/auth/**",
-                                "/images/**","/api/test/**","/sign-in","/api/public/**")
+                                "/images/**","/api/test/**","/sign-in","/v3/api-docs/**",
+                                "/api/public/**","/swagger-ui/**","/swagger-ui.html")
                         .permitAll()
                         .requestMatchers("/api/carts/**").authenticated()
                         .anyRequest().authenticated()

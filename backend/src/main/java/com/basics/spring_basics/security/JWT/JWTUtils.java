@@ -41,6 +41,14 @@ public class JWTUtils {
         }
     }
 
+    public String getJwtFromHeader(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (bearerToken!=null && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        return bearerToken;
+    }
+
     public ResponseCookie generateJwtCookie(UserDetailsImp userPrincipal) {
         String jwt = generateTokenFromUsername(userPrincipal);
         return ResponseCookie.from(jwtCookie, jwt).path("/api").maxAge(24 * 60 * 60)

@@ -146,10 +146,6 @@ public class ProductsServiceImp implements ProductsService{
         Product product1 = productRepository.findById(productId)
                 .orElseThrow(()->new ResourceNotFoundException("product","productId",productId));
         Product product = modelMapper.map(productsDTO, Product.class);
-        Product saved = productRepository.findByproductName(product.getProductName());
-        if (saved!=null){
-            throw new APIExceptions("this product already exists");
-        }
         product1.setProductName(product.getProductName());
         product1.setDescription(product.getDescription());
         product1.setQuantity(product.getQuantity());
