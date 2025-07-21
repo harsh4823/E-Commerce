@@ -5,8 +5,11 @@ import {useEffect} from "react";
 import {fetchProducts} from "../store/action/action.js";
 
 const Products = () => {
-    const isLoading = false;
-    const errorMessage = "";
+    const {isLoading,errorMessage} = useSelector(
+        state => state.errors
+    )
+
+
 
     const {products} = useSelector(
         state => state.products
@@ -19,9 +22,6 @@ const Products = () => {
     },[dispatch]);
 
     // console.log(products);
-
-
-
 
     return(
         <div className="lg:px-14 sm:px-8 px-4 py-14 2xl:w-[90%] 2xl:mx-auto">
