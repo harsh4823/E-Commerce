@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -56,13 +57,34 @@ public class ProductsServiceImp implements ProductsService{
     }
 
     @Override
-    public ProductResponse getAllProducts(Integer pageNumber,Integer pageSize,String sortBy,String sortOrder) {
+    public ProductResponse getAllProducts(String keyword,String category,Integer pageNumber,Integer pageSize,String sortBy,String sortOrder) {
         Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc")
                 ? Sort.by(sortBy).ascending():
                 Sort.by(sortBy).descending();
         Pageable pageDetails = PageRequest.of(pageNumber,pageSize,sortByAndOrder);
-        Page<Product> productsPage = productRepository.findAll(pageDetails);
+
+        Specification<Product> specification = Specification.where(null);
+
+        if(keyword!=null && !keyword.isEmpty()){
+            specification.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.like(criteriaBuilder.lower(root.get("productName")),
+                            "%" + keyword.toLowerCase() + "%"));
+
+        }
+
+        if(category!=null && !category.isEmpty()){
+            specification.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.like(root.get("category").get("categoryName"),
+                            category.toLowerCase()));
+        }
+        Page<Product> productsPage = productRepository.findAll(specification,pageDetails);
         List<Product> products = productsPage.getContent();
+
+//        //shows all products if keyword is not correct
+//        if (keyword!=null && !keyword.isEmpty() && productsPage.getNumberOfElements()==0){
+//            productsPage = productRepository.findAll(pageDetails);
+//            products = productsPage.getContent();
+//        }
         if(products.isEmpty()){
             throw new APIExceptions("there are no products");
         }

@@ -10,7 +10,7 @@ public interface ProductsService {
 
     ProductsDTO createProduct(ProductsDTO products, Long id);
 
-    ProductResponse getAllProducts(Integer pageNumber,Integer pageSize,String sortBy,String sortOrder);
+    ProductResponse getAllProducts(String keyword,String category,Integer pageNumber,Integer pageSize,String sortBy,String sortOrder);
 
     ProductResponse getProductsByCategory(Long categoryId,Integer pageNumber,Integer pageSize,String sortBy,String sortOrder);
 
