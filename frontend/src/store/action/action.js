@@ -1,11 +1,11 @@
 import api from "../../api/api.js";
 
-export const fetchProducts = () => async (dispatch) => {
+export const fetchProducts = (queryString) => async (dispatch) => {
     try{
 
         dispatch({type : "Is_Fetching"});
 
-        const {data} = await api.get(`/public/products`);
+        const {data} = await api.get(`/public/products?${queryString}`);
         // console.log(data);
         dispatch(
             {

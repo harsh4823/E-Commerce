@@ -4,23 +4,23 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {fetchProducts} from "../store/action/action.js";
 import Filter from "./Filter.jsx";
+import useProductFilter from "./useProductFilter.jsx";
 
 const Products = () => {
     const {isLoading,errorMessage} = useSelector(
         state => state.errors
     )
 
-
-
     const {products} = useSelector(
         state => state.products
     );
 
-    const dispatch = useDispatch();
-
-    useEffect(()=>{
-        dispatch(fetchProducts());
-    },[dispatch]);
+    // const dispatch = useDispatch();
+    useProductFilter();
+    //
+    // useEffect(()=>{
+    //     dispatch(fetchProducts());
+    // },[dispatch]);
 
     // console.log(products);
 

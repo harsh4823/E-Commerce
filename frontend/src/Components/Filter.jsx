@@ -37,11 +37,11 @@ const Filter = () => {
 
         const handler = setTimeout(()=>{
             if (searchTerm){
-                searchParams.set('keyword',searchTerm);
+                URLParams.set('keyword',searchTerm);
             }else{
-                searchParams.delete('keyword');
+                URLParams.delete('keyword');
             }
-            navigate(`${path}?${searchParams.toString()}`);
+            navigate(`${path}?${URLParams}`);
         },700);
 
         return()=>{
@@ -54,19 +54,19 @@ const Filter = () => {
         const selectedCategory = event.target.value;
 
         if(selectedCategory==='all'){
-            searchParams.delete('category');
+            URLParams.delete('category');
         }else{
-            searchParams.set('category',selectedCategory);
+            URLParams.set('category',selectedCategory);
         }
-        navigate(`${path}?${searchParams}`)
+        navigate(`${path}?${URLParams}`)
         setCategory(event.target.value);
     }
 
     const toggleSortOrder = () => {
         setSortOrder((prevOrder) => {
             const newOrder = (prevOrder==='asc') ? 'desc' : 'asc';
-            searchParams.set('sortBy',newOrder);
-            navigate(`${path}?${searchParams}`);
+            URLParams.set('sortBy',newOrder);
+            navigate(`${path}?${URLParams}`);
             return newOrder;
         });
     }
