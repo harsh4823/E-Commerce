@@ -2,6 +2,7 @@ const initialState = {
     products:null,
     categories:null,
     pagination:{},
+    isFallback:false,
 }
 
 export const productReducer = (state=initialState,action) => {
@@ -17,7 +18,8 @@ export const productReducer = (state=initialState,action) => {
                     totalItems : action.payload.totalItems,
                     pageSize   : action.payload.pageSize,
                     lastPage   : action.payload.lastPage,
-                }
+                },
+                isFallback: action.payload.isFallback,
             };
         default:
             return state;

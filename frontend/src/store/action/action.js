@@ -17,6 +17,7 @@ export const fetchProducts = (queryString) => async (dispatch) => {
                     totalItems : data.totalItems,
                     pageSize : data.pageSize,
                     lastPage : data.lastPage,
+                    isFallback : data.fallback,
                 },
             }
         )

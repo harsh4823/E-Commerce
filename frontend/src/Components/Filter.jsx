@@ -15,7 +15,8 @@ const Filter = () => {
     ];
 
     const [searchParams] = useSearchParams();
-    const URLParams = new URLSearchParams(searchParams);
+    let URLParams = URLSearchParams;
+    URLParams = new URLSearchParams(searchParams);
     const path = useLocation().pathname;
     const navigate = useNavigate();
 
@@ -48,7 +49,7 @@ const Filter = () => {
             clearTimeout(handler);
         }
 
-    },[searchParams,searchTerm,navigate,path]);
+    },[searchParams, searchTerm, navigate, path, URLParams]);
 
     const handleCategoryChange = (event) => {
         const selectedCategory = event.target.value;

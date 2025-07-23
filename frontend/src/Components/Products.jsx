@@ -1,8 +1,6 @@
 import ProductCard from "./ProductCard.jsx";
 import {FaExclamationTriangle} from "react-icons/fa";
-import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
-import {fetchProducts} from "../store/action/action.js";
+import {useSelector} from "react-redux";
 import Filter from "./Filter.jsx";
 import useProductFilter from "./useProductFilter.jsx";
 
@@ -11,7 +9,7 @@ const Products = () => {
         state => state.errors
     )
 
-    const {products} = useSelector(
+    const {products,isFallback} = useSelector(
         state => state.products
     );
 
@@ -39,8 +37,15 @@ const Products = () => {
                                 {errorMessage}
                             </span>
                         </div>
-                    :<div className="min-h-[700px]">
-                        <div className="pb-6 pt-14 grid 2xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 gap-y-6 gap-x-6">
+                    :
+                        <div className="min-h-[700px]">
+                            {isFallback && (
+                                <div className={'pt-10 font-semibold text-slate-800 text-3xl'}>
+                                    No products found for your search. Showing all products instead.
+                                </div>
+                            )}
+
+                            <div className="pb-6 pt-14 grid 2xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 gap-y-6 gap-x-6">
                             {
                                 products ?
                                     products.map((item,i)=>(
