@@ -17,4 +17,5 @@ public class ProductResponse {
     private long totalItems;
     private Integer totalPages;
     private boolean lastPage;
+    private boolean isFallback;
 }

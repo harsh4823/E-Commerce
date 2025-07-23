@@ -8,6 +8,8 @@ import com.basics.spring_basics.Payload.ProductResponse;
 import com.basics.spring_basics.Payload.ProductsDTO;
 import com.basics.spring_basics.Repository.CategoryRepository;
 import com.basics.spring_basics.Repository.ProductRepository;
+import jakarta.persistence.criteria.Expression;
+import jakarta.persistence.criteria.Predicate;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,6 +20,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -35,6 +38,7 @@ public class ProductsServiceImp implements ProductsService{
 
     @Value("${image.base.url}")
     private String url;
+
 
     @Override
     public ProductsDTO createProduct(ProductsDTO productsDTO, Long id) {
@@ -58,33 +62,64 @@ public class ProductsServiceImp implements ProductsService{
 
     @Override
     public ProductResponse getAllProducts(String keyword,String category,Integer pageNumber,Integer pageSize,String sortBy,String sortOrder) {
-        Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc")
-                ? Sort.by(sortBy).ascending():
-                Sort.by(sortBy).descending();
-        Pageable pageDetails = PageRequest.of(pageNumber,pageSize,sortByAndOrder);
+        boolean isFallback = false;
+        Pageable pageDetails;
 
-        Specification<Product> specification = Specification.where(null);
-
-        if(keyword!=null && !keyword.isEmpty()){
-            specification.and((root, query, criteriaBuilder) ->
-                    criteriaBuilder.like(criteriaBuilder.lower(root.get("productName")),
-                            "%" + keyword.toLowerCase() + "%"));
-
+        if(sortBy.equalsIgnoreCase("price")){
+            pageDetails = PageRequest.of(pageNumber,pageSize,Sort.unsorted());
+        }else{
+            Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc")
+                    ? Sort.by(sortBy).ascending():
+                    Sort.by(sortBy).descending();
+            pageDetails = PageRequest.of(pageNumber,pageSize,sortByAndOrder);
         }
 
-        if(category!=null && !category.isEmpty()){
-            specification.and((root, query, criteriaBuilder) ->
-                    criteriaBuilder.like(root.get("category").get("categoryName"),
-                            category.toLowerCase()));
-        }
+        Specification<Product> specification = (root, query, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            if (keyword != null && !keyword.isEmpty()) {
+                predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("productName")), "%" + keyword.toLowerCase() + "%"));
+            }
+
+            if (category != null && !category.isEmpty()) {
+                predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("category").get("categoryName")),category));
+            }
+
+            // 👇 Conditional sorting logic (only for "price" sorting)
+            if (sortBy.equalsIgnoreCase("price")) {
+                Expression<Object> sortExpression = criteriaBuilder
+                        .selectCase()
+                        .when(
+                            criteriaBuilder.and(
+                                criteriaBuilder.isNotNull(root.get("specialPrice")),
+                                criteriaBuilder.greaterThan(root.get("specialPrice"), 0)
+                            ),root.get("specialPrice")
+                        )
+                        .otherwise(root.get("price"));
+
+                assert query != null;
+                if (sortOrder.equalsIgnoreCase("asc")) {
+                    query.orderBy(criteriaBuilder.asc(sortExpression));
+                } else {
+                    query.orderBy(criteriaBuilder.desc(sortExpression));
+                }
+            }
+
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+        };
+
+
         Page<Product> productsPage = productRepository.findAll(specification,pageDetails);
         List<Product> products = productsPage.getContent();
 
 //        //shows all products if keyword is not correct
-//        if (keyword!=null && !keyword.isEmpty() && productsPage.getNumberOfElements()==0){
-//            productsPage = productRepository.findAll(pageDetails);
-//            products = productsPage.getContent();
-//        }
+
+        if (keyword!=null && !keyword.isEmpty() && products.isEmpty()){
+            productsPage = productRepository.findAll(pageDetails);
+            products = productsPage.getContent();
+            isFallback = true;
+        }
+
         if(products.isEmpty()){
             throw new APIExceptions("there are no products");
         }
@@ -102,6 +137,7 @@ public class ProductsServiceImp implements ProductsService{
         productResponse.setTotalPages(productsPage.getTotalPages());
         productResponse.setTotalItems(productsPage.getTotalElements());
         productResponse.setLastPage(productsPage.isLast());
+        productResponse.setFallback(isFallback);
         return productResponse;
     }
 
