@@ -3,16 +3,29 @@ import {FiArrowDown, FiArrowUp, FiRefreshCcw, FiRefreshCw, FiSearch} from "react
 import {Button, MenuItem, Select, Tooltip} from "@mui/material";
 import {FormControl, InputLabel} from "@mui/material";
 import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchCategory} from "../store/action/categoryAction.js";
 
 const Filter = () => {
 
-    const categories = [
-        { categoryId: 1, categoryName: 'Electronics' },
-        { categoryId: 2, categoryName: 'Books' },
-        { categoryId: 3, categoryName: 'Clothing' },
-        { categoryId: 4, categoryName: 'Home Appliances' },
-        { categoryId: 5, categoryName: 'Sports' }
-    ];
+    // const categories = [
+    //     { categoryId: 1, categoryName: 'Computer & Laptop Accessories' },
+    //     { categoryId: 2, categoryName: 'Electronics & Gadgets' },
+    //     { categoryId: 3, categoryName: 'Smart Home & Lighting' },
+    //     { categoryId: 4, categoryName: 'Fitness & Health' },
+    //     { categoryId: 5, categoryName: 'Kitchen & Home Appliances' },
+    //     { categoryId: 6, categoryName: 'Outdoor & Lifestyle' }
+    // ];
+
+    const {categories} = useSelector(
+        state => state.categories
+    );
+
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        dispatch(fetchCategory());
+    },[dispatch]);
 
     const [searchParams] = useSearchParams();
     let URLParams = URLSearchParams;
