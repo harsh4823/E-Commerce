@@ -3,6 +3,8 @@ import {FaExclamationTriangle} from "react-icons/fa";
 import {useSelector} from "react-redux";
 import Filter from "./Filter.jsx";
 import useProductFilter from "./useProductFilter.jsx";
+import {FadeLoader, RingLoader,ClockLoader,MoonLoader} from "react-spinners";
+import Loader from "./Loader.jsx";
 
 const Products = () => {
     const {isLoading,errorMessage} = useSelector(
@@ -27,9 +29,7 @@ const Products = () => {
             <Filter/>
             {
                 isLoading ?
-                    <div>
-                        Its loading...
-                    </div>
+                    <Loader text={"Loading Products..."}/>
                     : errorMessage ?
                         <div className="flex items-center justify-center h-[200px] ">
                             <FaExclamationTriangle className="text-slate-800 text-3xl mr-2"/>
