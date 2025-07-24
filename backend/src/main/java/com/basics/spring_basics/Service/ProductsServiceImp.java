@@ -8,8 +8,7 @@ import com.basics.spring_basics.Payload.ProductResponse;
 import com.basics.spring_basics.Payload.ProductsDTO;
 import com.basics.spring_basics.Repository.CategoryRepository;
 import com.basics.spring_basics.Repository.ProductRepository;
-import jakarta.persistence.criteria.Expression;
-import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -82,7 +81,7 @@ public class ProductsServiceImp implements ProductsService{
             }
 
             if (category != null && !category.isEmpty()) {
-                predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("category").get("categoryName")),category));
+                predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("category").get("categoryName")),"%"+category.toLowerCase()+"%"));
             }
 
             // 👇 Conditional sorting logic (only for "price" sorting)
