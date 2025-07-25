@@ -3,15 +3,15 @@ import {FaExclamationTriangle} from "react-icons/fa";
 import {useSelector} from "react-redux";
 import Filter from "./Filter.jsx";
 import useProductFilter from "./useProductFilter.jsx";
-import {FadeLoader, RingLoader,ClockLoader,MoonLoader} from "react-spinners";
 import Loader from "./Loader.jsx";
+import Paginations from "/src/Components/Paginations.jsx";
 
 const Products = () => {
     const {isLoading,errorMessage} = useSelector(
         state => state.errors
     )
 
-    const {products,isFallback} = useSelector(
+    const {products,isFallback,pagination} = useSelector(
         state => state.products
     );
 
@@ -57,7 +57,9 @@ const Products = () => {
                                     </div>
                             }
                         </div>
-
+                            <Paginations
+                            numberOfPages={pagination?. totalPages}
+                            />
                         </div>
             }
         </div>

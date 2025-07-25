@@ -11,11 +11,6 @@ export const fetchCategory = () => async  (dispatch) => {
             type : "Fetch_Categories",
             payload : {
                 categories  : data.content,
-                pageNumber  : data.pageNumber,
-                totalPages  : data.totalPages,
-                totalItems  : data.totalItems,
-                pageSize    : data.pageSize,
-                lastPage    : data.lastPage,
             }
 
             },

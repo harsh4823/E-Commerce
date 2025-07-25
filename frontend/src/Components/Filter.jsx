@@ -52,6 +52,7 @@ const Filter = () => {
         const handler = setTimeout(()=>{
             if (searchTerm){
                 URLParams.set('keyword',searchTerm);
+                URLParams.delete('page');
             }else{
                 URLParams.delete('keyword');
             }
@@ -71,6 +72,7 @@ const Filter = () => {
             URLParams.delete('category');
         }else{
             URLParams.set('category',selectedCategory);
+            URLParams.delete('page');
         }
         navigate(`${path}?${URLParams}`)
         setCategory(event.target.value);

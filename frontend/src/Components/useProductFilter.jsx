@@ -10,12 +10,13 @@ const useProductFilter = () => {
     useEffect(()=>{
         const URLParams = new URLSearchParams(searchParams);
 
-        const currentPage = searchParams.get('page') || 1;
-        URLParams.set('pageNumber', currentPage-1);
+        const currentPage = searchParams.get('page')
+            ? Number(searchParams.get('page')):1;
         const category = searchParams.get('category') || null;
         const sortOrder = searchParams.get('sortBy') || 'asc';
         const keyword = searchParams.get('keyword') || null;
 
+        URLParams.set('pageNumber', currentPage-1);
         URLParams.set('sortBy','price');
         URLParams.set('sortOrder',sortOrder);
 
