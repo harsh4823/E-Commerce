@@ -4,7 +4,7 @@ import {Button, MenuItem, Select, Tooltip} from "@mui/material";
 import {FormControl, InputLabel} from "@mui/material";
 import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchCategory} from "../store/action/categoryAction.js";
+import {fetchCategory} from "../../store/action/categoryAction.js";
 
 const Filter = () => {
 

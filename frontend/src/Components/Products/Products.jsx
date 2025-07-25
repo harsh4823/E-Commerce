@@ -1,10 +1,10 @@
-import ProductCard from "./ProductCard.jsx";
+import ProductCard from "../Shared/ProductCard.jsx";
 import {FaExclamationTriangle} from "react-icons/fa";
 import {useSelector} from "react-redux";
 import Filter from "./Filter.jsx";
-import useProductFilter from "./useProductFilter.jsx";
-import Loader from "./Loader.jsx";
-import Paginations from "/src/Components/Paginations.jsx";
+import useProductFilter from "../../Hooks/useProductFilter.js";
+import Loader from "../Shared/Loader.jsx";
+import Paginations from "/src/Components/Shared/Paginations.jsx";
 
 const Products = () => {
     const {isLoading,errorMessage} = useSelector(

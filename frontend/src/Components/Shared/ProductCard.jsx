@@ -1,6 +1,7 @@
 import {useState} from "react";
 import {FaShoppingCart} from "react-icons/fa";
 import ProductViewModal from "./ProductViewModal.jsx";
+import {TruncateText} from "../../Utils/TruncateText.js";
 
 const ProductCard = (
     {
@@ -60,10 +61,10 @@ const ProductCard = (
                         specialPrice,
                     })
                 }}
-                    className="text-lg font-semibold mb-2 cursor-pointer">{productName}</h2>
+                    className="text-lg font-semibold mb-2 cursor-pointer">{TruncateText(productName,30)}</h2>
 
                 <div className="min-h-20 max-h-20">
-                    <p className="text-gray-600 text-sm">{description}</p>
+                    <p className="text-gray-600 text-sm">{TruncateText(description)}</p>
                 </div>
 
                 {/* price section*/}
