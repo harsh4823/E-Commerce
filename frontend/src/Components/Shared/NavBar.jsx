@@ -1,6 +1,6 @@
 import {Link, useLocation} from "react-router-dom";
 import {FaStore} from "react-icons/fa6";
-import {FaShoppingCart, FaSignInAlt} from "react-icons/fa";
+import {FaSignInAlt} from "react-icons/fa";
 import {Badge} from "@mui/material";
 import {MdOutlineShoppingCart} from "react-icons/md";
 import {useState} from "react";

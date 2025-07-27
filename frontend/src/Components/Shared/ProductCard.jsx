@@ -13,6 +13,7 @@ const ProductCard = (
         price,
         discount,
         specialPrice,
+        about=false,
     }
 ) => {
 
@@ -22,8 +23,10 @@ const ProductCard = (
     const isAvailable = quantity > 0;
 
     const handleProductView = (product) => {
+        if (!about){
         setSelectedViewProduct(product);
         setOpenProductViewModal(true);
+        }
     };
 
     return(
@@ -43,7 +46,7 @@ const ProductCard = (
                 })
             }}
                  className="w-full overflow-hidden aspect-[3/2]">
-                <img src={image} alt={productName}  className="w-full h-full cursor-pointer transition-transform duration-300 transform hover:scale-105"/>
+                <img src={image} alt={productName}  className={`w-full h-full ${!about?'cursor-pointer':'cursor-default'} transition-transform duration-300 transform hover:scale-105`}/>
             </div>
 
             {/*product details section*/}
@@ -61,57 +64,50 @@ const ProductCard = (
                         specialPrice,
                     })
                 }}
-                    className="text-lg font-semibold mb-2 cursor-pointer">{TruncateText(productName,30)}</h2>
+                    className={`text-lg font-semibold mb-2 ${!about?'cursor-pointer':'cursor-default'}`}>{TruncateText(productName,30)}</h2>
 
                 <div className="min-h-20 max-h-20">
                     <p className="text-gray-600 text-sm">{TruncateText(description)}</p>
                 </div>
-
-                {/* price section*/}
+                    {!about &&(
                 <div className={'flex items-center justify-between'}>
-
-                {specialPrice?
-                    (
-                        <div className="flex flex-col">
+                        {specialPrice?
+                                (
+                                    <div className="flex flex-col">
                             <span className={'text-gray-400 line-through'}>
                                 ${Number(price).toFixed(2)}
                             </span>
 
-                            <span className={'text-slate-700 text-xl font-bold'}>
+                                        <span className={'text-slate-700 text-xl font-bold'}>
                                 ${Number(specialPrice).toFixed(2)}
                             </span>
-
-                        </div>
-
-                    ):
-                    (
-                        <div className={'flex flex-col'}>
-                            {" "}
-                            <span className={'text-slate-700 text-xl font-bold'}>
+                                    </div>
+                                ):
+                                (
+                                    <div className={'flex flex-col'}>
+                                        {" "}
+                                        <span className={'text-slate-700 text-xl font-bold'}>
                                 ${Number(price).toFixed(2)}
                             </span>
-                        </div>
-                    )
-                }
-
-                {/*add to cart button*/}
-                <button
-                    disabled={!isAvailable || btnLoader}
-                    className={`
-                ${isAvailable ? "opacity-100 hover:bg-blue-600 cursor-pointer" :"opacity-70"}
-                bg-blue-500 text-white py-2 px-3 rounded-lg transition-colors duration-300 items-center w-36 flex justify-center
-                `}>
-                    <FaShoppingCart className="mr-2"/>
-                {isAvailable ?
-                    (
-                            "Add To Cart"
-
-                    ):
-                    (
-                            "Stock Out"
-                    )}
-                </button>
+                                    </div>
+                                )
+                        }
+                            {/*add to cart button*/}
+                        <button
+                            disabled={!isAvailable || btnLoader}
+                            className={`${isAvailable ? "opacity-100 hover:bg-blue-600 cursor-pointer" :"opacity-70"}
+                            bg-blue-500 text-white py-2 px-3 rounded-lg transition-colors duration-300 items-center w-36 flex justify-center`}>
+                            <FaShoppingCart className="mr-2"/>
+                            {isAvailable ?
+                                (
+                                    "Add To Cart"
+                                ):
+                                (
+                                    "Stock Out"
+                                )}
+                        </button>
                 </div>
+                    )}
             </div>
             <ProductViewModal
             open={openProductViewModal}

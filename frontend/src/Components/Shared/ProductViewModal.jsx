@@ -32,7 +32,8 @@ function ProductViewModal(
                     <div className="flex items-center justify-center p-4" >
                         <DialogPanel
                             transition
-                            className="bg-white rounded-lg shadow-xl relative transform overflow-hidden transition-all md:max-w-[620px] md:min-w-[620px] w-full"
+                            className="bg-white rounded-lg shadow-xl relative transform overflow-hidden
+                            transition-all md:max-w-[500px] md:min-w-[500px] pt-12"
                         >
                             {image && (
                                 <div className={'flex justify-center items-center aspect-[3/2]'}>
