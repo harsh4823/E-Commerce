@@ -1,10 +1,12 @@
-export const addtoCart = (data,qty=1) =>
+export const addToCart = (data,qty=1) =>
      (dispatch,getState) => {
         // Find Product 
-        const {products} = getState.products;
+        const {products} = getState().products;
         const getProduct = products.find(
             (item) => item.productId === data.productId
         );
+        
+        console.log(getProduct);
 
         // Check for Stocks
         const isQuantityExists = getProduct.quantity >= qty;

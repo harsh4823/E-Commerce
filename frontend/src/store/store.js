@@ -2,13 +2,18 @@ import {configureStore} from "@reduxjs/toolkit";
 import {productReducer} from "./reducers/ProductReducer.js";
 import {errorReducer} from "./reducers/ErrorReducer.js";
 import {categoryReducer} from "./reducers/CategoryReducer.js";
+import { cartReducer } from "./reducers/CartReducer.js";
 
 const cartItems = localStorage.getItem("cartItems")?
         JSON.parse(localStorage.getItem("cartItems")):
         [];
 
 const initialState = {
-    carts : cartItems,
+    carts : {
+        cart : cartItems,
+        totalPrice : 0,
+        cartId : null,
+    }
 };
 
 export const store = configureStore(
@@ -17,7 +22,7 @@ export const store = configureStore(
             products : productReducer,
             errors : errorReducer,
             categories : categoryReducer,
-            carts : categoryReducer,
+            carts : cartReducer,
         },
         preloadedState : initialState,
     }
