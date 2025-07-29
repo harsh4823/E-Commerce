@@ -4,6 +4,7 @@ import ProductViewModal from "./ProductViewModal.jsx";
 import {TruncateText} from "../../Utils/TruncateText.js";
 import { addToCart } from "../../store/action/cartAction.js";
 import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
 
 const ProductCard = (
     {
@@ -33,7 +34,7 @@ const ProductCard = (
     };
 
     const addToCartHandler = (cartItems) => {
-        dispatch(addToCart(cartItems,1));
+        dispatch(addToCart(cartItems,1,toast));
     }
 
     return(

@@ -1,4 +1,4 @@
-export const addToCart = (data,qty=1) =>
+export const addToCart = (data,qty=1,toast) =>
      (dispatch,getState) => {
         // Find Product 
         const {products} = getState().products;
@@ -22,8 +22,10 @@ export const addToCart = (data,qty=1) =>
                     }
                 }
             );
+            toast.success(`${data?.productName} added to cart`);
             localStorage.setItem("cartItems",JSON.stringify(getState().carts.cart));
         }else{
             // error
+            toast.error('Out Of Stock');
         }
 }

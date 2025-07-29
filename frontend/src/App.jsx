@@ -4,11 +4,13 @@ import Home from "./Components/Home/Home.jsx";
 import NavBar from "./Components/Shared/NavBar.jsx";
 import About from "./Components/About.jsx";
 import Contact from "./Components/Contact.jsx";
+import { Toaster } from "react-hot-toast";
+import React from "react";
 
 function App() {
 
     return(
-        <div>
+        <React.Fragment>
           <Router>
               <NavBar/>
               <Routes>
@@ -18,7 +20,8 @@ function App() {
                   <Route path={'/contact'} element={<Contact/>}/>
               </Routes>
           </Router>
-        </div>
+          <Toaster position="bottom-center"/>
+        </React.Fragment>
     )
 }
 
