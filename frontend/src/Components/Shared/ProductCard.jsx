@@ -75,11 +75,11 @@ const ProductCard = (
                                 (
                                     <div className="flex flex-col">
                             <span className={'text-gray-400 line-through'}>
-                                ${Number(price).toFixed(2)}
+                                 ₹ {Number(price).toFixed(2)}
                             </span>
 
                                         <span className={'text-slate-700 text-xl font-bold'}>
-                                ${Number(specialPrice).toFixed(2)}
+                                ₹ {Number(specialPrice).toFixed(2)}
                             </span>
                                     </div>
                                 ):
@@ -87,7 +87,7 @@ const ProductCard = (
                                     <div className={'flex flex-col'}>
                                         {" "}
                                         <span className={'text-slate-700 text-xl font-bold'}>
-                                ${Number(price).toFixed(2)}
+                                ₹ {Number(price).toFixed(2)}
                             </span>
                                     </div>
                                 )
