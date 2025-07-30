@@ -105,10 +105,13 @@ const ProductCard = (
                             disabled={!isAvailable || btnLoader}
                             onClick={()=>addToCartHandler({
                                 productId,
-                                image,
                                 productName,
+                                image,
                                 description,
-                                specialPrice
+                                quantity,
+                                price,
+                                discount,
+                                specialPrice,
                             })}
                             className={`${isAvailable ? "opacity-100 hover:bg-blue-600 cursor-pointer" :"opacity-70"}
                             bg-blue-500 text-white py-2 px-3 rounded-lg transition-colors duration-300 items-center w-36 flex justify-center`}>

@@ -4,7 +4,7 @@ export const fetchCategory = () => async  (dispatch) => {
     try{
         dispatch({type : "Is_Fetching"});
         const {data} = await api.get(`/public/categories`);
-        console.log(data);
+        // console.log(data);
 
         dispatch(
             {

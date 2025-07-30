@@ -8,7 +8,7 @@ export const cartReducer = (state=initialState,action) => {
     switch(action.type){
         case "Add_To_Cart": {
             const productToAdd = action.payload;
-            console.log(productToAdd);
+            // console.log(productToAdd);
             
             const existingProduct = state.cart.find(
                 (item) => item.productId === productToAdd.productId 

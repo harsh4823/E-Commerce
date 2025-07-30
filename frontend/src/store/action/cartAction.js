@@ -6,7 +6,7 @@ export const addToCart = (data,qty=1,toast) =>
             (item) => item.productId === data.productId
         );
         
-        console.log(getProduct);
+        // console.log(getProduct);
 
         // Check for Stocks
         const isQuantityExists = getProduct.quantity >= qty;
