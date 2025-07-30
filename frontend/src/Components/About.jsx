@@ -1,5 +1,4 @@
 import Loader from "./Shared/Loader.jsx";
-import {FaExclamationTriangle} from "react-icons/fa";
 import ProductCard from "./Shared/ProductCard.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
@@ -9,7 +8,6 @@ const About = () => {
     const dispatch = useDispatch();
 
     const {products} = useSelector((state)=>state.products);
-    const {isLoading,errorMessage} = useSelector((state)=>state.errors);
 
     useEffect(()=>{
         dispatch(fetchProducts());
@@ -29,7 +27,7 @@ const About = () => {
                     </p>
                 </div>
                 <div className={'w-full md:w-1/2 mb-6 md:mb-0 ml-7'}>
-                <img src={'https://placehold.co/600x400'} alt={'About Us'} className={'w-full h-auto rounded-lg transform transition-transform duration-300 hover:scale-105'}/>
+                <img src={'src/assets/images/about.jpg'} alt={'About Us'} className={'w-full h-auto rounded-lg transform transition-transform duration-300'}/>
                 </div>
             </div>
             <div className={'py-7 space-y-8'}>
