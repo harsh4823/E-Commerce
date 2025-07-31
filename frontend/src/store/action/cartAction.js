@@ -76,3 +76,16 @@ export const decreaseCartQty = (data, toast, currentQty, setCurrentQty) =>
             toast.error("Remove the product from cart");
         }
     };
+
+export const removeFromCart = (data,toast) =>
+    (dispatch,getState) => {
+        dispatch({
+            type: "Remove_From_Cart",
+            payload: data,
+        });
+
+        toast.success(`${data.productName} has been removed from cart`)
+        localStorage.setItem("cartItems", JSON.stringify(getState().carts.cart));
+
+    };
+

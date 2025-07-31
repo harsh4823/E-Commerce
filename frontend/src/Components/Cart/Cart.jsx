@@ -9,17 +9,17 @@ const Cart = () => {
         (state) => state.carts
     );
     
+    if (!cart || cart.length === 0) {
+        return (
+            <h1>Cart Is Empty</h1>
+        )
+    }
 
     const newCart = { ...cart };
     newCart.totalPrice = cart?.reduce(
         (acc, curr) => acc * Number(curr?.specialPrice) * Number(curr?.quantity)
     );
 
-    if (!cart || cart.length === 0) {
-        return (
-            <h1>Cart Is Empty</h1>
-        )
-    }
 
     return (
         <div className="lg:px-14 sm:px-8 px-4 py-10">
