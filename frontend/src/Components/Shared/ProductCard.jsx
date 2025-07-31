@@ -3,8 +3,9 @@ import {FaShoppingCart} from "react-icons/fa";
 import ProductViewModal from "./ProductViewModal.jsx";
 import {TruncateText} from "../../Utils/TruncateText.js";
 import { addToCart } from "../../store/action/cartAction.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const ProductCard = (
     {
@@ -16,7 +17,7 @@ const ProductCard = (
         price,
         discount,
         specialPrice,
-        about=false,
+        about = false,
     }
 ) => {
 
@@ -36,6 +37,12 @@ const ProductCard = (
     const addToCartHandler = (cartItems) => {
         dispatch(addToCart(cartItems,1,toast));
     }
+
+    const { cart } = useSelector((state) => state.carts);
+
+    const goToCart = cart.find(
+        (item) => item.productId === productId
+    );
 
     return(
         <div className="border rounded-lg shadow-xl overflow-hidden transition-shadow duration-300">
@@ -100,7 +107,18 @@ const ProductCard = (
                                     </div>
                                 )
                         }
-                            {/*add to cart button*/}
+                        {/*add to cart button*/}
+
+                        {goToCart ?
+                            (
+                                <Link
+                                     className={`${isAvailable ? "opacity-100 hover:bg-blue-600 cursor-pointer" :"opacity-70"}
+                            bg-blue-500 text-white py-2 px-3 rounded-lg transition-colors duration-300 items-center w-36 flex justify-center`}
+                                    to={'/cart'}>
+                                    <FaShoppingCart className="mr-2"/> Go To Cart
+                                </Link>
+                            ): (
+                                    
                         <button
                             disabled={!isAvailable || btnLoader}
                             onClick={()=>addToCartHandler({
@@ -113,6 +131,7 @@ const ProductCard = (
                                 discount,
                                 specialPrice,
                             })}
+                            
                             className={`${isAvailable ? "opacity-100 hover:bg-blue-600 cursor-pointer" :"opacity-70"}
                             bg-blue-500 text-white py-2 px-3 rounded-lg transition-colors duration-300 items-center w-36 flex justify-center`}>
                             <FaShoppingCart className="mr-2"/>
@@ -124,6 +143,8 @@ const ProductCard = (
                                     "Stock Out"
                                 )}
                         </button>
+                        )}
+                            
                 </div>
                     )}
             </div>
