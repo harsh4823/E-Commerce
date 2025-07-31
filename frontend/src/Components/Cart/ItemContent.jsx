@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
 import SetQuantity from "./SetQuantity";
+import { useDispatch } from "react-redux";
+import { decreaseCartQty, increaseCartQty } from "../../store/action/cartAction";
+import toast from "react-hot-toast";
 
 const ItemContent = ({
         productId,
@@ -15,12 +18,24 @@ const ItemContent = ({
     
     const [currentQuantity, setCurrentQuantity] = useState(quantity);
 
-    const handleQtyIncrease = () => {
-        
-    }
+    const dispatch = useDispatch();
 
-    const handleQtyDecrease = () => {
-        
+    const handleQtyIncrease = (cartItems) => {
+        dispatch(increaseCartQty(
+            cartItems,
+            toast,
+            currentQuantity,
+            setCurrentQuantity
+        ));
+    };
+
+    const handleQtyDecrease = (cartItems) => {
+        dispatch(decreaseCartQty(
+            cartItems,
+            toast,
+            currentQuantity,
+            setCurrentQuantity
+        ));
     }
 
     return (
@@ -51,7 +66,33 @@ const ItemContent = ({
             </div>
 
             <div className="flex justify-self-center">
-                   <SetQuantity quantity={currentQuantity} cardCouter={true}/>
+                <SetQuantity
+                    quantity={currentQuantity}
+                    cardCouter={true}
+                    handleQtyIncrease={() => {
+                        handleQtyIncrease({
+                            productId,
+                            productName,
+                            image,
+                            description,
+                            quantity,
+                            price,
+                            discount,
+                            specialPrice,
+                        })}}
+                    handleQtyDecrease={() => {
+                        handleQtyDecrease({
+                            productId,
+                            productName,
+                            image,
+                            description,
+                            quantity,
+                            price,
+                            discount,
+                            specialPrice,
+                        
+                        })}}
+                />
             </div>
 
             <div className="flex justify-self-center lg:text-[17px] text-sm text-slate-600 font-semibold">
