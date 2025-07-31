@@ -33,7 +33,7 @@ export const addToCart = (data, qty = 1, toast) =>
 export const increaseCartQty = (data, toast, currentQty, setCurrentQty) =>
     (dispatch, getState) => {
 
-        console.log(data);
+        // console.log(data);
         
         const isQuantityExists = data.maxQty >= currentQty + 1;
 

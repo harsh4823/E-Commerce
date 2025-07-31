@@ -6,6 +6,7 @@ import { addToCart } from "../../store/action/cartAction.js";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import { formatPrice } from "../../Utils/formatPrice.js";
 
 const ProductCard = (
     {
@@ -92,11 +93,11 @@ const ProductCard = (
                                 (
                                     <div className="flex flex-col">
                             <span className={'text-gray-400 line-through'}>
-                                 ₹ {Number(price).toFixed(2)}
+                                 {formatPrice(Number(price).toFixed(2))}
                             </span>
 
                                         <span className={'text-slate-700 text-xl font-bold'}>
-                                ₹ {Number(specialPrice).toFixed(2)}
+                                {formatPrice(Number(specialPrice).toFixed(2))}
                             </span>
                                     </div>
                                 ):
@@ -104,7 +105,7 @@ const ProductCard = (
                                     <div className={'flex flex-col'}>
                                         {" "}
                                         <span className={'text-slate-700 text-xl font-bold'}>
-                                ₹ {Number(price).toFixed(2)}
+                                 {formatPrice(Number(price).toFixed(2))}
                             </span>
                                     </div>
                                 )
@@ -114,8 +115,8 @@ const ProductCard = (
                         {goToCart ?
                             (
                                 <Link
-                                     className={`${isAvailable ? "opacity-100 hover:bg-blue-600 cursor-pointer" :"opacity-70"}
-                            bg-blue-500 text-white py-2 px-3 rounded-lg transition-colors duration-300 items-center w-36 flex justify-center`}
+                                     className={`${isAvailable ? "opacity-100 hover:bg-blue-800 cursor-pointer" :"opacity-70"}
+                            bg-blue-700 text-white py-2 px-3 rounded-lg transition-colors duration-300 items-center w-36 flex justify-center`}
                                     to={'/cart'}>
                                     <FaShoppingCart className="mr-2"/> Go To Cart
                                 </Link>

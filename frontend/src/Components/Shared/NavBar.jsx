@@ -6,10 +6,12 @@ import {MdOutlineShoppingCart} from "react-icons/md";
 import {useState} from "react";
 import {RxCross2} from "react-icons/rx";
 import {IoIosMenu} from "react-icons/io";
+import { useSelector } from "react-redux";
 
 const NavBar = () => {
     const path = useLocation().pathname;
     const [navbarOpen, setNavbarOpen] = useState(false);
+    const { cart } = useSelector(state => state.carts);
     return(
         <div className={'h-[70px] bg-custom-gradient text-white z-50 flex items-center sticky top-0'}>
             <div className={'lg:px-14 sm:px-8 px-4 w-full flex justify-between'}>
@@ -64,7 +66,7 @@ const NavBar = () => {
                             to={"/cart"}>
                             <Badge
                             showZero={true}
-                            badgeContent={0}
+                            badgeContent={cart?.length || 0}
                             color={'primary'}
                             overlap={'circular'}
                             anchorOrigin={{
