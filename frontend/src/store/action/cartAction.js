@@ -24,7 +24,6 @@ export const addToCart = (data, qty = 1, toast) =>
             );
             toast.success(`${data?.productName} added to cart`);
             localStorage.setItem("cartItems", JSON.stringify(getState().carts.cart));
-            localStorage.setItem("products", JSON.stringify(getState().products.products));
         } else {
             // error
             toast.error('Out Of Stock');
@@ -33,13 +32,10 @@ export const addToCart = (data, qty = 1, toast) =>
 
 export const increaseCartQty = (data, toast, currentQty, setCurrentQty) =>
     (dispatch, getState) => {
-        const { products } = getState().products;
+
+        console.log(data);
         
-        const getProduct = products.find(
-            (item) => item.productId === data.productId
-        );
-        
-        const isQuantityExists = getProduct.quantity >= currentQty + 1;
+        const isQuantityExists = data.maxQty >= currentQty + 1;
 
         if (isQuantityExists) {
             const newQty = currentQty + 1;

@@ -20,7 +20,8 @@ const ProductCard = (
         about = false,
     }
 ) => {
-
+    
+    const maxQty = Number(quantity);
     const [openProductViewModal, setOpenProductViewModal] = useState(false);
     const btnLoader = false;
     const [selectedViewProduct, setSelectedViewProduct] = useState("");
@@ -43,6 +44,7 @@ const ProductCard = (
     const goToCart = cart.find(
         (item) => item.productId === productId
     );
+
 
     return(
         <div className="border rounded-lg shadow-xl overflow-hidden transition-shadow duration-300">
@@ -130,6 +132,7 @@ const ProductCard = (
                                 price,
                                 discount,
                                 specialPrice,
+                                maxQty,
                             })}
                             
                             className={`${isAvailable ? "opacity-100 hover:bg-blue-600 cursor-pointer" :"opacity-70"}

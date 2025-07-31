@@ -14,6 +14,7 @@ const ItemContent = ({
         price,
         discount,
         specialPrice,
+        maxQty,
 }) => {
     
     const [currentQuantity, setCurrentQuantity] = useState(quantity);
@@ -79,6 +80,7 @@ const ItemContent = ({
                             price,
                             discount,
                             specialPrice,
+                            maxQty
                         })}}
                     handleQtyDecrease={() => {
                         handleQtyDecrease({
