@@ -7,11 +7,13 @@ import {useState} from "react";
 import {RxCross2} from "react-icons/rx";
 import {IoIosMenu} from "react-icons/io";
 import { useSelector } from "react-redux";
+import UserMenu from "../UserMenu";
 
 const NavBar = () => {
     const path = useLocation().pathname;
     const [navbarOpen, setNavbarOpen] = useState(false);
     const { cart } = useSelector(state => state.carts);
+    const { user } = useSelector(state => state.auth);
     return(
         <div className={'h-[70px] bg-custom-gradient text-white z-50 flex items-center sticky top-0'}>
             <div className={'lg:px-14 sm:px-8 px-4 w-full flex justify-between'}>
@@ -79,17 +81,25 @@ const NavBar = () => {
                         </Link>
                     </li>
                     {/*Login*/}
-                    <li className={'font-[500] transition-all duration-150'}>
+                    {(user && user.id) ? (
+                        <li className='font-[500] transition-all duration-150'>
+                            <UserMenu user={user}/>
+                        </li>
+                    ) :
+                        (
+                            
+                            <li className={'font-[500] transition-all duration-150'}>
                         <Link
                             className='flex items-center space-x-2 px-4 py-[6px] mt-2
                              bg-gradient-to-r from-purple-600 to-red-500 text-white
                              font-semibold rounded-md shadow-lg hover:from-purple-500 hover:to-red-400
                              transition duration-300 ease-in-out transform'
-                            to={"/login"}>
+                             to={"/login"}>
                             <FaSignInAlt/>
                             <span>Login</span>
                         </Link>
                     </li>
+                            )}
                 </ul>
                 <button
                 onClick={()=> setNavbarOpen(!navbarOpen)}

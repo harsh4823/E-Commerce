@@ -3,7 +3,7 @@ import {productReducer} from "./reducers/ProductReducer.js";
 import {errorReducer} from "./reducers/ErrorReducer.js";
 import {categoryReducer} from "./reducers/CategoryReducer.js";
 import { cartReducer } from "./reducers/CartReducer.js";
-import { authReducer } from "./action/AuthReducer.js";
+import { authReducer } from "./reducers/AuthReducer.js";
 
 const cartItems = localStorage.getItem("cartItems")?
         JSON.parse(localStorage.getItem("cartItems")):

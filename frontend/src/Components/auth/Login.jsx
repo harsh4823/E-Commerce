@@ -4,15 +4,20 @@ import { MdLogin } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import {AiOutlineLogin} from "react-icons/ai"
 import InputField from "../Shared/InputField";
+import { useDispatch } from "react-redux";
+import { authenticateSignInUser } from "../../store/action/authAction";
+import toast from "react-hot-toast";
 
 const Login = () => {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [loader, setLoader] = useState(false);
-    const { register, handleSubmit, formState: { errors } } = useForm({ mode: "onTouched" });
+    const { register, handleSubmit,reset, formState: { errors } } = useForm({ mode: "onTouched" });
 
     const loginHandler = async (data) => {
         console.log("Login Clicked");
+        dispatch(authenticateSignInUser(data, toast, reset, navigate, setLoader));
     }
 
     return (
