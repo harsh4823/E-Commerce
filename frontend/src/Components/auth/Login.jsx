@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { MdLogin } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {AiOutlineLogin} from "react-icons/ai"
 import InputField from "../Shared/InputField";
 
@@ -26,7 +26,7 @@ const Login = () => {
                     </h1>
                 </div>
                 <hr className="mt-2 mr-5 text-black"/>
-                <div>
+                <div className="flex flex-col gap-3">
                     <InputField
                         label="UserName"
                         required
@@ -37,7 +37,31 @@ const Login = () => {
                         message="*Username is required"
                         placeholder="Enter Your Username"
                     />
+                    <InputField
+                        label="Password"
+                        required
+                        id="password"
+                        type="password"
+                        register={register}
+                        errors={errors}
+                        message="*PassWord is required"
+                        placeholder="Enter Your PassWord"
+                    />
                 </div>
+                <button className={`bg-button-gradient flex gap-2 items-center justify-center 
+                font-semibold text-white w-full py-2 hover:text-slate-400 transition-colors
+                duration-100  rounded-sm my-3 ${loader?'cursor-default':'cursor-pointer'}`} disabled={loader} type="submit">
+                    {loader ?
+                        <>Loading...</> :
+                    <>Login</>}
+                </button>
+
+                <p className="text-center text-sm text-slate-700 mt-6">
+                    Dont't have a account?
+                    <Link className="font-semibold underline hover:text-black" to={'/register'}>
+                        <span className="pl-2">SignUp</span>
+                    </Link>
+                </p>
             </form>
         </div>
     )
