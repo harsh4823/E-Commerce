@@ -16,10 +16,43 @@ export const authenticateSignInUser = (sendData, toast, reset, navigate, setLoad
         navigate("/");
     } catch (error) {
         console.log(error);
-        toast.error(error?.response?.data?.mesaage || "Internal Server Error");
+        toast.error(error?.response?.data?.message || "Internal Server Error");
         
     } finally {
         setLoader(false);
     }
 
+}
+export const registerNewUser = (sendData, toast, reset, navigate, setLoader) => async (dispatch) => {
+    try {
+        setLoader(true);
+        const { data } = await api.post(`/auth/sign-up`,sendData);
+        dispatch(
+            {
+                type: "Login_User",
+                payload: data,
+            }
+        );
+        localStorage.setItem("auth", JSON.stringify(data));
+        reset();
+        toast.success(data?.mesaage || "User Registerd Successfully");
+        navigate("/");
+    } catch (error) {
+        console.log(error);
+        toast.error(error?.response?.data?.message || "Internal Server Error");
+        
+    } finally {
+        setLoader(false);
+    }
+
+}
+
+export const logOutUser = (navigate,dispatch) => {
+    dispatch(
+        {
+            type: "Log_Out"
+        }
+    );
+    localStorage.removeItem("auth");
+    navigate("/login");
 }
