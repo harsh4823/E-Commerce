@@ -10,6 +10,7 @@ import Cart from "./Components/Cart/Cart.jsx";
 import Login from "./Components/auth/Login.jsx";
 import { PrivateRoute } from "./Components/PrivateRoute.jsx";
 import { Register } from "./Components/auth/Register.jsx";
+import { Checkout } from "./Components/checkout/Checkout.jsx";
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
                   <Route path={'/about'} element={<About/>}/>
                   <Route path={'/contact'} element={<Contact/>}/>
                   <Route path={'/cart'} element={<Cart/>}/>
+                  <Route path={'/checkout'} element={<Checkout/>}/>
                   <Route path={'/'} element={<PrivateRoute publicPage />}>
                     <Route path={'/login'} element={<Login/>}/>
                     <Route path={'/register'} element={<Register/>}/>

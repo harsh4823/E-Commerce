@@ -56,3 +56,35 @@ export const logOutUser = (navigate,dispatch) => {
     localStorage.removeItem("auth");
     navigate("/login");
 }
+
+export const deleteUser = (toast, navigate, setLoader) => async (dispatch) => {
+    try {
+        setLoader(true);
+        const user = JSON.parse(localStorage.getItem("auth"));
+        const token = user?.jwtToken;
+
+        if (!token) {
+            toast.error("Please login again.");
+            navigate("/login");
+            return;
+        }
+        await api.delete(`auth/delete-account`, {
+            headers: {
+                Authorization : `Bearer ${token}`
+            }
+        });
+        dispatch(
+            {
+                type: "Delete_User"
+            }
+        );
+        localStorage.removeItem("auth");
+        toast.success("Account Deleted Successfully");
+        navigate("/login");
+    } catch (error) {
+        console.log(error);
+        toast.error("Something Went Wrong");
+    } finally {
+        setLoader(false);
+    }
+}

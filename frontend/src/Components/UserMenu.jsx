@@ -9,13 +9,16 @@ import {BiUser} from "react-icons/bi"
 import { MdOutlineShoppingCart } from 'react-icons/md';
 import {IoExitOutline} from "react-icons/io5"
 import { useDispatch } from 'react-redux';
-import { logOutUser } from '../store/action/authAction';
+import { deleteUser, logOutUser } from '../store/action/authAction';
+import { FaRegTrashAlt } from "react-icons/fa";
+import toast from 'react-hot-toast';
 
 const UserMenu = ({user}) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate(); 
   const open = Boolean(anchorEl);
+  const [isLoader, setLoader] = React.useState(false);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -25,7 +28,12 @@ const UserMenu = ({user}) => {
     
     const logoutHandler = () => {
       dispatch(logOutUser(navigate,dispatch));
-    }
+  }
+  
+  const deleteUserHandler = () => {
+    dispatch(deleteUser(toast, navigate,setLoader));
+    
+  }
 
   return (
     <div className='relative z-30'>
@@ -42,7 +50,7 @@ const UserMenu = ({user}) => {
       </Button>
           <Menu
               sx={{
-            width : "400px"
+            width : "500px"
         }}
         id="basic-menu"
         anchorEl={anchorEl}
@@ -51,7 +59,7 @@ const UserMenu = ({user}) => {
         slotProps={{
           list: {
                 'aria-labelledby': 'basic-button',
-                sx : {width:160}
+                sx : {width:180}
           },
         }}
           >
@@ -70,6 +78,11 @@ const UserMenu = ({user}) => {
                      text-white rounded-sm'>
                  <IoExitOutline className='text-xl'/> <span className='font-bold text-[16px] mt-1'>LogOut</span>
                      </div>
+              </MenuItem>
+        <MenuItem className='flex gap-2' onClick={deleteUserHandler}>
+          <div className='text-rose-500 flex justify-center items-center gap-2 hover:bg-rose-50'>
+              <FaRegTrashAlt/> <span className='text-[16px] mt-1'>Delete Account</span>
+          </div>
               </MenuItem>
       </Menu>
       {open && <Backdrop/>}

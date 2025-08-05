@@ -18,6 +18,13 @@ export const authReducer = (state = initialState, action) => {
                 address : null,
             }
         }
+        case "Delete_User": {
+            return {
+                ...state,
+                user: null,
+                address : null,
+            }
+        }
         default:
             return state;
     }
