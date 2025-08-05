@@ -10,6 +10,7 @@ import com.basics.spring_basics.Security.Request.LoginRequest;
 import com.basics.spring_basics.Security.Request.SignUpRequest;
 import com.basics.spring_basics.Security.Response.MessageResponse;
 import com.basics.spring_basics.Security.Response.UserInfoResponse;
+import com.basics.spring_basics.Security.Services.UserDetailServiceImp;
 import com.basics.spring_basics.Security.Services.UserDetailsImp;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,9 @@ public class AuthController {
 
     @Autowired
     private PasswordEncoder encoder;
+
+    @Autowired
+    private UserDetailServiceImp userDetailServiceImp;
 
     @PostMapping("/sign-in")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest){
@@ -152,5 +156,10 @@ public class AuthController {
         return ResponseEntity.ok().header(
                 HttpHeaders.SET_COOKIE,cookie.toString())
                 .body(new MessageResponse("You've been signed out!"));
+    }
+
+    @DeleteMapping("/delete-account")
+    public ResponseEntity<?> deleteUser(){
+        return new ResponseEntity<>(userDetailServiceImp.deleteUser(),HttpStatus.OK);
     }
 }

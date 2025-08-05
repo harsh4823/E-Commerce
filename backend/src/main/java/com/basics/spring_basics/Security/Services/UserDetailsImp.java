@@ -1,6 +1,7 @@
 package com.basics.spring_basics.Security.Services;
 
 import com.basics.spring_basics.Model.User;
+import com.basics.spring_basics.Security.Util.AuthUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
