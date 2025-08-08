@@ -1,10 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Skeleton from '../Shared/Skeleton';
 import { FaAddressBook } from 'react-icons/fa';
+import AddressInfoModal from './AddressInfoModal';
+import AddAddressForm from './AddAddressForm';
 
 export const AddressInfo = () => {
   const noAddressExit = true;
   const isLoading = false;
+
+  const [openAddressModal, setOpenAddressModal] = useState(false);
+  const [selectAddress, setSelectAddress] = useState("");
+
+  const addNewAddressHandler = () => {
+    setSelectAddress("");
+    setOpenAddressModal(true);
+    
+  }
   return (
     <div className='pt-4'>
       {noAddressExit ? (
@@ -15,7 +26,14 @@ export const AddressInfo = () => {
             </h1>
            <p className='mb-6 text-slate-800 text-center'>
               Please add your address to complete purchase
-            </p>
+          </p>
+          <button
+            className='cursor-pointer px-4 py-2 bg-blue-600 text-white font-medium rounded hover:bg-blue-700 transition-all'
+            onClick={addNewAddressHandler}
+          >
+
+            Add Address
+          </button>
           </div>
       ): (
           <div className='relative p-6 rounded-lg max-w-md mx-auto'>
@@ -33,6 +51,9 @@ export const AddressInfo = () => {
           }
           </div>
       )}
+      <AddressInfoModal isOpen={openAddressModal} setIsOpen={setOpenAddressModal}>
+        <AddAddressForm />
+      </AddressInfoModal>
     </div>
   )
 }
