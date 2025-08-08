@@ -52,7 +52,10 @@ export const AddressInfo = () => {
           </div>
       )}
       <AddressInfoModal isOpen={openAddressModal} setIsOpen={setOpenAddressModal}>
-        <AddAddressForm />
+        <AddAddressForm
+          address={selectAddress}
+          setOpenAddressModal = {setOpenAddressModal}
+        />
       </AddressInfoModal>
     </div>
   )

@@ -14,19 +14,26 @@ export const errorReducer = (state = initialState,action) => {
                 ...state,
                 isLoading: true,
                 errorMessage: null,
-            }
+            };
+        case "Button_Loader":
+            return {
+                ...state,
+                btnLoader: true,
+                errorMessage: null,
+                categoryError: null,
+            };
         case "Is_Success":
             return {
                 ...state,
                 isLoading: false,
                 errorMessage: null,
-            }
+            };
         case "Is_Error":
-            return{
+            return {
                 ...state,
                 isLoading: false,
                 errorMessage: action.payload,
-            }
+            };
         default:
             return state;
     }

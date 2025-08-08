@@ -1,0 +1,34 @@
+import api from './../../api/api';
+
+export const addUpdateUserAddress = (sendData, toast, addressId, setOpenAddressModal) =>
+    async(dispatch, getState) => {
+        // const { user } = getState().auth;
+        dispatch({
+            type: "Button_Loader",
+        });
+        try {
+             const user = JSON.parse(localStorage.getItem("auth"));
+            const token = user?.jwtToken;
+
+            if (!token) {
+                toast.error("Please login again.");
+                return;
+            }
+
+            const { data } = await api.post(`/addresses`,sendData, {
+            headers: {
+                Authorization : `Bearer ${token}`
+            }
+        });
+            toast.success("Address Saved Successfully");
+        } catch (error) {
+            console.log(error);
+            toast.error(error?.response?.data?.message || "Internal Server Error");
+            dispatch({
+                type: "Is_Error",
+                payload : null,
+            })   
+        } finally {
+            setOpenAddressModal(false);
+        }
+};

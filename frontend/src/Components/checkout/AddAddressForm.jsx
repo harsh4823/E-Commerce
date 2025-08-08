@@ -4,14 +4,22 @@ import { AiOutlineLogin } from 'react-icons/ai';
 import { SpinnerCircularFixed } from 'spinners-react';
 import { Link } from 'react-router-dom';
 import { FaAddressCard } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
+import { addUpdateUserAddress } from './../../store/action/checkoutAction';
 
-const AddAddressForm = () => {
+const AddAddressForm = ({address,setOpenAddressModal}) => {
   const { register, handleSubmit, formState: { errors } } = useForm({ mode: "onTouched" });
   const { btnLoder } = useSelector(state => state.errors);
+  const dispatch = useDispatch();
 
-  const onSaveAddressHandler = () => {
-    console.log("Address Saved");
+  const onSaveAddressHandler = async(data) => {
+    dispatch(addUpdateUserAddress(
+      data,
+      toast,
+      address?.addressId,
+      setOpenAddressModal,
+    ));
   }
 
   return (
