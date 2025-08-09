@@ -2,6 +2,7 @@ const InputField = ({
     label,
     id,
     type,
+    value,
     errors,
     register,
     required,
@@ -9,7 +10,6 @@ const InputField = ({
     className,
     min,
     placeholder,
-    value,
 }) => {
     return (
         <div className="flex flex-col gap-1 w-full">

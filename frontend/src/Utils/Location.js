@@ -25,7 +25,20 @@ export const Location = () => {
                             city: data.address.city || data.address.town || data.address.village || "",
                             street: data.address.residential || "",
                             pincode: data.address.postcode || "",
-                        })
+                        });
+
+                        // const APIKEY = "7ed38ddce4aa43038786c06fab8e33c0";
+                        // const res = await fetch(`https://api.opencagedata.com/geocode/v1/json?key=${APIKEY}&q=${encodeURIComponent(latitude + ',' + longitude)}`);
+                        // const data = await res.json();
+
+                        // setLocation({
+                        //     country: data.results[0].components.country || "",
+                        //     state: data.results[0].components.state || "",
+                        //     city: data.results[0].components.city || "",
+                        //     street: data.results[0].components.residential || "",
+                        //     pincode: data.results[0].components.postcode || "",
+                        // });
+
                     } catch (error) {
                         console.log("Error fetching location data : ", error);
                     }

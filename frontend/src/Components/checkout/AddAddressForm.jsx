@@ -43,11 +43,11 @@ const AddAddressForm = ({address,setOpenAddressModal}) => {
                     required
                     id="country"
                     type="text"
+                    value={currentLocation.country}
                     register={register}
                     errors={errors}
                     message="*Country is required"
                     placeholder="Enter Country"
-                    value={currentLocation.country}
                     />
                     {/* State */}
                 <InputField
@@ -55,11 +55,11 @@ const AddAddressForm = ({address,setOpenAddressModal}) => {
                     required
                     id="state"
                     type="text"
+                    value={currentLocation.state}
                     register={register}
                     errors={errors}
                     message="*State is required"
                     placeholder="Enter State"
-                    value={currentLocation.state}
                     />
                     {/* City */}
                 <InputField
@@ -67,11 +67,11 @@ const AddAddressForm = ({address,setOpenAddressModal}) => {
                     required
                     id="city"
                     type="text"
+                    value={currentLocation.city}
                     register={register}
                     errors={errors}
                     message="*City is required"
                     placeholder="Enter City"
-                    value={currentLocation.city}
                     />
                     {/* PinCode */}
                 <InputField
@@ -79,12 +79,12 @@ const AddAddressForm = ({address,setOpenAddressModal}) => {
                     required
                     id="pinCode"
                     type="number"
+                    value={currentLocation.pincode}
                     register={register}
                     errors={errors}
                     min={6}
                     message="*PinCode is required"
                     placeholder="Enter PinCode"
-                    value={currentLocation.pincode}
                     />
                     {/* Street */}
                 <InputField
@@ -92,11 +92,11 @@ const AddAddressForm = ({address,setOpenAddressModal}) => {
                     required
                     id="street"
                     type="text"
+                    value={currentLocation.street}
                     register={register}
                     errors={errors}
-                    message="*Streetis required"
+                    message="*Street is required"
                     placeholder="Enter Street"
-                    value={currentLocation.street}
                     />
                   {/* Building Name */}
                 <InputField
