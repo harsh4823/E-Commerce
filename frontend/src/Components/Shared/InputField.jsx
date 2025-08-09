@@ -9,6 +9,7 @@ const InputField = ({
     className,
     min,
     placeholder,
+    value,
 }) => {
     return (
         <div className="flex flex-col gap-1 w-full">
@@ -22,6 +23,7 @@ const InputField = ({
                 type={type}
                 id={id}
                 placeholder={placeholder}
+                value={value}
                 className={`${className ? className : ""} px-2 py-2 outline-none border text-slate-800 rounded-md bg-transparent
                 ${errors[id]?.message ? "border-red-500" : "border-slate-700"}
                 `}

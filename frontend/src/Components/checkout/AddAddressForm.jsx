@@ -7,20 +7,23 @@ import { FaAddressCard } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import { addUpdateUserAddress } from './../../store/action/checkoutAction';
+import { Location } from '../../Utils/Location';
 
 const AddAddressForm = ({address,setOpenAddressModal}) => {
   const { register, handleSubmit, formState: { errors } } = useForm({ mode: "onTouched" });
   const { btnLoder } = useSelector(state => state.errors);
   const dispatch = useDispatch();
 
-  const onSaveAddressHandler = async(data) => {
-    dispatch(addUpdateUserAddress(
-      data,
-      toast,
-      address?.addressId,
-      setOpenAddressModal,
-    ));
-  }
+    const onSaveAddressHandler = async (data) => {
+        dispatch(addUpdateUserAddress(
+            data,
+            toast,
+            address?.addressId,
+            setOpenAddressModal,
+        ));
+    };
+
+    const  currentLocation  = Location();
 
   return (
   <div className="">
@@ -44,61 +47,67 @@ const AddAddressForm = ({address,setOpenAddressModal}) => {
                     errors={errors}
                     message="*Country is required"
                     placeholder="Enter Country"
+                    value={currentLocation.country}
                     />
                     {/* State */}
-                    <InputField
-                        label="State"
-                        required
-                        id="state"
-                        type="text"
-                        register={register}
-                        errors={errors}
-                        message="*State is required"
-                                  placeholder="Enter State"
+                <InputField
+                    label="State"
+                    required
+                    id="state"
+                    type="text"
+                    register={register}
+                    errors={errors}
+                    message="*State is required"
+                    placeholder="Enter State"
+                    value={currentLocation.state}
                     />
                     {/* City */}
-                    <InputField
-                        label="City"
-                        required
-                        id="city"
-                        type="text"
-                        register={register}
-                        errors={errors}
-                        message="*City is required"
-                        placeholder="Enter City"
+                <InputField
+                    label="City"
+                    required
+                    id="city"
+                    type="text"
+                    register={register}
+                    errors={errors}
+                    message="*City is required"
+                    placeholder="Enter City"
+                    value={currentLocation.city}
                     />
                     {/* PinCode */}
-                    <InputField
-                        label="PinCode"
-                        required
-                        id="pinCode"
-                        type="number"
-                        register={register}
-                        errors={errors}
-                        message="*PinCode is required"
-                        placeholder="Enter PinCode"
+                <InputField
+                    label="PinCode"
+                    required
+                    id="pinCode"
+                    type="number"
+                    register={register}
+                    errors={errors}
+                    min={6}
+                    message="*PinCode is required"
+                    placeholder="Enter PinCode"
+                    value={currentLocation.pincode}
                     />
                     {/* Street */}
-                    <InputField
-                        label="Street"
-                        required
-                        id="street"
-                        type="text"
-                        register={register}
-                        errors={errors}
-                        message="*Streetis required"
-                        placeholder="Enter Street"
+                <InputField
+                    label="Street"
+                    required
+                    id="street"
+                    type="text"
+                    register={register}
+                    errors={errors}
+                    message="*Streetis required"
+                    placeholder="Enter Street"
+                    value={currentLocation.street}
                     />
                   {/* Building Name */}
-                    <InputField
-                        label="BuildingName"
-                        required
-                        id="buildingName"
-                        type="text"
-                        register={register}
-                        errors={errors}
-                        message="*BuildingName is required"
-                        placeholder="Enter BuildingName"
+                <InputField
+                    label="BuildingName"
+                    required
+                    id="buildingName"
+                    type="text"
+                    register={register}
+                    errors={errors}
+                    message="*BuildingName is required"
+                    placeholder="Enter BuildingName"
                     />
                 </div>
                 <button className={`text-white bg-custom-blue px-4 py-2 rounded-md mt-4 ${btnLoder?'cursor-default':'cursor-pointer'}`} disabled={btnLoder} type="submit">
