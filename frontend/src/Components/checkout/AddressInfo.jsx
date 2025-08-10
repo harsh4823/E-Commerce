@@ -3,10 +3,12 @@ import Skeleton from '../Shared/Skeleton';
 import { FaAddressBook } from 'react-icons/fa';
 import AddressInfoModal from './AddressInfoModal';
 import AddAddressForm from './AddAddressForm';
+import { useSelector } from 'react-redux';
+import AddressList from './AddressList';
 
-export const AddressInfo = () => {
-  const noAddressExit = true;
-  const isLoading = false;
+export const AddressInfo = ({address}) => {
+  const noAddressExit = !address || address.length === 0;
+  const { isLoading, btnLoader } = useSelector(state => state.errors);
 
   const [openAddressModal, setOpenAddressModal] = useState(false);
   const [selectAddress, setSelectAddress] = useState("");
@@ -14,7 +16,6 @@ export const AddressInfo = () => {
   const addNewAddressHandler = () => {
     setSelectAddress("");
     setOpenAddressModal(true);
-    
   }
   return (
     <div className='pt-4'>
@@ -31,7 +32,6 @@ export const AddressInfo = () => {
             className='cursor-pointer px-4 py-2 bg-blue-600 text-white font-medium rounded hover:bg-blue-700 transition-all'
             onClick={addNewAddressHandler}
           >
-
             Add Address
           </button>
           </div>
@@ -41,13 +41,30 @@ export const AddressInfo = () => {
               Select Address
             </h1>
             
-            {isLoading ?
+            {isLoading ? 
               <div className='py-4 px-8'>
                 <Skeleton />
               </div>:
+              <>
               <div className='space-y-4 pt-6'>
-                 <p>Address List</p> 
-              </div>
+                <AddressList
+                addresses = {address} 
+                setSelectAddress = {setSelectAddress}
+                setOpenAddressModal = {setOpenAddressModal}
+                />
+                </div>
+                
+              {address.length>0 && (
+                  <div className='mt-4'>
+                    <button
+                      className='cursor-pointer px-4 py-2 bg-blue-600 text-white 
+                                font-medium rounded hover:bg-blue-700 transition-all'
+                      onClick={addNewAddressHandler}>
+                      Add More
+                    </button>
+                  </div>
+                )}
+             </>   
           }
           </div>
       )}

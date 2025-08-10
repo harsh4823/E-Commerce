@@ -19,7 +19,11 @@ export const addUpdateUserAddress = (sendData, toast, addressId, setOpenAddressM
             headers: {
                 Authorization : `Bearer ${token}`
             }
-        });
+            });
+            
+            dispatch({
+                type : "Is_Success",
+            })
             toast.success("Address Saved Successfully");
         } catch (error) {
             console.log(error);
@@ -33,9 +37,10 @@ export const addUpdateUserAddress = (sendData, toast, addressId, setOpenAddressM
         }
     };
 
-export const fetchUserAddresses = () => async  (dispatch,getState) => {
+export const fetchUserAddresses = () => async  (dispatch) => {
     try{
-        dispatch({type : "Is_Fetching"});
+        dispatch({ type: "Is_Fetching" });
+        
         const {data} = await api.get(`/user/addresses`);
         // console.log(data);
 

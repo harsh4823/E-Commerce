@@ -7,10 +7,10 @@ import { FaAddressCard } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import { addUpdateUserAddress } from './../../store/action/checkoutAction';
-import { Location } from '../../Utils/Location';
+import { useEffect } from 'react';
 
 const AddAddressForm = ({address,setOpenAddressModal}) => {
-  const { register, handleSubmit, formState: { errors } } = useForm({ mode: "onTouched" });
+  const { register, handleSubmit,setValue, formState: { errors } } = useForm({ mode: "onTouched" });
   const { btnLoder } = useSelector(state => state.errors);
   const dispatch = useDispatch();
 
@@ -23,7 +23,20 @@ const AddAddressForm = ({address,setOpenAddressModal}) => {
         ));
     };
 
-    const  currentLocation  = Location();
+    useEffect(() => {
+        navigator.geolocation.getCurrentPosition(async (pos) => {
+        const { latitude, longitude } = pos.coords;
+        const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`);
+        const data = await res.json();
+
+        // Auto-fill & validate
+        setValue("street", data.address.residential || "", { shouldValidate: true, shouldDirty: true });
+        setValue("city", data.address.city || data.address.town || "", { shouldValidate: true, shouldDirty: true });
+        setValue("state", data.address.state || "", { shouldValidate: true, shouldDirty: true });
+        setValue("country", data.address.country || "", { shouldValidate: true, shouldDirty: true });
+        setValue("pinCode", data.address.postcode || "", { shouldValidate: true, shouldDirty: true });
+    });
+  }, [setValue]);
 
   return (
   <div className="">
@@ -40,10 +53,9 @@ const AddAddressForm = ({address,setOpenAddressModal}) => {
                 {/* Country */}
                 <InputField
                     label="Country"
-                    required
+                    required = {true}
                     id="country"
                     type="text"
-                    value={currentLocation.country}
                     register={register}
                     errors={errors}
                     message="*Country is required"
@@ -52,10 +64,9 @@ const AddAddressForm = ({address,setOpenAddressModal}) => {
                     {/* State */}
                 <InputField
                     label="State"
-                    required
+                    required= {true}
                     id="state"
                     type="text"
-                    value={currentLocation.state}
                     register={register}
                     errors={errors}
                     message="*State is required"
@@ -64,10 +75,9 @@ const AddAddressForm = ({address,setOpenAddressModal}) => {
                     {/* City */}
                 <InputField
                     label="City"
-                    required
+                    required= {true}
                     id="city"
-                    type="text"
-                    value={currentLocation.city}
+                    type="text"                   
                     register={register}
                     errors={errors}
                     message="*City is required"
@@ -76,10 +86,9 @@ const AddAddressForm = ({address,setOpenAddressModal}) => {
                     {/* PinCode */}
                 <InputField
                     label="PinCode"
-                    required
+                    required= {true}
                     id="pinCode"
-                    type="number"
-                    value={currentLocation.pincode}
+                    type="number"                    
                     register={register}
                     errors={errors}
                     min={6}
@@ -89,10 +98,9 @@ const AddAddressForm = ({address,setOpenAddressModal}) => {
                     {/* Street */}
                 <InputField
                     label="Street"
-                    required
+                    required= {true}
                     id="street"
                     type="text"
-                    value={currentLocation.street}
                     register={register}
                     errors={errors}
                     message="*Street is required"
@@ -101,7 +109,7 @@ const AddAddressForm = ({address,setOpenAddressModal}) => {
                   {/* Building Name */}
                 <InputField
                     label="BuildingName"
-                    required
+                    required= {true}
                     id="buildingName"
                     type="text"
                     register={register}

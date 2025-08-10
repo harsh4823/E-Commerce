@@ -2,7 +2,6 @@ const InputField = ({
     label,
     id,
     type,
-    value,
     errors,
     register,
     required,
@@ -23,16 +22,15 @@ const InputField = ({
                 type={type}
                 id={id}
                 placeholder={placeholder}
-                value={value}
                 className={`${className ? className : ""} px-2 py-2 outline-none border text-slate-800 rounded-md bg-transparent
                 ${errors[id]?.message ? "border-red-500" : "border-slate-700"}
                 `}
                 {...register(id, {
 
-                    required: {
-                        value: required,
+                    required: required ? {
+                        value: true,
                         message
-                    },
+                    }:false,
 
                     minLength: min ? {
                         value: min,
