@@ -1,14 +1,15 @@
 import React from 'react'
 import { FaBuilding, FaCheckCircle, FaEdit, FaStreetView, FaTrash } from 'react-icons/fa';
 import { MdLocationCity, MdPinDrop, MdPublic } from 'react-icons/md';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectedCheckoutAddress} from './../../store/action/checkoutAction';
 
 const AddressList = ({ addresses, setSelectAddress, setOpenAddressModal }) => {
     const dispatch = useDispatch();
-    const selectedUserAddress = addresses[0];
+    const { selectedUserCheckoutAddress } = useSelector(state=>state.auth);
 
     const handleAddressSelection = (address) => {
-        
+        dispatch(selectedCheckoutAddress(address));
     };
 
     const onEditButtonHandler = (address) => {
@@ -24,7 +25,7 @@ const AddressList = ({ addresses, setSelectAddress, setOpenAddressModal }) => {
           {addresses.map((address) => (
               <div key={address.addressId} onClick={() => handleAddressSelection(address)}
                   className={`p-4 rounded-md cursor-pointer border relative
-                ${selectedUserAddress?.addressId===address.addressId ? "bg-green-100":"bg-white"}`}
+                ${selectedUserCheckoutAddress?.addressId===address.addressId ? "bg-green-100":"bg-white"}`}
               >
             <div className='flex items-start'>
             <div className='space-y-1'>   
@@ -32,7 +33,7 @@ const AddressList = ({ addresses, setSelectAddress, setOpenAddressModal }) => {
             <div className='items-center flex'>
                 <FaBuilding size={14} className='mr-2 text-gray-600'/>
                 <p className='font-semibold'>{address.buildingName}</p>
-                    {selectedUserAddress?.addressId === address.addressId && (
+                    {selectedUserCheckoutAddress?.addressId === address.addressId && (
                         <FaCheckCircle className='text-green-500 ml-2'/>
                 )}
             </div>

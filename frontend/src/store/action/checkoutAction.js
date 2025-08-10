@@ -1,13 +1,14 @@
 import api from './../../api/api';
 
 export const addUpdateUserAddress = (sendData, toast, addressId, setOpenAddressModal) =>
-    async(dispatch, getState) => {
+    async(dispatch) => {
         // const { user } = getState().auth;
         dispatch({
             type: "Button_Loader",
         });
         try {
-             const user = JSON.parse(localStorage.getItem("auth"));
+             
+            const user = JSON.parse(localStorage.getItem("auth"));
             const token = user?.jwtToken;
 
             if (!token) {
@@ -15,7 +16,7 @@ export const addUpdateUserAddress = (sendData, toast, addressId, setOpenAddressM
                 return;
             }
 
-            const { data } = await api.post(`/addresses`,sendData, {
+            await api.post(`/addresses`,sendData, {
             headers: {
                 Authorization : `Bearer ${token}`
             }
@@ -60,3 +61,10 @@ export const fetchUserAddresses = () => async  (dispatch) => {
         console.log(error);
     }
 };
+
+export const selectedCheckoutAddress = (address) => {
+    return {
+        type: "Select_Checkout_Address",
+        payload : address,
+    }
+}
