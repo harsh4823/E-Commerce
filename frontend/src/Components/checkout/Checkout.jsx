@@ -9,9 +9,10 @@ export const Checkout = () => {
     const [activeStep, setActiveStep] = useState(0);
     const dispatch = useDispatch();
 
+    
     useEffect(() => {
         dispatch(fetchUserAddresses());
-    }, [dispatch])
+    }, [dispatch]);
     
     const { address } = useSelector(state => state.auth);
 

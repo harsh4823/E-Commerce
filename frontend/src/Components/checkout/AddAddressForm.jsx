@@ -24,6 +24,7 @@ const AddAddressForm = ({address,setOpenAddressModal}) => {
     };
 
     useEffect(() => {
+        if (!address?.addressId) {
         navigator.geolocation.getCurrentPosition(async (pos) => {
         const { latitude, longitude } = pos.coords;
         const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`);
@@ -36,7 +37,20 @@ const AddAddressForm = ({address,setOpenAddressModal}) => {
         setValue("country", data.address.country || "", { shouldValidate: true, shouldDirty: true });
         setValue("pinCode", data.address.postcode || "", { shouldValidate: true, shouldDirty: true });
     });
-  }, [setValue]);
+        }
+        
+    }, [setValue,address]);
+    
+    useEffect(() => {
+        if (address?.addressId) {
+            setValue("street", address.street);
+            setValue("city", address.city);
+            setValue("state", address.state);
+            setValue("country", address.country);
+            setValue("pinCode", address.pinCode);
+            setValue("buildingName", address.buildingName);
+        }
+    }, [address, setValue]);
 
   return (
   <div className="">
@@ -45,7 +59,7 @@ const AddAddressForm = ({address,setOpenAddressModal}) => {
                 <div className="flex justify-center items-center font-semibold text-2xl mb-4 text-slate-800 py-2 px-4">
                     <FaAddressCard className="mr-2 text-2xl"/>
                     <h1 className="text-slate-800 text-center font-montserrat lg:text-3xl text-2xl font-bold">
-                       Add Address
+                       {address?.addressId ? "Update Address" : "Add Address"}
                     </h1>
                 </div>
         

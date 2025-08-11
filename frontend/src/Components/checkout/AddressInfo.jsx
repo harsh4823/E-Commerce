@@ -16,7 +16,8 @@ export const AddressInfo = ({address}) => {
   const addNewAddressHandler = () => {
     setSelectAddress("");
     setOpenAddressModal(true);
-  }
+  };
+
   return (
     <div className='pt-4'>
       {noAddressExit ? (

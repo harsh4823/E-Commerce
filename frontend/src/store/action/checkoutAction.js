@@ -7,25 +7,37 @@ export const addUpdateUserAddress = (sendData, toast, addressId, setOpenAddressM
             type: "Button_Loader",
         });
         try {
-             
-            const user = JSON.parse(localStorage.getItem("auth"));
-            const token = user?.jwtToken;
+            dispatch({ type: "Is_Fetching" });
 
-            if (!token) {
-                toast.error("Please login again.");
-                return;
-            }
+            if (addressId) {
+                const { data } = await api.put(`/addresses/${addressId}`,sendData);
 
-            await api.post(`/addresses`,sendData, {
-            headers: {
-                Authorization : `Bearer ${token}`
+                dispatch(
+                    {
+                        type : "Update_User_Addresses",
+                        payload: {
+                            addressId: addressId,
+                            address : data,
+                        },
+                    },
+                );
+                toast.success("Address Updated Successfully");
+            } else {
+                
+                const { data } = await api.post(`/addresses`,sendData);
+                
+                dispatch(
+                    {
+                        type : "Add_User_Addresses",
+                        payload :data,
+                    },
+                );
+                toast.success("Address Saved Successfully");
             }
-            });
             
             dispatch({
                 type : "Is_Success",
             })
-            toast.success("Address Saved Successfully");
         } catch (error) {
             console.log(error);
             toast.error(error?.response?.data?.message || "Internal Server Error");

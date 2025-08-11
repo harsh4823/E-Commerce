@@ -32,6 +32,20 @@ export const authReducer = (state = initialState, action) => {
                 address: action.payload,
             }
         };
+        case "Add_User_Addresses": {
+            return {
+                ...state,
+                address: [...state.address,action.payload],
+            }
+        };
+        case "Update_User_Addresses": {
+            return {
+                ...state,
+                address: state.address.map(item => 
+                    item.addressId === action.payload.addressId ? action.payload.address : item
+                )
+            }
+        };
         case "Select_Checkout_Address": {
             return {
                 ...state,
