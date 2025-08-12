@@ -3,20 +3,33 @@ import Skeleton from '../Shared/Skeleton';
 import { FaAddressBook } from 'react-icons/fa';
 import AddressInfoModal from './AddressInfoModal';
 import AddAddressForm from './AddAddressForm';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import AddressList from './AddressList';
+import { DeleteModal } from './DeleteModal';
+import toast from 'react-hot-toast';
+import { deleteUserAddress } from './../../store/action/checkoutAction';
 
 export const AddressInfo = ({address}) => {
   const noAddressExit = !address || address.length === 0;
   const { isLoading, btnLoader } = useSelector(state => state.errors);
 
   const [openAddressModal, setOpenAddressModal] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [selectAddress, setSelectAddress] = useState("");
+  const dispatch = useDispatch();
 
   const addNewAddressHandler = () => {
     setSelectAddress("");
     setOpenAddressModal(true);
   };
+
+  const onDeleteHandler = () => {
+    dispatch(deleteUserAddress(
+      toast,
+      selectAddress?.addressId,
+      setOpenDeleteModal
+    ))
+  }
 
   return (
     <div className='pt-4'>
@@ -51,7 +64,8 @@ export const AddressInfo = ({address}) => {
                 <AddressList
                 addresses = {address} 
                 setSelectAddress = {setSelectAddress}
-                setOpenAddressModal = {setOpenAddressModal}
+                setOpenAddressModal={setOpenAddressModal}
+                setOpenDeleteModal = {setOpenDeleteModal}
                 />
                 </div>
                 
@@ -75,6 +89,14 @@ export const AddressInfo = ({address}) => {
           setOpenAddressModal = {setOpenAddressModal}
         />
       </AddressInfoModal>
+
+      <DeleteModal
+      open={openDeleteModal}
+      loader={btnLoader}
+      setOpen={setOpenDeleteModal}
+      title={'Delete Address'}
+      onDeleteHandler={onDeleteHandler}
+      />
     </div>
   )
 }

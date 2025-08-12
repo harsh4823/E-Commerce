@@ -80,3 +80,26 @@ export const selectedCheckoutAddress = (address) => {
         payload : address,
     }
 }
+
+export const deleteUserAddress = (toast, addressId, setOpenDeleteModal) => async (dispatch) => {
+    try {
+        dispatch({ type: "Button_Loader" });
+        
+        await api.delete(`/addresses/${addressId}`);
+
+        dispatch({
+            type: "Delete_User_Address",
+            payload: addressId,
+        });
+        dispatch({type : "Is_Success"})
+        toast.success("Address Deleted Successfully");
+    } catch (error) {
+        dispatch({
+            type:"Is_Error",
+            payload : error?.response?.data?.message || "Failed To Delete Address",
+        });
+        console.log(error);
+    } finally {
+        setOpenDeleteModal(false);
+    }
+}

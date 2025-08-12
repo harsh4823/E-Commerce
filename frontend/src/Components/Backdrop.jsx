@@ -2,7 +2,7 @@ import React from 'react'
 
 const Backdrop = ({data}) => {
   return (
-      <div className={`z-20 transition-all duration-200 opacity-50 w-screen h-screen bg-slate-300 fixed left-0 ${data?"top-16":"top-0"}`}>
+      <div className={`fixed inset-0 bg-black/30 ${data?"top-16":"top-0"}`}>
           
       </div>
   )

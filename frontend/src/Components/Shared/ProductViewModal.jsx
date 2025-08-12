@@ -24,7 +24,7 @@ function ProductViewModal(
 
     return (
         <>
-            <Dialog open={open} as="div" className="relative z-10" onClose={close} __demoMode>
+            <Dialog open={open} as="div" className="relative z-10" onClose={()=>setOpen(false)} __demoMode>
 
                 <DialogBackdrop className="fixed inset-0 bg-gray-500 opacity-75 transition-opacity"/>
 

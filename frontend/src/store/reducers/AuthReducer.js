@@ -46,6 +46,15 @@ export const authReducer = (state = initialState, action) => {
                 )
             }
         };
+        case "Delete_User_Address": {
+            return {
+                ...state,
+                address: state.address.filter(
+                    (item) => item.addressId !== action.payload,
+                ),
+                selectedUserCheckoutAddress : null
+            }
+        };
         case "Select_Checkout_Address": {
             return {
                 ...state,
