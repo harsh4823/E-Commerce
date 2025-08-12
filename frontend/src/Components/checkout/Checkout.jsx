@@ -1,9 +1,8 @@
-import { Step, StepLabel, Stepper } from '@mui/material'
+import { Button, Step, StepLabel, Stepper } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { AddressInfo } from './AddressInfo';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserAddresses } from "../../store/action/checkoutAction.js";
-import { addToCart } from "../../store/action/cartAction.js";
 
 export const Checkout = () => {
     const [activeStep, setActiveStep] = useState(0);
@@ -14,7 +13,8 @@ export const Checkout = () => {
         dispatch(fetchUserAddresses());
     }, [dispatch]);
     
-    const { address } = useSelector(state => state.auth);
+    const { address , selectedUserCheckoutAddress} = useSelector(state => state.auth);
+    const {errorMessage } = useSelector(state => state.errors);
 
     const steps = [
         "Address",
@@ -22,7 +22,16 @@ export const Checkout = () => {
         "Order Summary",
         "Payment"
     ];
-  return (
+
+    const paymentMethod = false;
+
+    const handleBack = () => {
+        setActiveStep((prevStep) => prevStep - 1);
+    }
+    const handleNext = () => {
+        setActiveStep((prevStep) => prevStep + 1);
+    }
+    return (
       <div className='py-14 min-h-[calc(100vh-100px)]'>
           <Stepper activeStep={activeStep} alternativeLabel>
               {steps.map((label, index) => (
@@ -33,6 +42,17 @@ export const Checkout = () => {
           </Stepper>
           <div className='mt-5'>
               {activeStep === 0 && <AddressInfo address={address} />}
+          </div>
+
+          <div className='flex justify-between items-center p-4 border-slate-200 fixed z-50 h-18 bottom-0 bg-white left-0 w-full shadow-[0_-2px_4px_rgba(100,100,100,0.25)]'>
+                <Button variant='outlined' disabled={activeStep===0} onClick={handleBack}>Back</Button>
+                {activeStep != steps.length - 1 && (
+                    <Button variant='contained' onClick={handleNext}
+                        disabled={errorMessage || (activeStep === 0 ? !selectedUserCheckoutAddress
+                            : activeStep === 1 ? !paymentMethod : false)} className='h-10'>
+                    Proceed
+                </Button>
+              )}
           </div>
       </div>
   )

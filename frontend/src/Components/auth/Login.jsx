@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { MdLogin } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {AiOutlineLogin} from "react-icons/ai"
 import InputField from "../Shared/InputField";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { authenticateSignInUser } from "../../store/action/authAction";
 import toast from "react-hot-toast";
 import { SpinnerCircularFixed } from "spinners-react";
@@ -13,13 +13,23 @@ const Login = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const location = useLocation();
     const [loader, setLoader] = useState(false);
     const { register, handleSubmit,reset, formState: { errors } } = useForm({ mode: "onTouched" });
+    const { user } = useSelector(state => state.auth);
 
     const loginHandler = async (data) => {
         console.log("Login Clicked");
         dispatch(authenticateSignInUser(data, toast, reset, navigate, setLoader));
     }
+
+    const from = location.state?.from?.pathname || '/';
+
+     useEffect(() => {
+        if (user) {
+            navigate(from, { replace: true });
+        }
+    }, [user, from, navigate]);
 
     return (
         <div className="min-h-[calc(90vh-64px)] flex justify-center items-center">
