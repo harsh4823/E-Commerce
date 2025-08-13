@@ -26,7 +26,7 @@ export const Checkout = () => {
         "Payment"
     ];
 
-    const paymentMethod = false;
+    const { paymentMethod } = useSelector(state=>state.payment);
 
     const handleBack = () => {
         setActiveStep((prevStep) => prevStep - 1);
