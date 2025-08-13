@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserAddresses } from "../../store/action/checkoutAction.js";
 import Skeleton from '../Shared/Skeleton';
 import ErrorPage from '../Shared/ErrorPage';
+import PaymentMethod from './PaymentMethod';
 
 export const Checkout = () => {
     const [activeStep, setActiveStep] = useState(0);
@@ -50,6 +51,7 @@ export const Checkout = () => {
             ) : (
                 <div className='mt-5'>
               {activeStep === 0 && <AddressInfo address={address} />}
+              {activeStep === 1 && <PaymentMethod />}
                 </div>
                     
             )}
