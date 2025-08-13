@@ -2,6 +2,7 @@ package com.basics.spring_basics.Service;
 
 import com.basics.spring_basics.Model.Cart;
 import com.basics.spring_basics.Payload.CartDTO;
+import com.basics.spring_basics.Payload.CartItemDTO;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
@@ -20,4 +21,6 @@ public interface CartService {
     CartDTO deleteProductFromCart(Long cartId, Long productId);
 
     void updateProductInCart(Long cartId, Long productId);
+
+    String createOrUpdateCartItems(List<CartItemDTO> cartItemDTOS);
 }

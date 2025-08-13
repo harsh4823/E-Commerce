@@ -1,6 +1,7 @@
 package com.basics.spring_basics.Controller;
 
 import com.basics.spring_basics.Payload.CartDTO;
+import com.basics.spring_basics.Payload.CartItemDTO;
 import com.basics.spring_basics.Repository.CartRepository;
 import com.basics.spring_basics.Service.CartService;
 import com.basics.spring_basics.Security.Util.AuthUtil;
@@ -23,6 +24,12 @@ public class CartController {
 
     @Autowired
     private CartRepository cartRepository;
+
+    @PostMapping("/carts/products")
+    public ResponseEntity<String> createOrUpdateCart(@RequestBody List<CartItemDTO> cartItemDTOS){
+        String response = service.createOrUpdateCartItems(cartItemDTOS);
+        return new ResponseEntity<>(response,HttpStatus.CREATED);
+    }
 
     @PostMapping("/carts/products/{productId}/quantity/{quantity}")
     public ResponseEntity<CartDTO> addProductToCart(@PathVariable Long productId,@PathVariable Integer quantity){

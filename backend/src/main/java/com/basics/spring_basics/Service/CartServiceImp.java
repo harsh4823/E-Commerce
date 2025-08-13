@@ -6,6 +6,7 @@ import com.basics.spring_basics.Model.Cart;
 import com.basics.spring_basics.Model.CartItems;
 import com.basics.spring_basics.Model.Product;
 import com.basics.spring_basics.Payload.CartDTO;
+import com.basics.spring_basics.Payload.CartItemDTO;
 import com.basics.spring_basics.Payload.ProductsDTO;
 import com.basics.spring_basics.Repository.CartItemsRepository;
 import com.basics.spring_basics.Repository.CartRepository;
@@ -255,6 +256,34 @@ public class CartServiceImp implements CartService{
         cart.setTotalPrice(cartPrice+(product.getSpecialPrice()*cartItems.getQuantity()));
 
         cartItems = cartItemsRepository.save(cartItems);
+    }
+
+    @Override
+    public String createOrUpdateCartItems(List<CartItemDTO> cartItemDTOS) {
+        Cart existingCart = createCart();
+        cartItemsRepository.deleteAllByCartId(existingCart.getCartId());
+        double totalPrice = 0.00;
+
+        for (CartItemDTO cartItemDTO : cartItemDTOS) {
+            Long productId = cartItemDTO.getProductId();
+            Integer quantity = cartItemDTO.getQuantity();
+
+            Product product = productRepository.findById(productId)
+                    .orElseThrow(()-> new ResourceNotFoundException("product", "productId", productId));
+            product.setQuantity(product.getQuantity()-quantity);
+            totalPrice+=product.getSpecialPrice()*quantity;
+
+            CartItems cartItems = new CartItems();
+            cartItems.setProduct(product);
+            cartItems.setCart(existingCart);
+            cartItems.setQuantity(quantity);
+            cartItems.setProductPrice(product.getSpecialPrice());
+            cartItems.setDiscount(product.getDiscount());
+            cartItemsRepository.save(cartItems);
+        }
+        existingCart.setTotalPrice(totalPrice);
+        cartRepository.save(existingCart);
+        return "Cart created/updated successfully";
     }
 
     private Cart createCart() {
