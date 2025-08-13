@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { AddressInfo } from './AddressInfo';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserAddresses } from "../../store/action/checkoutAction.js";
+import Skeleton from '../Shared/Skeleton';
+import ErrorPage from '../Shared/ErrorPage';
 
 export const Checkout = () => {
     const [activeStep, setActiveStep] = useState(0);
@@ -14,7 +16,7 @@ export const Checkout = () => {
     }, [dispatch]);
     
     const { address , selectedUserCheckoutAddress} = useSelector(state => state.auth);
-    const {errorMessage } = useSelector(state => state.errors);
+    const { isLoading, errorMessage } = useSelector(state => state.errors);
 
     const steps = [
         "Address",
@@ -39,10 +41,18 @@ export const Checkout = () => {
                       <StepLabel>{ label }</StepLabel>
                   </Step>
               ))}
-          </Stepper>
-          <div className='mt-5'>
+            </Stepper>
+            
+            {isLoading ? (
+                <div className='lg:w-[80%] mx-auto py-5'>
+                    <Skeleton/>
+                </div>
+            ) : (
+                <div className='mt-5'>
               {activeStep === 0 && <AddressInfo address={address} />}
-          </div>
+                </div>
+                    
+            )}
 
           <div className='flex justify-between items-center p-4 border-slate-200 fixed z-50 h-18 bottom-0 bg-white left-0 w-full shadow-[0_-2px_4px_rgba(100,100,100,0.25)]'>
                 <Button variant='outlined' disabled={activeStep===0} onClick={handleBack}>Back</Button>
@@ -53,7 +63,9 @@ export const Checkout = () => {
                     Proceed
                 </Button>
               )}
-          </div>
+            </div>
+            
+            {errorMessage && <ErrorPage errorMessage={errorMessage}/>}
       </div>
   )
 }
