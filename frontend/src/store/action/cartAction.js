@@ -84,8 +84,8 @@ export const removeFromCart = (data,toast) =>
             payload: data,
         });
 
-        toast.success(`${data.productName} has been removed from cart`)
+        toast.success(`${data.productName} has been removed from cart`);
         localStorage.setItem("cartItems", JSON.stringify(getState().carts.cart));
 
-    };
+};
 

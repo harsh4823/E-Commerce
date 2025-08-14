@@ -41,7 +41,15 @@ export const cartReducer = (state=initialState,action) => {
                     (item) => item.productId !== action.payload.productId
                 ),
             }
+        };
+        case "Get_User_Cart_Products": {
+            return {
+                ...state,
+                cart: action.payload,
+                totalPrice: action.totalPrice,
+                cartId : action.cartId,
             }
+        };
         default :
             return state;
     }
