@@ -259,6 +259,7 @@ public class CartServiceImp implements CartService{
     }
 
     @Override
+    @Transactional
     public String createOrUpdateCartItems(List<CartItemDTO> cartItemDTOS) {
         Cart existingCart = createCart();
         cartItemsRepository.deleteAllByCartId(existingCart.getCartId());

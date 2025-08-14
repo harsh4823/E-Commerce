@@ -25,7 +25,7 @@ public class CartController {
     @Autowired
     private CartRepository cartRepository;
 
-    @PostMapping("/carts/products")
+    @PostMapping("/carts/create")
     public ResponseEntity<String> createOrUpdateCart(@RequestBody List<CartItemDTO> cartItemDTOS){
         String response = service.createOrUpdateCartItems(cartItemDTOS);
         return new ResponseEntity<>(response,HttpStatus.CREATED);
@@ -45,7 +45,7 @@ public class CartController {
     public ResponseEntity<CartDTO> getCartById(){
         String email = authUtil.loggedInEmail();
         Long cartId = cartRepository.findByEmail(email).getCartId();
-        return new ResponseEntity<>(service.getUserCarts(email,cartId),HttpStatus.FOUND);
+        return new ResponseEntity<>(service.getUserCarts(email,cartId),HttpStatus.OK);
     }
 
     @PutMapping("/cart/products/{productId}/quantity/{operation}")
