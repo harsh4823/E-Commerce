@@ -113,6 +113,7 @@ export const fetchUserCart = () => async (dispatch,getState) => {
             totalPrice: data.totalPrice,
             cartId: data.cartId,
         });
+        
         localStorage.setItem("cartItems", JSON.stringify(getState().carts.cart));
         dispatch({ type: "Is_Success" });
     } catch (error) {

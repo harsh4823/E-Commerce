@@ -7,6 +7,8 @@ import Skeleton from '../Shared/Skeleton';
 import ErrorPage from '../Shared/ErrorPage';
 import PaymentMethod from './PaymentMethod';
 import OrderSummary from './OrderSummary';
+import StripePayment from './StripePayment';
+import PayPal from './PayPal';
 
 export const Checkout = () => {
     const [activeStep, setActiveStep] = useState(0);
@@ -21,15 +23,15 @@ export const Checkout = () => {
     const { isLoading, errorMessage } = useSelector(state => state.errors);
     const { paymentMethod } = useSelector(state=>state.payment);
     const { cart, totalPrice } = useSelector(state=>state.carts);
-
+    
     const steps = [
         "Address",
         "Payment Method",
         "Order Summary",
         "Payment"
     ];
-
-
+    
+    
     const handleBack = () => {
         setActiveStep((prevStep) => prevStep - 1);
     }
@@ -55,6 +57,9 @@ export const Checkout = () => {
               {activeStep === 0 && <AddressInfo address={address} />}
               {activeStep === 1 && <PaymentMethod />}
               {activeStep === 2 && <OrderSummary address={selectedUserCheckoutAddress} cart={cart} paymentMethod={paymentMethod} totalPrice={totalPrice}/>}
+                        {activeStep === 3 && <>
+                        {paymentMethod==="Stripe" ? <StripePayment/> : <PayPal/>}
+                        </>}
                 </div>
                     
             )}

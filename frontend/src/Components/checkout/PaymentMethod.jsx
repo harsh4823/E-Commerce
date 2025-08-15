@@ -8,7 +8,7 @@ const PaymentMethod = () => {
     const dispatch = useDispatch();
     const { paymentMethod } = useSelector(state => state.payment);
     const { cart,cartId } = useSelector(state => state.carts);
-    const {isLoading,errorMessage } = useSelector(state => state.errors);
+    const {errorMessage } = useSelector(state => state.errors);
     const paymentMethodHandler = (method) => {
         console.log(method);
         dispatch(addPaymentMethod(method));
@@ -24,7 +24,7 @@ const PaymentMethod = () => {
             });
             dispatch(createUserCart(sendCartItems));
         }
-    }, [dispatch, cartId]);
+    },[dispatch,cart]);
 
   return (
       <div className='max-w-md mx-auto p-5 bg-white shadow-md rounded-lg mt-16 border'>

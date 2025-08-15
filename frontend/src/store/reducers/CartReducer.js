@@ -24,12 +24,14 @@ export const cartReducer = (state=initialState,action) => {
                 return {
                     ...state,
                     cart:updatedCart,
+                    cartId : null,
                 }
             }else{
                 const newCart = [...state.cart,productToAdd];
                 return {
                     ...state,
-                    cart:newCart,
+                    cart: newCart,
+                    cartId : null,
                 }
             }
         }
@@ -40,12 +42,12 @@ export const cartReducer = (state=initialState,action) => {
                 cart: state.cart.filter(
                     (item) => item.productId !== action.payload.productId
                 ),
+                cartId : null,
             }
         };
         case "Get_User_Cart_Products": {
             return {
                 ...state,
-                cart: action.payload,
                 totalPrice: action.totalPrice,
                 cartId : action.cartId,
             }
