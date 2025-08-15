@@ -1,8 +1,5 @@
-import { logOutUser, logOutUserPlain } from "./../store/action/authAction";
-import store from "./../store/store";
+import { logOutUserPlain } from "./../store/action/authAction";
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 const api = axios.create(
     {
@@ -10,14 +7,14 @@ const api = axios.create(
         withCredentials : true,
     }
 );
-// api.interceptors.response.use(
-//     (response) => response,
-//     (error) => {
-//         if (error.response?.status === 401) {
-//             logOutUserPlain();
-//         }
-//         return Promise.reject(error);
-//     }
-// );
+api.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response?.status === 401) {
+            logOutUserPlain();
+        }
+        return Promise.reject(error);
+    }
+);
 
 export default api;

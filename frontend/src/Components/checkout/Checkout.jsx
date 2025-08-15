@@ -6,6 +6,7 @@ import { fetchUserAddresses } from "../../store/action/checkoutAction.js";
 import Skeleton from '../Shared/Skeleton';
 import ErrorPage from '../Shared/ErrorPage';
 import PaymentMethod from './PaymentMethod';
+import OrderSummary from './OrderSummary';
 
 export const Checkout = () => {
     const [activeStep, setActiveStep] = useState(0);
@@ -18,6 +19,8 @@ export const Checkout = () => {
     
     const { address , selectedUserCheckoutAddress} = useSelector(state => state.auth);
     const { isLoading, errorMessage } = useSelector(state => state.errors);
+    const { paymentMethod } = useSelector(state=>state.payment);
+    const { cart, totalPrice } = useSelector(state=>state.carts);
 
     const steps = [
         "Address",
@@ -26,7 +29,6 @@ export const Checkout = () => {
         "Payment"
     ];
 
-    const { paymentMethod } = useSelector(state=>state.payment);
 
     const handleBack = () => {
         setActiveStep((prevStep) => prevStep - 1);
@@ -52,6 +54,7 @@ export const Checkout = () => {
                 <div className='mt-5'>
               {activeStep === 0 && <AddressInfo address={address} />}
               {activeStep === 1 && <PaymentMethod />}
+              {activeStep === 2 && <OrderSummary address={selectedUserCheckoutAddress} cart={cart} paymentMethod={paymentMethod} totalPrice={totalPrice}/>}
                 </div>
                     
             )}
