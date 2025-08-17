@@ -1,7 +1,7 @@
 const initialState = {
     user: null,
     address: [],
-    selectedUserCheckoutAddress : null,
+    selectedUserCheckoutAddress: null,
 }
 
 export const authReducer = (state = initialState, action) => {

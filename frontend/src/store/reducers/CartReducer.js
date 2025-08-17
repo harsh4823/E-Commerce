@@ -1,7 +1,8 @@
 const initialState = {
     cart : [],
     totalPrice : 0,
-    cartId : null,
+    cartId: null,
+    clientSecret : null,
 };
 
 export const cartReducer = (state=initialState,action) => {
@@ -24,7 +25,8 @@ export const cartReducer = (state=initialState,action) => {
                 return {
                     ...state,
                     cart:updatedCart,
-                    cartId : null,
+                    cartId: null,
+                    clientSecret : null,
                 }
             }else{
                 const newCart = [...state.cart,productToAdd];
@@ -32,10 +34,11 @@ export const cartReducer = (state=initialState,action) => {
                     ...state,
                     cart: newCart,
                     cartId : null,
+                    clientSecret : null,
                 }
             }
         }
-            
+        
         case "Remove_From_Cart": {
             return {
                 ...state,
@@ -43,6 +46,7 @@ export const cartReducer = (state=initialState,action) => {
                     (item) => item.productId !== action.payload.productId
                 ),
                 cartId : null,
+                clientSecret : null,
             }
         };
         case "Get_User_Cart_Products": {
@@ -50,6 +54,12 @@ export const cartReducer = (state=initialState,action) => {
                 ...state,
                 totalPrice: action.totalPrice,
                 cartId : action.cartId,
+            }
+        };
+        case "Client_Secret": {
+            return {
+                ...state,
+                clientSecret: action.payload,
             }
         };
         default :
