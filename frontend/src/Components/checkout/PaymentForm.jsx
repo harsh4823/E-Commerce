@@ -11,7 +11,24 @@ const PaymentForm = ({clientSecret, totalPrice}) => {
     const isLoading = !stripe || !clientSecret || !elements;
 
     const handleSubmit = async (e) => {
-        
+        e.preventDefault();
+        if (!elements || !stripe) {
+            return;
+        }
+        const { error: submitError } = await elements.submit();
+
+        const { error } = await stripe.confirmPayment({
+            elements,
+            clientSecret,
+            confirmParams: {
+                return_url: `${import.meta.env.VITE_FRONTEND_URL}/order-confirm`
+            }
+        });
+
+        if (error) {
+            setErrorMessage(error);
+            return false;
+        }
     }
 
     const paymentElementOptions = {

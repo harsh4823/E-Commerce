@@ -61,6 +61,12 @@ export const authReducer = (state = initialState, action) => {
                 selectedUserCheckoutAddress: action.payload,
             }
         };
+        case "Remove_Selected_Checkout_Address": {
+            return {
+                ...state,
+                selectedUserCheckoutAddress: null,
+            }
+        };
         default:
             return state;
     }

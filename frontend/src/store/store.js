@@ -5,6 +5,7 @@ import {categoryReducer} from "./reducers/CategoryReducer.js";
 import { cartReducer } from "./reducers/CartReducer.js";
 import { authReducer } from "./reducers/AuthReducer.js";
 import { paymentMethodReducer } from "./reducers/PaymentMethodReducer.js";
+import { selectedCheckoutAddress } from './action/checkoutAction';
 
 const cartItems = localStorage.getItem("cartItems")?
         JSON.parse(localStorage.getItem("cartItems")):
@@ -14,12 +15,17 @@ const user = localStorage.getItem("auth")?
         JSON.parse(localStorage.getItem("auth")):
         null;
 
+const selectedUserCheckoutAddress = localStorage.getItem("checkoutAddress")?
+        JSON.parse(localStorage.getItem("checkoutAddress")):
+        null;
+
 const initialState = {
     carts : {
         cart : cartItems,
     },
     auth: {
-        user : user,
+        user: user,
+        selectedUserCheckoutAddress: selectedUserCheckoutAddress,
     },
 };
 

@@ -75,6 +75,7 @@ export const fetchUserAddresses = () => async  (dispatch) => {
 };
 
 export const selectedCheckoutAddress = (address) => {
+    localStorage.setItem("checkoutAddress", JSON.stringify(address));
     return {
         type: "Select_Checkout_Address",
         payload : address,

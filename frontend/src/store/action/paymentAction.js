@@ -28,3 +28,24 @@ export const createStripePaymentSecret = (totalPrice) => async(dispatch) => {
         
     }
 };
+
+export const stripePaymentConfirmation = (setErrorMessage,setLoading,toast,sendData) => async(dispatch) => {
+    try {
+        const { data } = await api.post(`/order/users/payment/online`, sendData);
+        console.log(data);
+        
+        if (data) {   
+            dispatch({type: "Remove_Client_Secret"});
+            dispatch({type: "Remove_Selected_Checkout_Address"});
+            localStorage.removeItem("client-secret");
+            localStorage.removeItem("cartItems");
+            toast.success("Order Accepted");
+        } else {
+            setErrorMessage("Payment Failed. Please Try Again.")
+        }
+    } catch (error) {
+        console.log(error);
+        toast.error("Payment Failded. Please Try Again.")
+        setErrorMessage("Payment Failed. Please Try Again.")
+    }
+};

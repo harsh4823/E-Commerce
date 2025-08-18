@@ -62,6 +62,15 @@ export const cartReducer = (state=initialState,action) => {
                 clientSecret: action.payload,
             }
         };
+        case "Remove_Client_Secret": {
+            return {
+                ...state,
+                cart: [],
+                totalPrice : 0,
+                cartId : null,
+                clientSecret: null,
+            }
+        };
         default :
             return state;
     }
