@@ -31,9 +31,9 @@ const AddAddressForm = ({address,setOpenAddressModal}) => {
         const data = await res.json();
 
         // Auto-fill & validate
-        setValue("street", data.address.residential || "", { shouldValidate: true, shouldDirty: true });
-        setValue("city", data.address.city || data.address.town || "", { shouldValidate: true, shouldDirty: true });
-        setValue("state", data.address.state || "", { shouldValidate: true, shouldDirty: true });
+        setValue("street", data.address.residential || data.address.city_block || "", { shouldValidate: true, shouldDirty: true });
+        setValue("city", data.address.city || data.address.town || data.address.city_district || "", { shouldValidate: true, shouldDirty: true });
+        setValue("state", data.address.state || data.address.city || "", { shouldValidate: true, shouldDirty: true });
         setValue("country", data.address.country || "", { shouldValidate: true, shouldDirty: true });
         setValue("pinCode", data.address.postcode || "", { shouldValidate: true, shouldDirty: true });
     });

@@ -25,14 +25,14 @@ const PaymentForm = ({clientSecret, totalPrice}) => {
             }
         });
 
-        if (error) {
+        if (error || submitError) {
             setErrorMessage(error);
             return false;
         }
     }
 
     const paymentElementOptions = {
-        layout : "tabs"
+        layout : "accordion"
     }
 
   return (
