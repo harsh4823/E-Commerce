@@ -13,6 +13,7 @@ import java.util.List;
 public class UserInfoResponse {
     private Long id;
     private String username;
+    private String email;
     @JsonIgnore 
     private String jwtToken;
     private List<String> roles;
@@ -22,4 +23,6 @@ public class UserInfoResponse {
         this.username = username;
         this.roles = roles;
     }
+
+
 }
