@@ -1,12 +1,12 @@
-package com.basics.spring_basics.Service;
+package com.basics.ECommerce.Service;
 
-import com.basics.spring_basics.Exceptions.APIExceptions;
-import com.basics.spring_basics.Exceptions.ResourceNotFoundException;
-import com.basics.spring_basics.Model.*;
-import com.basics.spring_basics.Payload.OrderDTO;
-import com.basics.spring_basics.Payload.OrderItemsDTO;
-import com.basics.spring_basics.Payload.OrderRequestDTO;
-import com.basics.spring_basics.Repository.*;
+import com.basics.ECommerce.Exceptions.APIExceptions;
+import com.basics.ECommerce.Exceptions.ResourceNotFoundException;
+import com.basics.ECommerce.Model.*;
+import com.basics.ECommerce.Payload.OrderDTO;
+import com.basics.ECommerce.Payload.OrderItemsDTO;
+import com.basics.ECommerce.Payload.OrderRequestDTO;
+import com.basics.ECommerce.Repository.*;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 @Service

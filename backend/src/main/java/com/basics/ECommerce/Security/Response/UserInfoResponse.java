@@ -1,4 +1,4 @@
-package com.basics.spring_basics.Security.Response;
+package com.basics.ECommerce.Security.Response;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;

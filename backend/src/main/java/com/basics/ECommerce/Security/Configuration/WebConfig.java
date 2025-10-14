@@ -1,4 +1,4 @@
-package com.basics.spring_basics.Security.Configuration;
+package com.basics.ECommerce.Security.Configuration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

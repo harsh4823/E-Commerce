@@ -1,7 +1,7 @@
-package com.basics.spring_basics.Service;
+package com.basics.ECommerce.Service;
 
-import com.basics.spring_basics.Model.User;
-import com.basics.spring_basics.Payload.AddressDTO;
+import com.basics.ECommerce.Model.User;
+import com.basics.ECommerce.Payload.AddressDTO;
 
 import java.util.List;
 

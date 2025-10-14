@@ -1,4 +1,4 @@
-package com.basics.spring_basics.Exceptions;
+package com.basics.ECommerce.Exceptions;
 
 public class ResourceNotFoundException extends RuntimeException{
     String resourceName;

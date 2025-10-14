@@ -1,6 +1,6 @@
-package com.basics.spring_basics.Repository;
+package com.basics.ECommerce.Repository;
 
-import com.basics.spring_basics.Model.Cart;
+import com.basics.ECommerce.Model.Cart;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

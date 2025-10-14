@@ -1,7 +1,7 @@
-package com.basics.spring_basics.Repository;
+package com.basics.ECommerce.Repository;
 
-import com.basics.spring_basics.Model.AppRole;
-import com.basics.spring_basics.Model.Role;
+import com.basics.ECommerce.Model.AppRole;
+import com.basics.ECommerce.Model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

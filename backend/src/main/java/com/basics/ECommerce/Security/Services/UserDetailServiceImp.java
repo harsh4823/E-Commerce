@@ -1,10 +1,10 @@
-package com.basics.spring_basics.Security.Services;
+package com.basics.ECommerce.Security.Services;
 
-import com.basics.spring_basics.Exceptions.ResourceNotFoundException;
-import com.basics.spring_basics.Model.User;
-import com.basics.spring_basics.Repository.UserRepository;
-import com.basics.spring_basics.Security.Response.UserInfoResponse;
-import com.basics.spring_basics.Security.Util.AuthUtil;
+import com.basics.ECommerce.Exceptions.ResourceNotFoundException;
+import com.basics.ECommerce.Model.User;
+import com.basics.ECommerce.Repository.UserRepository;
+import com.basics.ECommerce.Security.Response.UserInfoResponse;
+import com.basics.ECommerce.Security.Util.AuthUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

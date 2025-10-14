@@ -1,13 +1,13 @@
-package com.basics.spring_basics.Service;
+package com.basics.ECommerce.Service;
 
-import com.basics.spring_basics.Exceptions.APIExceptions;
-import com.basics.spring_basics.Exceptions.ResourceNotFoundException;
-import com.basics.spring_basics.Model.CategoryModel;
-import com.basics.spring_basics.Model.Product;
-import com.basics.spring_basics.Payload.ProductResponse;
-import com.basics.spring_basics.Payload.ProductsDTO;
-import com.basics.spring_basics.Repository.CategoryRepository;
-import com.basics.spring_basics.Repository.ProductRepository;
+import com.basics.ECommerce.Exceptions.APIExceptions;
+import com.basics.ECommerce.Exceptions.ResourceNotFoundException;
+import com.basics.ECommerce.Model.CategoryModel;
+import com.basics.ECommerce.Model.Product;
+import com.basics.ECommerce.Payload.ProductResponse;
+import com.basics.ECommerce.Payload.ProductsDTO;
+import com.basics.ECommerce.Repository.CategoryRepository;
+import com.basics.ECommerce.Repository.ProductRepository;
 import jakarta.persistence.criteria.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

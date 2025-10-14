@@ -1,7 +1,7 @@
-package com.basics.spring_basics.Service;
+package com.basics.ECommerce.Service;
 
-import com.basics.spring_basics.Payload.OrderDTO;
-import com.basics.spring_basics.Payload.OrderRequestDTO;
+import com.basics.ECommerce.Payload.OrderDTO;
+import com.basics.ECommerce.Payload.OrderRequestDTO;
 import jakarta.transaction.Transactional;
 
 public interface OrderService {

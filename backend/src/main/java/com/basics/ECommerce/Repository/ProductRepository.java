@@ -1,13 +1,12 @@
-package com.basics.spring_basics.Repository;
+package com.basics.ECommerce.Repository;
 
-import com.basics.spring_basics.Model.CategoryModel;
-import com.basics.spring_basics.Model.Product;
+import com.basics.ECommerce.Model.CategoryModel;
+import com.basics.ECommerce.Model.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository

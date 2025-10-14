@@ -1,9 +1,9 @@
-package com.basics.spring_basics.Controller;
+package com.basics.ECommerce.Controller;
 
-import com.basics.spring_basics.Model.User;
-import com.basics.spring_basics.Payload.AddressDTO;
-import com.basics.spring_basics.Service.AddressService;
-import com.basics.spring_basics.Security.Util.AuthUtil;
+import com.basics.ECommerce.Model.User;
+import com.basics.ECommerce.Payload.AddressDTO;
+import com.basics.ECommerce.Service.AddressService;
+import com.basics.ECommerce.Security.Util.AuthUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

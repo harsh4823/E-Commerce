@@ -1,4 +1,4 @@
-package com.basics.spring_basics.Security.Request;
+package com.basics.ECommerce.Security.Request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

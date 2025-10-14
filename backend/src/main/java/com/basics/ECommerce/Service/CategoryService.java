@@ -1,7 +1,7 @@
-package com.basics.spring_basics.Service;
+package com.basics.ECommerce.Service;
 
-import com.basics.spring_basics.Payload.CategoryDTO;
-import com.basics.spring_basics.Payload.CategoryResponse;
+import com.basics.ECommerce.Payload.CategoryDTO;
+import com.basics.ECommerce.Payload.CategoryResponse;
 
 
 public interface CategoryService {

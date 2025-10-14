@@ -1,9 +1,10 @@
-package com.basics.spring_basics.Service;
+package com.basics.ECommerce.Service;
 
 import com.razorpay.RazorpayException;
-import org.springframework.stereotype.Service;
 
 public interface RazorPayService {
 
     Object createOrder(int amount) throws RazorpayException;
+
+    boolean verifyPayment(String orderID, String paymentID, String signature) throws RazorpayException;
 }

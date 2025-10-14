@@ -1,4 +1,4 @@
-package com.basics.spring_basics.Payload;
+package com.basics.ECommerce.Payload;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

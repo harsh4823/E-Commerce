@@ -1,7 +1,7 @@
-package com.basics.spring_basics.Security.Util;
+package com.basics.ECommerce.Security.Util;
 
-import com.basics.spring_basics.Model.User;
-import com.basics.spring_basics.Repository.UserRepository;
+import com.basics.ECommerce.Model.User;
+import com.basics.ECommerce.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

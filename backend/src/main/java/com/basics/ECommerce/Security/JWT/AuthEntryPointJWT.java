@@ -1,4 +1,4 @@
-package com.basics.spring_basics.Security.JWT;
+package com.basics.ECommerce.Security.JWT;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;

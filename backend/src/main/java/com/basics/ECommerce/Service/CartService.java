@@ -1,8 +1,7 @@
-package com.basics.spring_basics.Service;
+package com.basics.ECommerce.Service;
 
-import com.basics.spring_basics.Model.Cart;
-import com.basics.spring_basics.Payload.CartDTO;
-import com.basics.spring_basics.Payload.CartItemDTO;
+import com.basics.ECommerce.Payload.CartDTO;
+import com.basics.ECommerce.Payload.CartItemDTO;
 import jakarta.transaction.Transactional;
 
 import java.util.List;

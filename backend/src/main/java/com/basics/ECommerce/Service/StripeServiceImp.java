@@ -1,7 +1,7 @@
-package com.basics.spring_basics.Service;
+package com.basics.ECommerce.Service;
 
-import com.basics.spring_basics.Model.Address;
-import com.basics.spring_basics.Payload.StripePaymentDTO;
+import com.basics.ECommerce.Model.Address;
+import com.basics.ECommerce.Payload.StripePaymentDTO;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Customer;

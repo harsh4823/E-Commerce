@@ -1,6 +1,6 @@
-package com.basics.spring_basics.Payload;
+package com.basics.ECommerce.Payload;
 
-import com.basics.spring_basics.Model.Address;
+import com.basics.ECommerce.Model.Address;
 import lombok.Data;
 
 import java.util.Map;

@@ -1,6 +1,6 @@
-package com.basics.spring_basics.Exceptions;
+package com.basics.ECommerce.Exceptions;
 
-import com.basics.spring_basics.Payload.APIResponse;
+import com.basics.ECommerce.Payload.APIResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;

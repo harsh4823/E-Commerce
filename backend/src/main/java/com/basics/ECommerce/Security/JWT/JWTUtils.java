@@ -1,6 +1,6 @@
-package com.basics.spring_basics.Security.JWT;
+package com.basics.ECommerce.Security.JWT;
 
-import com.basics.spring_basics.Security.Services.UserDetailsImp;
+import com.basics.ECommerce.Security.Services.UserDetailsImp;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;

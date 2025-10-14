@@ -1,12 +1,13 @@
-package com.basics.spring_basics.Controller;
+package com.basics.ECommerce.Controller;
 
-import com.basics.spring_basics.Payload.OrderDTO;
-import com.basics.spring_basics.Payload.OrderRequestDTO;
-import com.basics.spring_basics.Payload.StripePaymentDTO;
-import com.basics.spring_basics.Service.OrderService;
-import com.basics.spring_basics.Security.Util.AuthUtil;
-import com.basics.spring_basics.Service.RazorPayService;
-import com.basics.spring_basics.Service.StripeService;
+import com.basics.ECommerce.Payload.OrderDTO;
+import com.basics.ECommerce.Payload.OrderRequestDTO;
+import com.basics.ECommerce.Payload.RazorpayPaymentDTO;
+import com.basics.ECommerce.Payload.StripePaymentDTO;
+import com.basics.ECommerce.Service.OrderService;
+import com.basics.ECommerce.Security.Util.AuthUtil;
+import com.basics.ECommerce.Service.RazorPayService;
+import com.basics.ECommerce.Service.StripeService;
 import com.razorpay.RazorpayException;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
@@ -49,5 +50,18 @@ public class OrderController {
     @PostMapping("/order/razorpay-order")
     public ResponseEntity<?> createRazorpayOrder(@RequestParam("amount") int amount) throws RazorpayException {
         return new ResponseEntity<>(razorPayService.createOrder(amount),HttpStatus.CREATED);
+    }
+
+    @PostMapping("/verify/payment")
+    public ResponseEntity<?> verifyPayment(@RequestBody RazorpayPaymentDTO razorpayPaymentDTO) throws RazorpayException {
+        boolean isSignatureValid = razorPayService.verifyPayment(
+                razorpayPaymentDTO.getOrderID(),
+                razorpayPaymentDTO.getPaymentID(),
+                razorpayPaymentDTO.getSignature()
+        );
+        if (isSignatureValid){
+            return new ResponseEntity<>("Payment verified successfully", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Payment verification failed",HttpStatus.BAD_REQUEST);
     }
 }

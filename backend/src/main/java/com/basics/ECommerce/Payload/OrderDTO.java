@@ -1,4 +1,4 @@
-package com.basics.spring_basics.Payload;
+package com.basics.ECommerce.Payload;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

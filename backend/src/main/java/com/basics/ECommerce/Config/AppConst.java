@@ -1,4 +1,4 @@
-package com.basics.spring_basics.Config;
+package com.basics.ECommerce.Config;
 
 public class AppConst {
     public static final String PAGE_NUMBER = "0";

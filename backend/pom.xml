@@ -112,7 +112,19 @@
             <version>29.0.0</version>
         </dependency>
 
-	</dependencies>
+        <dependency>
+            <groupId>com.razorpay</groupId>
+            <artifactId>razorpay-java</artifactId>
+            <version>1.4.8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.netflix.graphql.dgs.codegen</groupId>
+            <artifactId>graphql-dgs-codegen-gradle</artifactId>
+            <version>7.0.3</version>
+        </dependency>
+
+    </dependencies>
 	<build>
 		<plugins>
 			<plugin>

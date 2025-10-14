@@ -1,4 +1,4 @@
-package com.basics.spring_basics.Config;
+package com.basics.ECommerce.Config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;

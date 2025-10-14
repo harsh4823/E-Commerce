@@ -1,11 +1,11 @@
-package com.basics.spring_basics.Service;
+package com.basics.ECommerce.Service;
 
-import com.basics.spring_basics.Exceptions.ResourceNotFoundException;
-import com.basics.spring_basics.Model.Address;
-import com.basics.spring_basics.Model.User;
-import com.basics.spring_basics.Payload.AddressDTO;
-import com.basics.spring_basics.Repository.AddressRepository;
-import com.basics.spring_basics.Repository.UserRepository;
+import com.basics.ECommerce.Exceptions.ResourceNotFoundException;
+import com.basics.ECommerce.Model.Address;
+import com.basics.ECommerce.Model.User;
+import com.basics.ECommerce.Payload.AddressDTO;
+import com.basics.ECommerce.Repository.AddressRepository;
+import com.basics.ECommerce.Repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

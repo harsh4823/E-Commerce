@@ -1,10 +1,7 @@
-package com.basics.spring_basics.Service;
+package com.basics.ECommerce.Service;
 
-import com.basics.spring_basics.Payload.ProductResponse;
-import com.basics.spring_basics.Payload.ProductsDTO;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
+import com.basics.ECommerce.Payload.ProductResponse;
+import com.basics.ECommerce.Payload.ProductsDTO;
 
 public interface ProductsService {
 

@@ -1,4 +1,4 @@
-package com.basics.spring_basics.Security.Request;
+package com.basics.ECommerce.Security.Request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

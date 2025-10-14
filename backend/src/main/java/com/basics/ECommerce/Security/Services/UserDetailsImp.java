@@ -1,7 +1,6 @@
-package com.basics.spring_basics.Security.Services;
+package com.basics.ECommerce.Security.Services;
 
-import com.basics.spring_basics.Model.User;
-import com.basics.spring_basics.Security.Util.AuthUtil;
+import com.basics.ECommerce.Model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;

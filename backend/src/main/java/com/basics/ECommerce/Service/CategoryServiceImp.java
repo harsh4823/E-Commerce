@@ -1,11 +1,11 @@
-package com.basics.spring_basics.Service;
+package com.basics.ECommerce.Service;
 
-import com.basics.spring_basics.Exceptions.APIExceptions;
-import com.basics.spring_basics.Exceptions.ResourceNotFoundException;
-import com.basics.spring_basics.Model.CategoryModel;
-import com.basics.spring_basics.Payload.CategoryDTO;
-import com.basics.spring_basics.Payload.CategoryResponse;
-import com.basics.spring_basics.Repository.CategoryRepository;
+import com.basics.ECommerce.Exceptions.APIExceptions;
+import com.basics.ECommerce.Exceptions.ResourceNotFoundException;
+import com.basics.ECommerce.Model.CategoryModel;
+import com.basics.ECommerce.Payload.CategoryDTO;
+import com.basics.ECommerce.Payload.CategoryResponse;
+import com.basics.ECommerce.Repository.CategoryRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

@@ -1,10 +1,10 @@
-package com.basics.spring_basics.Controller;
+package com.basics.ECommerce.Controller;
 
-import com.basics.spring_basics.Config.ProductConst;
-import com.basics.spring_basics.Payload.ProductResponse;
-import com.basics.spring_basics.Payload.ProductsDTO;
-import com.basics.spring_basics.Service.FileService;
-import com.basics.spring_basics.Service.ProductsService;
+import com.basics.ECommerce.Config.ProductConst;
+import com.basics.ECommerce.Payload.ProductResponse;
+import com.basics.ECommerce.Payload.ProductsDTO;
+import com.basics.ECommerce.Service.FileService;
+import com.basics.ECommerce.Service.ProductsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
