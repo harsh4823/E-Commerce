@@ -8,7 +8,7 @@ import ErrorPage from '../Shared/ErrorPage';
 import PaymentMethod from './PaymentMethod';
 import OrderSummary from './OrderSummary';
 import StripePayment from './StripePayment';
-import PayPal from './PayPal';
+import RazorPay from './RazorPay';
 
 export const Checkout = () => {
     const [activeStep, setActiveStep] = useState(0);
@@ -58,7 +58,7 @@ export const Checkout = () => {
               {activeStep === 1 && <PaymentMethod />}
               {activeStep === 2 && <OrderSummary address={selectedUserCheckoutAddress} cart={cart} paymentMethod={paymentMethod} totalPrice={totalPrice}/>}
                         {activeStep === 3 && <>
-                        {paymentMethod==="Stripe" ? <StripePayment/> : <PayPal/>}
+                        {paymentMethod==="Stripe" ? <StripePayment/> : <RazorPay/>}
                         </>}
                 </div>
                     

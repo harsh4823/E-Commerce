@@ -94,7 +94,7 @@ const NavBar = () => {
                              bg-gradient-to-r from-purple-600 to-red-500 text-white
                              font-semibold rounded-md shadow-lg hover:from-purple-500 hover:to-red-400
                              transition duration-300 ease-in-out transform'
-                             to={"/login"}>
+                             to={"/login"}> 
                             <FaSignInAlt/>
                             <span>Login</span>
                         </Link>

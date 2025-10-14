@@ -46,18 +46,18 @@ public class StripeServiceImp implements StripeService{
         CustomerSearchResult customers = Customer.search(customerSearchParams);
 
         if (customers.getData().isEmpty()){
-            CustomerCreateParams customerCreateParams = CustomerCreateParams
-                                                        .builder()
-                                                        .setName(name)
-                                                        .setEmail(email)
-                                                        .setAddress(CustomerCreateParams.Address.builder()
-                                                                .setLine1(address.getStreet())
-                                                                .setCity(address.getCity())
-                                                                .setState(address.getState())
-                                                                .setPostalCode(address.getPinCode())
-                                                                .setCountry(address.getCountry())
-                                                                .build())
-                                                        .build();
+            CustomerCreateParams customerCreateParams =
+                    CustomerCreateParams.builder()
+                                .setName(name)
+                                .setEmail(email)
+                                .setAddress(CustomerCreateParams.Address.builder()
+                                .setLine1(address.getStreet())
+                                .setCity(address.getCity())
+                                .setState(address.getState())
+                                .setPostalCode(address.getPinCode())
+                                .setCountry(address.getCountry())
+                                .build())
+                                .build();
             customer = Customer.create(customerCreateParams);
         }else{
             customer = customers.getData().getFirst();

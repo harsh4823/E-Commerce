@@ -37,7 +37,7 @@ const PaymentMethod = () => {
                 onChange={(e)=> paymentMethodHandler(e.target.value)}
             >
                 <FormControlLabel value="Stripe" control={<Radio color='primary' />} label="Stripe" className='text-gray-700'/>
-                <FormControlLabel value="Paypal" control={<Radio color='primary' />} label="Paypal" className='text-gray-700'/>
+                <FormControlLabel value="RazorPay" control={<Radio color='primary' />} label="RazorPay" className='text-gray-700'/>
         </RadioGroup>
         </FormControl>
       </div>

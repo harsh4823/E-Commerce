@@ -5,7 +5,9 @@ import com.basics.spring_basics.Payload.OrderRequestDTO;
 import com.basics.spring_basics.Payload.StripePaymentDTO;
 import com.basics.spring_basics.Service.OrderService;
 import com.basics.spring_basics.Security.Util.AuthUtil;
+import com.basics.spring_basics.Service.RazorPayService;
 import com.basics.spring_basics.Service.StripeService;
+import com.razorpay.RazorpayException;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class OrderController {
     private StripeService stripeService;
 
     @Autowired
+    private RazorPayService razorPayService;
+
+    @Autowired
     private AuthUtil authUtil;
 
     @PostMapping("/order/users/payment/{paymentMethod}")
@@ -39,5 +44,10 @@ public class OrderController {
         System.out.println("StripePayment DTO : " + stripePaymentDTO);
         PaymentIntent paymentIntent = stripeService.paymentIntent(stripePaymentDTO);
         return new ResponseEntity<>(paymentIntent.getClientSecret(),HttpStatus.CREATED);
+    }
+
+    @PostMapping("/order/razorpay-order")
+    public ResponseEntity<?> createRazorpayOrder(@RequestParam("amount") int amount) throws RazorpayException {
+        return new ResponseEntity<>(razorPayService.createOrder(amount),HttpStatus.CREATED);
     }
 }
