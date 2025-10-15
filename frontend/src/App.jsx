@@ -12,6 +12,7 @@ import { PrivateRoute } from "./Components/PrivateRoute.jsx";
 import { Register } from "./Components/auth/Register.jsx";
 import { Checkout } from "./Components/checkout/Checkout.jsx";
 import PaymentConfirmation from "./Components/checkout/PaymentConfirmation.jsx";
+import AdminLayout from "./Components/admin/AdminLayout.jsx";
 
 function App() {
 
@@ -34,6 +35,9 @@ function App() {
                     <Route element={<PrivateRoute publicPage />}>
                         <Route path={'/login'} element={<Login/>}/>
                         <Route path={'/register'} element={<Register/>}/>
+                    </Route>
+                    <Route element={<PrivateRoute/>}>
+                        <Route path={'/admin'} element={<AdminLayout/>}/>
                     </Route>
                 </Routes>
             </Router>
