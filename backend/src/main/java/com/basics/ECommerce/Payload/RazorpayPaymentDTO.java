@@ -7,4 +7,5 @@ public class RazorpayPaymentDTO {
     private String orderID;
     private String paymentID;
     private String signature;
+    private Long addressId;
 }

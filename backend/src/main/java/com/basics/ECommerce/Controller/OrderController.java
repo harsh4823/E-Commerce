@@ -60,6 +60,7 @@ public class OrderController {
                 razorpayPaymentDTO.getSignature()
         );
         if (isSignatureValid){
+            razorPayService.placeOrder(razorpayPaymentDTO);
             return new ResponseEntity<>("Payment verified successfully", HttpStatus.OK);
         }
         return new ResponseEntity<>("Payment verification failed",HttpStatus.BAD_REQUEST);

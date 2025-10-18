@@ -103,9 +103,6 @@ public class OrderServiceImpl implements OrderService{
             // Remove the product from the cart after updating stock
             cartService.deleteProductFromCart(cart.getCartId(), product.getProductId());
         }
-
-
-
         OrderDTO orderDTO = modelMapper.map(savedOrder, OrderDTO.class);
         orderItems.forEach(item->orderDTO.getOrderItems().add(modelMapper.map(item, OrderItemsDTO.class)));
         orderDTO.setAddressId(orderRequestDTO.getAddressId());
