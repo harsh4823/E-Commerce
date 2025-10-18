@@ -6,10 +6,15 @@ import com.basics.ECommerce.Model.*;
 import com.basics.ECommerce.Payload.OrderDTO;
 import com.basics.ECommerce.Payload.OrderItemsDTO;
 import com.basics.ECommerce.Payload.OrderRequestDTO;
+import com.basics.ECommerce.Payload.OrderResponse;
 import com.basics.ECommerce.Repository.*;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -107,5 +112,25 @@ public class OrderServiceImpl implements OrderService{
         orderItems.forEach(item->orderDTO.getOrderItems().add(modelMapper.map(item, OrderItemsDTO.class)));
         orderDTO.setAddressId(orderRequestDTO.getAddressId());
         return orderDTO;
+    }
+
+    @Override
+    public OrderResponse getAllOrders(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder) {
+        Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc")
+                ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+        Pageable pageDetails = PageRequest.of(pageNumber,pageSize,sortByAndOrder);
+        Page<Orders> orders = orderRepository.findAll(pageDetails);
+        List<Orders> ordersList = orders.getContent();
+        List<OrderDTO> orderDTOS = ordersList.stream()
+                .map(order->modelMapper.map(order, OrderDTO.class))
+                .toList();
+
+        return new OrderResponse(orderDTOS,
+                orders.getNumber(),
+                orders.getSize(),
+                orders.getTotalElements(),
+                orders.getTotalPages(),
+                orders.isLast());
     }
 }

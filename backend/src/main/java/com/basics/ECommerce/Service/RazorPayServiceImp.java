@@ -35,7 +35,7 @@ public class RazorPayServiceImp implements RazorPayService{
 
     @Override
     public Object createOrder(int amount) throws RazorpayException {
-        String receiptId = "rcpt_" + UUID.randomUUID();
+        String receiptId = "rcpt" + UUID.randomUUID();
         JSONObject orderRequest = new JSONObject();
         orderRequest.put("amount",amount*100);
         orderRequest.put("currency","INR");
