@@ -23,33 +23,4 @@ public class AnalyticsController {
         AnalyticsResponse response = analyticsService.getAnalyticsData();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
-    public boolean isPalindrome(String s){
-        int i=0;
-        int j = n-1;
-
-        while(i<=j){
-            if(s.charAt(i)==s.charAt(j)){
-                i++;
-                j--;
-            }else return false;
-        }
-        return true;
-    }
-    public String longestPalindrome(String s) {
-        int n = s.length();
-        StringBuilder res = new StringBuilder();
-
-        for(int i=0;i<n;i++){
-            for(int j=i;j<n;j++){
-                String check = s.substring(i,j+1);
-                if(isPalindrome(check) && check.length()>res.length()){
-                    res = new StringBuilder(check);
-                }else{
-                    break;
-                }
-            }
-        }
-        return res.toString();
-    }
 }
