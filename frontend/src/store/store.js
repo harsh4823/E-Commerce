@@ -6,6 +6,7 @@ import { cartReducer } from "./reducers/CartReducer.js";
 import { authReducer } from "./reducers/AuthReducer.js";
 import { paymentMethodReducer } from "./reducers/PaymentMethodReducer.js";
 import { razorpayReducer } from "./reducers/RazorpayReducer.js";
+import { adminReducer } from "./reducers/adminReducer.js";
 
 const cartItems = localStorage.getItem("cartItems")?
         JSON.parse(localStorage.getItem("cartItems")):
@@ -38,7 +39,8 @@ export const store = configureStore(
             carts: cartReducer,
             auth: authReducer,
             payment: paymentMethodReducer,
-            razorpay:razorpayReducer,
+            razorpay: razorpayReducer,
+            admin:adminReducer,
         },
         preloadedState : initialState,
     }

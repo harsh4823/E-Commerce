@@ -1,5 +1,4 @@
 import { FaBoxOpen, FaHome, FaStore, FaThList } from "react-icons/fa";
-import { href } from "react-router-dom";
 
 export const banner = [
     {

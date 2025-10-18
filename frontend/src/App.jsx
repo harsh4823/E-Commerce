@@ -13,6 +13,10 @@ import { Register } from "./Components/auth/Register.jsx";
 import { Checkout } from "./Components/checkout/Checkout.jsx";
 import PaymentConfirmation from "./Components/checkout/PaymentConfirmation.jsx";
 import AdminLayout from "./Components/admin/AdminLayout.jsx";
+import Dashboard from "./Components/admin/dashboard/Dashboard.jsx";
+import Seller from "./Components/admin/sellers/Seller.jsx";
+import AdminProducts from "./Components/admin/products/AdminProducts.jsx";
+import Category from "./Components/admin/categories/Category.jsx";
 
 function App() {
 
@@ -36,8 +40,14 @@ function App() {
                         <Route path={'/login'} element={<Login/>}/>
                         <Route path={'/register'} element={<Register/>}/>
                     </Route>
-                    <Route element={<PrivateRoute/>}>
-                        <Route path={'/admin'} element={<AdminLayout/>}/>
+                    
+                    <Route element={<PrivateRoute adminOnly/>}>
+                    <Route path={'/admin'} element={<AdminLayout/>}>
+                        <Route path={''} element={<Dashboard/>}/>
+                        <Route path={'sellers'} element={<Seller/>}/>
+                        <Route path={'products'} element={<AdminProducts/>}/>
+                        <Route path={'categories'} element={<Category />} />
+                    </Route>
                     </Route>
                 </Routes>
             </Router>

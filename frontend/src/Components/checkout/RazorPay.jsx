@@ -8,6 +8,7 @@ const RazorPay = () => {
   const { totalPrice } = useSelector(state => state.carts);
   // The 'status' from your state might be useful for showing loading/success/error states
   const { status } = useSelector(state => state.razorpay); 
+  const { selectedUserCheckoutAddress } = useSelector(state => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -44,6 +45,7 @@ const RazorPay = () => {
               orderID: response.razorpay_order_id,
               paymentID: response.razorpay_payment_id,
               signature: response.razorpay_signature,
+              addressId: selectedUserCheckoutAddress?.id,
             };
             // This is also async, but you can dispatch it without awaiting
             // if you don't need to do anything immediately after it completes.
