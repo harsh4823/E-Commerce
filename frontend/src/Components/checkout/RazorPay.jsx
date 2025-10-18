@@ -45,7 +45,7 @@ const RazorPay = () => {
               orderID: response.razorpay_order_id,
               paymentID: response.razorpay_payment_id,
               signature: response.razorpay_signature,
-              addressId: selectedUserCheckoutAddress?.id,
+              addressId: selectedUserCheckoutAddress?.addressId,
             };
             // This is also async, but you can dispatch it without awaiting
             // if you don't need to do anything immediately after it completes.

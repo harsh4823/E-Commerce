@@ -17,6 +17,7 @@ import Dashboard from "./Components/admin/dashboard/Dashboard.jsx";
 import Seller from "./Components/admin/sellers/Seller.jsx";
 import AdminProducts from "./Components/admin/products/AdminProducts.jsx";
 import Category from "./Components/admin/categories/Category.jsx";
+import Orders from "./Components/admin/orders/Orders.jsx";
 
 function App() {
 
@@ -44,6 +45,7 @@ function App() {
                     <Route element={<PrivateRoute adminOnly/>}>
                     <Route path={'/admin'} element={<AdminLayout/>}>
                         <Route path={''} element={<Dashboard/>}/>
+                        <Route path={'orders'} element={<Orders/>}/>
                         <Route path={'sellers'} element={<Seller/>}/>
                         <Route path={'products'} element={<AdminProducts/>}/>
                         <Route path={'categories'} element={<Category />} />

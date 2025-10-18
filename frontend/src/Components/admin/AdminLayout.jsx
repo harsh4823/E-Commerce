@@ -7,7 +7,7 @@ const AdminLayout = () => {
   return (
     <div className='w-full'>
       <SideBar open={open} setOpen={setOpen} />
-      <main className={`flex grow ${open ? 'pl-70':'pl-30'} py-10 duration-300 ease-in-out`}>
+      <main className={`grow ${open ? 'pl-70':'pl-30'} py-10 duration-300 ease-in-out`}>
         <Outlet/>
       </main>
     </div>
