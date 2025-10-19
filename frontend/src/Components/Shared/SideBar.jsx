@@ -7,7 +7,6 @@ import classNames from 'classnames';
 // A good practice is to use relative paths for your imports
 import { adminNavigation } from '/Users/HP/OneDrive/Desktop/Projects/E-Commerce/frontend/src/Utils/index'; 
 import { Link, useLocation } from 'react-router-dom';
-import { BsLayoutSidebar } from "react-icons/bs";
 import { useSelector } from 'react-redux';
 
 // The props `sidebarOpen` and `setSidebarOpen` are passed down from AdminLayout
