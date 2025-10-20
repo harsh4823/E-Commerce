@@ -45,3 +45,18 @@ export const fetchOrders = (queryString) => async (dispatch) => {
         })
     }
 };
+
+export const updateOrderStatusFromDashboard = (toast, orderId, orderStatus,setLoader) =>
+    async(dispatch) => {
+        try {
+            setLoader(true);
+                const { data } = await api.put(`/admin/orders/${orderId}/status`,{status : orderStatus});
+            toast.success(data.message || "Order Status Updated Successfully");
+            await dispatch(fetchOrders());
+            } catch (error) {
+            console.log(error);
+            toast.error(error?.response?.data?.message || "Internal Server Error"); 
+        } finally {
+            setLoader(false);
+        }
+    };

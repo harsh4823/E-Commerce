@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { adminOrderTableColumns } from 'c:/Users/HP/OneDrive/Desktop/Projects/E-Commerce/frontend/src/Components/helper/tableColumn'; // Assumed correct path
 import { useLocation, useNavigate} from 'react-router-dom';
+import Modal from './../../Shared/Modal';
+import UpdateOrderForm from './UpdateOrderForm';
 
 const OrderTable = ({ adminOrders, pagination }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [updateOpenModal, setUpdateOpenModal] = useState(false);
+  const [selectedItem, setSelectedItem] = useState("");
+  const [loader, setLoader] = useState(false);
 
 
   const currentPage = pagination?.pageNumber || 0;
@@ -21,10 +26,15 @@ const OrderTable = ({ adminOrders, pagination }) => {
     navigate(`${location.pathname}?${params.toString()}`);
   };
 
+  const handleEdit = (order) => {
+    setSelectedItem(order);
+    setUpdateOpenModal(true);
+}
+
   const tableRecords = adminOrders?.map((item) => ({
     id: item.orderId,
     email: item.email,
-    totalAmount: item.totalAmount,
+    totalAmount: "₹" + item.totalAmount,
     status: item.orderStatus,
     date: item.orderDate,
   })) || [];
@@ -36,7 +46,7 @@ const OrderTable = ({ adminOrders, pagination }) => {
         <DataGrid
           className='w-full'
           rows={tableRecords}
-          columns={adminOrderTableColumns}
+          columns={adminOrderTableColumns(handleEdit)}
           paginationMode='server'
           rowCount={pagination?.totalItems || 0}
           pageSizeOptions={[pageSize]}
@@ -55,6 +65,19 @@ const OrderTable = ({ adminOrders, pagination }) => {
           showLastButton
         />
       </div>
+      <Modal
+        open={updateOpenModal}
+        setOpen={setUpdateOpenModal}
+        title='Update Order Status'>
+        <UpdateOrderForm
+          setOpen={setUpdateOpenModal}
+          open={updateOpenModal}
+          loader={loader}
+          setLoader={setLoader}
+          selectedId={selectedItem.id}
+          selectedItem={selectedItem}
+        />
+      </Modal>
     </div>
   );
 };
