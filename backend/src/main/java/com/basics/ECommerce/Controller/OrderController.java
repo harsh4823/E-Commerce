@@ -76,4 +76,12 @@ public class OrderController {
         OrderResponse orderResponse = orderService.getAllOrders(pageNumber,pageSize,sortBy,sortOrder);
         return new ResponseEntity<>(orderResponse, HttpStatus.OK);
     }
+
+    @PutMapping("/admin/orders/{orderId}/status")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<OrderDTO> updateOrderStatus(@PathVariable Long orderId,
+                                                      @RequestBody OrderStatusDTO orderStatusDTO){
+        OrderDTO orderDTO = orderService.updateOrderStatus(orderId,orderStatusDTO.getStatus());
+        return new ResponseEntity<>(orderDTO, HttpStatus.OK);
+    }
 }

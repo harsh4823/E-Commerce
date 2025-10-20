@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -114,6 +115,17 @@ public class ProductsController {
             @PathVariable Long productID, @RequestParam("image")MultipartFile image
             ) throws IOException {
         return new ResponseEntity<>(fileService.updateProductImage(productID,image),HttpStatus.OK);
+    }
+
+    @GetMapping("/admin/products")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ProductResponse> getAllProductsForAdmin(
+            @RequestParam(name = "pageNumber",defaultValue = ProductConst.PAGE_NUMBER,required = false) Integer pageNumber,
+            @RequestParam(name = "pageSize",defaultValue = ProductConst.PAGE_SIZE,required = false) Integer pageSize,
+            @RequestParam(name = "sortBy",defaultValue = ProductConst.SORT_CATEGORIES_BY,required = false) String sortBy,
+            @RequestParam(name = "sortOrder",defaultValue = ProductConst.SORT_ORDER,required = false) String sortOrder
+    ){
+        return new ResponseEntity<>(service.getAllProductsForAdmin(pageNumber,pageSize,sortBy,sortOrder),HttpStatus.OK);
     }
 
 }

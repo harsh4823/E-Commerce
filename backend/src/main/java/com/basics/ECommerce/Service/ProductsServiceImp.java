@@ -223,4 +223,39 @@ public class ProductsServiceImp implements ProductsService{
         productRepository.delete(product);
         return modelMapper.map(product, ProductsDTO.class);
     }
+
+    @Override
+    public ProductResponse getAllProductsForAdmin(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder) {
+        Pageable pageDetails;
+
+        if(sortBy.equalsIgnoreCase("price")){
+            pageDetails = PageRequest.of(pageNumber,pageSize,Sort.unsorted());
+        }else {
+            Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc")
+                    ? Sort.by(sortBy).ascending() :
+                    Sort.by(sortBy).descending();
+            pageDetails = PageRequest.of(pageNumber, pageSize, sortByAndOrder);
+        }
+        Page<Product> productsPage = productRepository.findAll(pageDetails);
+        List<Product> products = productsPage.getContent();
+
+        if(products.isEmpty()){
+            throw new APIExceptions("there are no products");
+        }
+        List<ProductsDTO> productsDTOs = products.stream()
+                .map(product ->{
+                    ProductsDTO productsDTO =  modelMapper.map(product, ProductsDTO.class);
+                    productsDTO.setImage(constructImageUrl(productsDTO.getImage()));
+                    return productsDTO;
+                })
+                .toList();
+        ProductResponse productResponse = new ProductResponse();
+        productResponse.setContent(productsDTOs);
+        productResponse.setPageNumber(productsPage.getNumber());
+        productResponse.setPageSize(productsPage.getSize());
+        productResponse.setTotalPages(productsPage.getTotalPages());
+        productResponse.setTotalItems(productsPage.getTotalElements());
+        productResponse.setLastPage(productsPage.isLast());
+        return productResponse;
+    }
 }
