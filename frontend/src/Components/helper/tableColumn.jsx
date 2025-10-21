@@ -130,7 +130,14 @@ export const adminProductTableColumns = (handleEdit,handleDelete,handleImageUplo
     editable : false,
     headerClassName : "text-black font-semibold border",
     cellClassName: "text-slate-700 font-normal border",
-    renderHeader : (params) => <span className='text-center'>Image</span>
+    renderHeader: (params) => <span className='text-center'>Image</span>,
+    renderCell: (param) => {
+      return (
+        <div className="flex items-center justify-center h-full w-full">
+        <img src={param.row.image} alt={param.row.productName} className="h-16 w-16 object-contain"/>
+      </div>
+      )
+    }
   },
   {
     sortable: true,
