@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { MdAddShoppingCart, MdShoppingCart } from 'react-icons/md';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Loader from './../../Shared/Loader';
 import { FaBoxOpen } from 'react-icons/fa';
 import { DataGrid } from '@mui/x-data-grid';
@@ -9,6 +9,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useDashboardProductFilter } from 'c:/Users/HP/OneDrive/Desktop/Projects/E-Commerce/frontend/src/Hooks/useProductFilter';
 import Modal from './../../Shared/Modal';
 import AddProductForm from './AddProductForm';
+import { DeleteModal } from './../../checkout/DeleteModal';
+import toast from 'react-hot-toast';
+import { deleteProduct } from '../../../store/action/adminAction';
 
 const AdminProducts = () => {
   const { products, pagination } = useSelector(state => state.products);
@@ -26,7 +29,11 @@ const AdminProducts = () => {
   
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
   const [updateOpenModal, setUpdateOpenModal] = useState(false);
+  const [addOpenModal, setAddOpenModal] = useState(false);
+  const [deleteOpenModal, setDeleteOpenModal] = useState(false);
+  const [loader, setLoader] = useState(false);
   const [selectedItem, setSelectedItem] = useState("");
 
 
@@ -54,7 +61,7 @@ const AdminProducts = () => {
   };
   const handleDelete = (product) => {
     setSelectedItem(product);
-    setUpdateOpenModal(true);
+    setDeleteOpenModal(true);
   };
   const handleImageUpload = (product) => {
     setSelectedItem(product);
@@ -68,12 +75,17 @@ const AdminProducts = () => {
     setUpdateOpenModal(true);
   };
 
+  const onDeleteHandler = () => {
+    dispatch(deleteProduct(setLoader, selectedItem.id, toast, setDeleteOpenModal));
+    navigate("/admin/products");
+  }
+
   useDashboardProductFilter();
 
   return (
     <div className='pr-6'>
       <div className='pt-6 pb-10 flex justify-end'>
-        <button onClick={()=>addProduct()} className='bg-custom-blue hover:bg-blue-800 text-white font-semibold py-2 px-4 flex items-center gap-2 rounded-md shadow-md transition-colors hover:text-slate-300 duration-300'>
+        <button onClick={()=>setAddOpenModal(true)} className='bg-custom-blue hover:bg-blue-800 text-white font-semibold py-2 px-4 flex items-center gap-2 rounded-md shadow-md transition-colors hover:text-slate-300 duration-300'>
           <MdAddShoppingCart className='text-2xl' />
           Add Product
         </button>
@@ -121,16 +133,23 @@ const AdminProducts = () => {
       )}
 
       <Modal
-        open={ updateOpenModal }
-        setOpen={ setUpdateOpenModal }
-        title={"Update Prodcut"}      
+        open={ updateOpenModal || addOpenModal }
+        setOpen={updateOpenModal ? setUpdateOpenModal : setAddOpenModal }
+        title={updateOpenModal ? "Update Prodcut" : "Add Product"}      
       >
         <AddProductForm
-        setOpen={setUpdateOpenModal}
+        setOpen={updateOpenModal ? setUpdateOpenModal : setAddOpenModal}
         product={selectedItem}
         update={updateOpenModal}
         />
       </Modal>
+      <DeleteModal
+        open={ deleteOpenModal }
+        setOpen={setDeleteOpenModal}
+        title={"Delete Product"}      
+        onDeleteHandler={onDeleteHandler}
+        loader={loader}
+      />
     </div>
   )
 }

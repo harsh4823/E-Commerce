@@ -108,3 +108,18 @@ export const updateProduct = (sendData, toast,reset,setLoader,setOpen) => async 
         toast.error(error?.response?.data?.message || "Failed to Update")
     }
 };
+
+export const deleteProduct = (setLoader,productId,toast,setDeleteOpenModal) => async (dispatch) => {
+    try {
+        setLoader(true);
+        await api.delete(`/admin/products/${productId}`);
+        toast.success("Product Deleted Successfully");
+        await dispatch(fetchAdminProducts());
+    } catch (error) {
+        toast.error(error?.response?.data?.message || "Failed To Delete Product");
+        console.log(error);
+    } finally {
+        setLoader(false);
+        setDeleteOpenModal(false);
+    }
+}

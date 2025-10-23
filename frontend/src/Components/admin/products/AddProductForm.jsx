@@ -4,17 +4,39 @@ import InputField from './../../Shared/InputField';
 import { Button } from '@mui/material';
 import { FaSpinner } from 'react-icons/fa6';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateProduct } from './../../../store/action/adminAction';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import SelectTextField from './../../Shared/SelectTextField';
+import { fetchCategory } from './../../../store/action/categoryAction';
+import Skeleton from './../../Shared/Skeleton';
+import ErrorPage from './../../Shared/ErrorPage';
 
 const AddProductForm = ({setOpen,product,update=false}) => {
     const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm({mode:'onTouched'});
     const [loader, setLoader] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState();
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const { categories } = useSelector(state => state.categories);
+    const { isLoading,errorMessage } = useSelector(state => state.errors);
+
+    useEffect(() => {
+        if (!update) {
+        dispatch(fetchCategory());
+        }
+    },[dispatch,update]);
+
+    useEffect(() => {
+        if (!isLoading && categories) {
+            setSelectedCategory(categories[0]);
+        }
+    }, [categories,isLoading]);
+    
+    
+    
     useEffect(() => {
         if (update && product) {
             setValue("productName", product?.productName);
@@ -25,7 +47,7 @@ const AddProductForm = ({setOpen,product,update=false}) => {
             setValue("description", product?.description);
         }    
     }, [update, product]);
-
+    
     const saveProductHandler = (data) => {
         if (!update) {
             
@@ -38,6 +60,14 @@ const AddProductForm = ({setOpen,product,update=false}) => {
             navigate("/admin/products");
         }
     };
+    
+    if (isLoading) {
+        return <Skeleton/>
+    }
+
+    if (errorMessage) {
+        return <ErrorPage/> 
+    }
 
   return (
       <div className='py-5 relative h-full'>
@@ -53,6 +83,15 @@ const AddProductForm = ({setOpen,product,update=false}) => {
                     placeholder="Product Name"
                     errors={errors}
                   /> 
+
+                  {!update && (
+                      <SelectTextField
+                        label={'Select Categories'}
+                        select={selectedCategory}
+                        setSelect={setSelectedCategory}
+                        lists={categories}  
+                      />
+                  )}
               </div>
               <div className='flex md:flex-row flex-col gap-4 w-full'>
                   <InputField
@@ -145,4 +184,4 @@ const AddProductForm = ({setOpen,product,update=false}) => {
   )
 }
 
-export default AddProductForm
+export default AddProductForm;

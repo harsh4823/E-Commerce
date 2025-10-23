@@ -1,5 +1,4 @@
-import { Description, Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
-import { useState } from 'react'
+import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 import { RxCross1 } from 'react-icons/rx';
 
 function Modal({open,setOpen,children,title=""}) {

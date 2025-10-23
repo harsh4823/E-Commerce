@@ -1,4 +1,4 @@
-import { formatPrice, formatRevenue } from 'c:/Users/HP/OneDrive/Desktop/Projects/E-Commerce/frontend/src/Utils/formatPrice'
+import { formatRevenue } from 'c:/Users/HP/OneDrive/Desktop/Projects/E-Commerce/frontend/src/Utils/formatPrice'
 import React from 'react'
 
 const DashboardOverview = ({ title, amount, Icon, revenue = false }) => {
@@ -11,7 +11,6 @@ const DashboardOverview = ({ title, amount, Icon, revenue = false }) => {
                   <Icon className='text-slate-800 text-2xl'/>
               </div>
               <h1 className='font-bold text-slate-800 text-3xl'>
-                  {console.log(formatRevenue(amount))}
                   {revenue? "₹ " + (formatRevenue(amount)): convertedAmount}
               </h1>
           </div>    
