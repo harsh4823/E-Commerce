@@ -169,7 +169,7 @@ public class CartServiceImp implements CartService{
             cartItemsRepository.save(cartItems);
         }
 
-        product.setQuantity(product.getQuantity() - quantity);
+        product.setQuantity(Math.max(product.getQuantity() - quantity,0));
         productRepository.save(product);
 
         cartRepository.save(cart); // save cart after updates
@@ -271,7 +271,7 @@ public class CartServiceImp implements CartService{
 
             Product product = productRepository.findById(productId)
                     .orElseThrow(()-> new ResourceNotFoundException("product", "productId", productId));
-            product.setQuantity(product.getQuantity()-quantity);
+            product.setQuantity(Math.max(product.getQuantity()-quantity,0));
             totalPrice+=product.getSpecialPrice()*quantity;
 
             CartItems cartItems = new CartItems();

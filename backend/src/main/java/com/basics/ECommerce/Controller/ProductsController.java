@@ -91,7 +91,7 @@ public class ProductsController {
 
     @Tag(name = "Products API's")
     @Operation(summary = "Update product by ID",description = "Update product by ID")
-    @PutMapping("/products/{productId}")
+    @PutMapping("/admin/products/{productId}")
     public ResponseEntity<ProductsDTO> updateProduct(
             @Parameter(description = "Product ID to update")
             @PathVariable Long productId,@RequestBody ProductsDTO product){
@@ -100,7 +100,7 @@ public class ProductsController {
 
     @Tag(name = "Products API's")
     @Operation(summary = "Delete product by ID",description = "Delete product by ID")
-    @DeleteMapping("admin/products/{productId}")
+    @DeleteMapping("/admin/products/{productId}")
     public ResponseEntity<ProductsDTO> deleteProduct(
             @Parameter(description = "Product ID to delete")
             @PathVariable Long productId){
@@ -109,7 +109,7 @@ public class ProductsController {
 
     @Tag(name = "Products API's")
     @Operation(summary = "Update product image",description = "Update product image")
-    @PutMapping("/products/{productID}/image")
+    @PutMapping("/admin/products/{productID}/image")
     public ResponseEntity<ProductsDTO> updateProductImage(
             @Parameter(description = "Product ID to update image")
             @PathVariable Long productID, @RequestParam("image")MultipartFile image

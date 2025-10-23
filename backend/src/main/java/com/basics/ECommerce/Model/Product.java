@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,8 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "products")
 @ToString
+@SQLDelete(sql = "UPDATE products SET deleted = true WHERE product_id = ?")
+@SQLRestriction("deleted = false")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,7 +40,9 @@ public class Product {
     @JoinColumn(name = "seller_id")
     private User user;
 
-    @OneToMany(mappedBy = "product", cascade = {CascadeType.MERGE, CascadeType.PERSIST},fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     List<CartItems> cartItems = new ArrayList<>();
+
+    private boolean deleted=false;
 
 }
