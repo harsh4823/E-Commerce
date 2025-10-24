@@ -12,6 +12,8 @@ import AddProductForm from './AddProductForm';
 import { DeleteModal } from './../../checkout/DeleteModal';
 import toast from 'react-hot-toast';
 import { deleteProduct } from '../../../store/action/adminAction';
+import ImageUpload from './ImageUpload';
+import ProductViewModal from './../../Shared/ProductViewModal';
 
 const AdminProducts = () => {
   const { products, pagination } = useSelector(state => state.products);
@@ -33,6 +35,8 @@ const AdminProducts = () => {
   const [updateOpenModal, setUpdateOpenModal] = useState(false);
   const [addOpenModal, setAddOpenModal] = useState(false);
   const [deleteOpenModal, setDeleteOpenModal] = useState(false);
+  const [openImageUploadModal, setOpenImageUploadModal] = useState(false);
+  const [openViewModal, setOpenViewModal] = useState(false);
   const [loader, setLoader] = useState(false);
   const [selectedItem, setSelectedItem] = useState("");
 
@@ -51,7 +55,7 @@ const AdminProducts = () => {
   };
 
 
-  const { isLoading, errorMessage } = useSelector(state => state.errors);
+  const { isLoading} = useSelector(state => state.errors);
 
   const emptyProducts = !products || products.length === 0;
 
@@ -59,20 +63,20 @@ const AdminProducts = () => {
     setSelectedItem(product);
     setUpdateOpenModal(true);
   };
+
   const handleDelete = (product) => {
     setSelectedItem(product);
     setDeleteOpenModal(true);
   };
+
   const handleImageUpload = (product) => {
     setSelectedItem(product);
-    setUpdateOpenModal(true);
+    setOpenImageUploadModal(true);
   };
+
   const handleProductView = (product) => {
     setSelectedItem(product);
-    setUpdateOpenModal(true);
-  };
-  const addProduct = () => {
-    setUpdateOpenModal(true);
+    setOpenViewModal(true);
   };
 
   const onDeleteHandler = () => {
@@ -132,6 +136,7 @@ const AdminProducts = () => {
           </> 
       )}
 
+      {/* Add and Update Product  */}
       <Modal
         open={ updateOpenModal || addOpenModal }
         setOpen={updateOpenModal ? setUpdateOpenModal : setAddOpenModal }
@@ -143,6 +148,20 @@ const AdminProducts = () => {
         update={updateOpenModal}
         />
       </Modal>
+
+      {/* Upload Image  */}
+      <Modal
+        open={ openImageUploadModal }
+        setOpen={setOpenImageUploadModal }
+        title={"Upload Product Image"}      
+      >
+        <ImageUpload
+        setOpen={setOpenImageUploadModal}
+        product={selectedItem}
+        />
+      </Modal>
+
+      {/* Delete Product  */}
       <DeleteModal
         open={ deleteOpenModal }
         setOpen={setDeleteOpenModal}
@@ -150,6 +169,19 @@ const AdminProducts = () => {
         onDeleteHandler={onDeleteHandler}
         loader={loader}
       />
+
+      {/* View Product  */}
+      <ProductViewModal
+        product={{
+          ...selectedItem,
+          price: String(selectedItem.price).slice(1),
+          discount: String(selectedItem?.discount).slice(0, -1),
+          specialPrice: String(selectedItem?.specialPrice).slice(1) 
+        }}
+        open={openViewModal}
+        setOpen={setOpenViewModal}
+        isAvailable={selectedItem.quantity}
+      /> 
     </div>
   )
 }

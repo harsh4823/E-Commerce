@@ -123,3 +123,34 @@ export const deleteProduct = (setLoader,productId,toast,setDeleteOpenModal) => a
         setDeleteOpenModal(false);
     }
 }
+
+export const uploadProductImage = (productId, formData, toast, setLoader, setOpen) => async (dispatch) => {
+    try {
+        setLoader(true);
+        await api.put(`/admin/products/${productId}/image`, formData);
+        toast.success("Image uploaded successfully");
+        await dispatch(fetchAdminProducts());
+    } catch (error) {
+        toast.error(error?.response?.data?.message || "Failed To Upload Product Image");
+        console.log(error);
+    } finally {
+        setLoader(false);
+        setOpen(false);
+    }
+};
+
+export const addNewProduct = (sendData,toast,reset,setLoader,setOpen) => async (dispatch) => {
+    try {
+        setLoader(true);
+        await api.post(`/admin/categories/${sendData.categoryId}/product`, sendData);
+        toast.success("Product added Successfully");
+        reset();
+        await dispatch(fetchAdminProducts());
+    } catch (error) {
+        toast.error(error?.response?.data?.message || "Failed To Add New Product");
+        console.log(error);
+    } finally {
+        setLoader(false);
+        setOpen(false);
+    }
+};

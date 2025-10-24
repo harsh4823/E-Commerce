@@ -5,7 +5,7 @@ import { Button } from '@mui/material';
 import { FaSpinner } from 'react-icons/fa6';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { updateProduct } from './../../../store/action/adminAction';
+import { addNewProduct, updateProduct } from './../../../store/action/adminAction';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import SelectTextField from './../../Shared/SelectTextField';
@@ -51,6 +51,12 @@ const AddProductForm = ({setOpen,product,update=false}) => {
     const saveProductHandler = (data) => {
         if (!update) {
             
+            const sendData = {
+                ...data,
+                categoryId: selectedCategory.categoryId,
+            };
+            dispatch(addNewProduct(sendData,toast,reset,setLoader,setOpen));
+            navigate("/admin/products");
         } else {
             const sendData = {
                 ...data,
