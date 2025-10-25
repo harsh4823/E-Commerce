@@ -42,9 +42,9 @@ const OrderTable = ({ adminOrders, pagination }) => {
   return (
     <div>
       <h1 className='text-slate-800 text-3xl text-center font-bold pb-6 uppercase'>All Orders</h1>
-      <div>
+      <div className='flex flex-col justify-center items-center'>
         <DataGrid
-          className='w-full'
+          className='w-[1171.6px]'
           rows={tableRecords}
           columns={adminOrderTableColumns(handleEdit)}
           paginationMode='server'
