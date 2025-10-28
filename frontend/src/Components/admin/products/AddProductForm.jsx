@@ -181,7 +181,7 @@ const AddProductForm = ({setOpen,product,update=false}) => {
                         <FaSpinner/> Loading...    
                         </div>   
                     ): (
-                    "Upadate"      
+                    "Save"      
                     )}
                 </Button>
             </div>

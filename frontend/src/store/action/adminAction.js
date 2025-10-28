@@ -1,3 +1,4 @@
+import { fetchCategory } from "./categoryAction";
 import api from "c:/Users/HP/OneDrive/Desktop/Projects/E-Commerce/frontend/src/api/api"
 
 export const fetchAnalyticsData = () => async (dispatch) => {
@@ -154,3 +155,49 @@ export const addNewProduct = (sendData,toast,reset,setLoader,setOpen) => async (
         setOpen(false);
     }
 };
+
+export const addNewCategory = (sendData,toast,reset,setLoader,setOpen) => async (dispatch) => {
+    try {
+        setLoader(true);
+        await api.post(`/admin/categories`, sendData);
+        toast.success("Category added Successfully");
+        reset();
+        await dispatch(fetchCategory());
+    } catch (error) {
+        toast.error(error?.response?.data?.message || "Failed To Add New Category");
+        console.log(error);
+    } finally {
+        setLoader(false);
+        setOpen(false);
+    }
+};
+export const updateCategory = (sendData,toast,reset,setLoader,setOpen) => async (dispatch) => {
+    try {
+        setLoader(true);
+        await api.put(`/admin/categories/${sendData.categoryId}`, sendData);
+        toast.success("Category Updated Successfully");
+        reset();
+        await dispatch(fetchCategory());
+    } catch (error) {
+        toast.error(error?.response?.data?.message || "Failed To Update Category");
+        console.log(error);
+    } finally {
+        setLoader(false);
+        setOpen(false);
+    }
+};
+
+export const deleteCategory = (setLoader,categoryId,toast,setDeleteOpenModal) => async (dispatch) => {
+    try {
+        setLoader(true);
+        await api.delete(`/admin/categories/${categoryId}`);
+        toast.success("Category Deleted Successfully");
+        await dispatch(fetchCategory());
+    } catch (error) {
+        toast.error(error?.response?.data?.message || "Failed To Delete Category");
+        console.log(error);
+    } finally {
+        setLoader(false);
+        setDeleteOpenModal(false);
+    }
+}

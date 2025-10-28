@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { MdAssignmentAdd } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Loader from './../../Shared/Loader';
 import { FaBoxOpen, FaClipboardList } from 'react-icons/fa';
-import { adminProductTableColumns } from 'c:/Users/HP/OneDrive/Desktop/Projects/E-Commerce/frontend/src/Components/helper/tableColumn';
 import { adminCategoryTableColumns } from './../../helper/tableColumn';
 import Modal from './../../Shared/Modal';
 import { fetchCategory } from './../../../store/action/categoryAction';
 import { DataGrid } from '@mui/x-data-grid';
+import AddCategoryForm from './AddCategoryForm';
+import { DeleteModal } from './../../checkout/DeleteModal';
+import toast from 'react-hot-toast';
+import { deleteCategory } from './../../../store/action/adminAction';
 
 const Category = () => {
   const navigate = useNavigate();
@@ -30,10 +32,13 @@ const Category = () => {
      const tableRecords = categories?.map((item) => ({
         id: item.categoryId,
         categoryName: item.categoryName,
-      })) || [];
+     })) || [];
+  
+  const onDeleteHandler = () => {
+      dispatch(deleteCategory(setLoader,selectedItem.id,toast,setDeleteOpenModal));
+      navigate("/admin/categories");
+  };
       
-
-
   const currentPage = pagination?.pageNumber || 0;
   const pageSize = pagination?.pageSize || 10;
 
@@ -60,14 +65,6 @@ const Category = () => {
           setSelectedItem(category);
           setDeleteOpenModal(true);
         };
-      
-        
-      // const onDeleteHandler = () => {
-      //     dispatch(deleteProduct(setLoader, selectedItem.id, toast, setDeleteOpenModal));
-      //     navigate("/admin/products");
-      //   }
-            
-      // useDashboardProductFilter();
             
   return (
     <div className='pr-6'>
@@ -88,7 +85,7 @@ const Category = () => {
               <div className='flex flex-col justify-center items-center text-gray-600 py-10'>
                 <FaBoxOpen className='mb-3' size={50}/>
                 <h2 className='text-2xl font-semibold'>
-                No Products Created Yet
+                No Category Created Yet
                 </h2>
               </div>
             ) : (
@@ -127,21 +124,21 @@ const Category = () => {
         setOpen={updateOpenModal ? setUpdateOpenModal : setAddOpenModal }
         title={updateOpenModal ? "Update Category" : "Add Category"}      
       >
-        {/* <AddProductForm
-        setOpen={updateOpenModal ? setUpdateOpenModal : setAddOpenModal}
-        product={selectedItem}
-        update={updateOpenModal}
-        /> */}
+        <AddCategoryForm
+          category={selectedItem}
+          setOpen={updateOpenModal ? setUpdateOpenModal : setAddOpenModal}
+          update={updateOpenModal}
+        />
       </Modal>
 
       {/* Delete Product  */}
-      {/* <DeleteModal
+      <DeleteModal
         open={ deleteOpenModal }
         setOpen={setDeleteOpenModal}
-        title={"Delete Product"}      
+        title={"Delete Category"}      
         onDeleteHandler={onDeleteHandler}
         loader={loader}
-      /> */}
+      />
 
       {/* View Product  */}
       {/* <ProductViewModal
