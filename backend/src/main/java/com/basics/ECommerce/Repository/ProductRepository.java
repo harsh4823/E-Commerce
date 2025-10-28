@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ProductRepository extends JpaRepository<Product,Long> , JpaSpecificationExecutor<Product> {
 
@@ -19,4 +21,6 @@ public interface ProductRepository extends JpaRepository<Product,Long> , JpaSpec
     Page<Product> findByCategoryOrderByPriceAsc(Pageable pageDetails, CategoryModel categoryId);
 
     Page<Product> findAll(Specification<Product> specification, Pageable pageDetails);
+
+    List<Product> findByCategory(CategoryModel category);
 }

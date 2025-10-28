@@ -3,9 +3,11 @@ package com.basics.ECommerce.Service;
 import com.basics.ECommerce.Exceptions.APIExceptions;
 import com.basics.ECommerce.Exceptions.ResourceNotFoundException;
 import com.basics.ECommerce.Model.CategoryModel;
+import com.basics.ECommerce.Model.Product;
 import com.basics.ECommerce.Payload.CategoryDTO;
 import com.basics.ECommerce.Payload.CategoryResponse;
 import com.basics.ECommerce.Repository.CategoryRepository;
+import com.basics.ECommerce.Repository.ProductRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,6 +25,9 @@ public class CategoryServiceImp implements CategoryService{
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private ProductRepository productRepository;
 
     @Override
     public CategoryResponse getAllCategories(Integer pageNumber,Integer pageSize,String sort_By,String sort_Order) {
@@ -64,6 +69,10 @@ public class CategoryServiceImp implements CategoryService{
     public CategoryDTO deleteCategory(Long id) {
         CategoryModel old = categoryRepository.findById(id).
                 orElseThrow(()->new ResourceNotFoundException("Category","categoryId",id));
+        List<Product> products = productRepository.findByCategory(old);
+        if (!products.isEmpty()){
+            throw new APIExceptions("Category With The Name : '"+old.getCategoryName()+"' has products, so it can't be deleted");
+        }
         categoryRepository.delete(old);
         return modelMapper.map(old, CategoryDTO.class);
     }
