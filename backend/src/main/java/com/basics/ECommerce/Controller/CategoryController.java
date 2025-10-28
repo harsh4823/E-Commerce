@@ -29,7 +29,7 @@ public class CategoryController {
                 (service.getAllCategories(pageNumber,pageSize,sortBy,sortOrder),HttpStatus.ACCEPTED);
     }
 
-    @PostMapping("/public/categories")
+    @PostMapping("/admin/categories")
     public ResponseEntity<CategoryDTO> AddCategory(@RequestBody @Valid CategoryDTO categoryDTO){
         CategoryDTO saved = service.createCategory(categoryDTO);
         return new ResponseEntity<>(saved,HttpStatus.CREATED);
