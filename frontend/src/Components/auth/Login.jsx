@@ -44,23 +44,23 @@ const Login = () => {
                 <hr className="mt-2 mr-5 text-black"/>
                 <div className="flex flex-col gap-3">
                     <InputField
-                        label="UserName"
+                        label="Email"
                         required
-                        id="username"
-                        type="text"
+                        id="email"
+                        type="Email"
                         register={register}
                         errors={errors}
-                        message="*Username is required"
-                        placeholder="Enter Your Username"
+                        message="*Email is required"
+                        placeholder="Enter Your Email"
                     />
                     <InputField
-                        label="Password"
+                        label="Password" 
                         required
                         id="password"
                         type="password"
                         register={register}
                         errors={errors}
-                        message="*PassWord is required"
+                        message="*Password is required"
                         placeholder="Enter Your PassWord"
                     />
                 </div>
