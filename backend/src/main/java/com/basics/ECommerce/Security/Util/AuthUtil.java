@@ -21,18 +21,18 @@ public class AuthUtil {
     }
 
     public String loggedInEmail() {
-        User user = userRepository.findByUsername(getAuthentication().getName())
+        User user = userRepository.findByEmail(getAuthentication().getName())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return user.getEmail();
     }
 
     public User loggedInUser() {
-        return userRepository.findByUsername(getAuthentication().getName())
+        return userRepository.findByEmail(getAuthentication().getName())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
     public Long loggedInUserId() {
-        User user = userRepository.findByUsername(getAuthentication().getName())
+        User user = userRepository.findByEmail(getAuthentication().getName())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return user.getUserId();
     }

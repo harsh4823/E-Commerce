@@ -70,8 +70,8 @@ public class SecurityConfig {
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception{
         return http.authorizeHttpRequests(authorizeRequest ->
                 authorizeRequest.
-                        requestMatchers("/h2-console/**","/api/auth/**",
-                                "/images/**","/api/test/**","/sign-in","/v3/api-docs/**",
+                        requestMatchers("/h2-console/**","/api/auth/sign-in","/api/auth/sign-up",
+                                "/images/**","/api/test/**","/v3/api-docs/**",
                                 "/api/public/**","/swagger-ui/**","/swagger-ui.html")
                         .permitAll()
                         .requestMatchers("/api/carts/**").authenticated()

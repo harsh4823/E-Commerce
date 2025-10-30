@@ -62,9 +62,9 @@ public class JWTUtils {
     }
 
     public String generateTokenFromUsername(UserDetails userDetails){
-        String username = userDetails.getUsername();
+        String email = userDetails.getUsername();
         return Jwts.builder()
-                .subject(username)
+                .subject(email)
                 .issuedAt(new Date())
                 .expiration(new Date(new Date().getTime() + expirationMs))
                 .signWith(getKey())

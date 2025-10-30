@@ -1,6 +1,5 @@
 package com.basics.ECommerce.Security.Response;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +13,7 @@ public class UserInfoResponse {
     private Long id;
     private String username;
     private String email;
-    @JsonIgnore 
+//    @JsonIgnore
     private String jwtToken;
     private List<String> roles;
 

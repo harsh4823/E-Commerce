@@ -36,7 +36,7 @@ public class UserDetailsImp implements UserDetails {
                 .collect(Collectors.toList());
         return new UserDetailsImp(
                 user.getUserId(),
-                user.getUsername(),
+                user.getEmail(),
                 user.getEmail(),
                 user.getPassword(),
                 authorities);
@@ -56,4 +56,5 @@ public class UserDetailsImp implements UserDetails {
     public String getUsername() {
         return username;
     }
+
 }

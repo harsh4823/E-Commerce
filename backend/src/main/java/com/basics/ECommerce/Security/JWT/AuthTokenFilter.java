@@ -28,13 +28,13 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try{
             String token = parseJwt(request);
-            String username = null;
+            String email = null;
             if (token != null && jwtUtils.validateJwtToken(token)){
-                 username = jwtUtils.getUserNameFromJwtToken(token);
+                 email = jwtUtils.getUserNameFromJwtToken(token);
 
-                System.out.println("Username: " + username);
+                System.out.println("Email: " + email);
 
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                     new UsernamePasswordAuthenticationToken(userDetails,
@@ -62,5 +62,14 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         }
         return null;
     }
+
+//    // In your AuthTokenFilter.java
+//
+//    @Override
+//    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+//        String path = request.getServletPath();
+//        // Do not filter login or register paths
+//        return path.startsWith("/api/auth/sign-in");
+//    }
 
 }

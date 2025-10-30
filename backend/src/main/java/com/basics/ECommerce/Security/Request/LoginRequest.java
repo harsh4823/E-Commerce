@@ -10,6 +10,6 @@ import lombok.Data;
 public class LoginRequest {
     @NotBlank
     @Size(max = 20)
-    private String username;
+    private String email;
     private String password;
 }
