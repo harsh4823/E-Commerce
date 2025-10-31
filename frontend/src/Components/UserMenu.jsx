@@ -10,7 +10,7 @@ import { MdOutlineShoppingCart } from 'react-icons/md';
 import {IoExitOutline} from "react-icons/io5"
 import { useDispatch } from 'react-redux';
 import { deleteUser, logOutUser } from '../store/action/authAction';
-import { FaRegTrashAlt } from "react-icons/fa";
+import { FaRegTrashAlt, FaUserShield } from "react-icons/fa";
 import toast from 'react-hot-toast';
 
 const UserMenu = ({user}) => {
@@ -34,6 +34,8 @@ const UserMenu = ({user}) => {
     dispatch(deleteUser(toast, navigate,setLoader));
     
   }
+
+  const isAdmin = user.roles.some(item => item === "ROLE_ADMIN");
 
   return (
     <div className='relative z-30'>
@@ -73,6 +75,14 @@ const UserMenu = ({user}) => {
                      <MdOutlineShoppingCart className='text-xl'/> <span className='font-semibold'>My Orders</span>
                   </MenuItem>
               </Link>
+
+              {isAdmin &&
+              <Link to={"/admin"}>
+              <MenuItem onClick={handleClose} className='flex gap-2'>
+                <FaUserShield className='text-xl' /> <span className='font-semibold'>Admin Panel</span>
+              </MenuItem>
+              </Link>
+              }
               <MenuItem className='flex gap-2' onClick={logoutHandler}>
                   <div className='flex gap-2 w-full font-semibold items-center bg-button-gradient px-4 py-1 
                      text-white rounded-sm'>

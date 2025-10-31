@@ -187,7 +187,7 @@ export const updateCategory = (sendData,toast,reset,setLoader,setOpen) => async 
     }
 };
 
-export const deleteCategory = (setLoader,categoryId,toast,setDeleteOpenModal) => async (dispatch) => {
+export const deleteCategory = (setLoader, categoryId, toast, setDeleteOpenModal) => async (dispatch) => {
     try {
         setLoader(true);
         await api.delete(`/admin/categories/${categoryId}`);
@@ -200,4 +200,38 @@ export const deleteCategory = (setLoader,categoryId,toast,setDeleteOpenModal) =>
         setLoader(false);
         setDeleteOpenModal(false);
     }
+};
+
+export const fetchSellers = () => async (dispatch) => {
+try{
+
+    dispatch({type : "Is_Fetching"});
+
+    const {data} = await api.get(`/auth/sellers`);
+    // console.log(data);
+    dispatch(
+        {
+            type : "Fetch_Sellers",
+            payload : {
+                sellers : data.content,
+                pageNumber : data.pageNumber,
+                totalPages : data.totalPages,
+                totalItems : data.totalItems,
+                pageSize : data.pageSize,
+                lastPage : data.lastPage,
+            },
+        }
+    )
+
+    dispatch({type : "Is_Success"});
+
+}catch (error){
+    console.log(error);
+
+    dispatch({
+        type:"Is_Error",
+        payload : error?.response?.data?.message || "Failed To Fetch Products",
+    })
 }
+};
+

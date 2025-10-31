@@ -295,3 +295,46 @@ export const adminCategoryTableColumns = (handleEdit,handleDelete) =>
     }
   },
 ];
+export const adminSellerTableColumns = () =>
+  [
+  {
+    sortable: false,
+    disabledColumnMenu: true,
+    field: "id",
+    headerName: "userId",
+    minWidth : 200,
+    headerAlign: "center",
+    align : "center",
+    editable : false,
+    headerClassName : "text-black font-semibold border",
+    cellClassName: "text-slate-700 font-normal border",
+    renderHeader : (params) => <span className='text-center'>Seller ID</span>
+  },
+  {
+    sortable: false,
+    disabledColumnMenu: true,
+    field: "username",
+    headerName: "Username",
+    minWidth : 300,
+    headerAlign: "center",
+    align : "center",
+    editable : false,
+    headerClassName : "text-black font-semibold border",
+    cellClassName: "text-slate-700 font-normal border",
+    renderHeader : (params) => <span className='text-center'>Username</span>
+  },
+  {
+    sortable: false,
+    disabledColumnMenu: true,
+    field: "email",
+    headerName: "Email",
+    minWidth : 300,
+    headerAlign: "center",
+    align : "center",
+    editable : false,
+    headerClassName : "text-black font-semibold border",
+    cellClassName: "text-slate-700 font-normal border",
+    renderHeader : (params) => <span className='text-center'>Email</span>
+  },
+  
+];
