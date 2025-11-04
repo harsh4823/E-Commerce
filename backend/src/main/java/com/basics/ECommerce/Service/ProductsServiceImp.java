@@ -8,9 +8,11 @@ import com.basics.ECommerce.Payload.ProductResponse;
 import com.basics.ECommerce.Payload.ProductsDTO;
 import com.basics.ECommerce.Repository.CategoryRepository;
 import com.basics.ECommerce.Repository.ProductRepository;
-import jakarta.persistence.criteria.*;
+import com.basics.ECommerce.Security.Util.AuthUtil;
+import jakarta.persistence.criteria.Expression;
+import jakarta.persistence.criteria.Predicate;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,21 +25,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ProductsServiceImp implements ProductsService{
 
-    @Autowired
-    private ProductRepository productRepository;
-
-    @Autowired
-    private CategoryRepository categoryRepository;
-
-    @Autowired
-    private ModelMapper modelMapper;
-
+    private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
+    private final ModelMapper modelMapper;
+    private final AuthUtil authUtil;
 
     @Value("${image.base.url}")
     private String url;
-
 
     @Override
     public ProductsDTO createProduct(ProductsDTO productsDTO, Long id) {
@@ -51,6 +48,7 @@ public class ProductsServiceImp implements ProductsService{
 
         products.setCategory(category);
         products.setImage("default.png");
+        products.setUser(authUtil.loggedInUser());
         double price = products.getPrice();
         double discount = products.getDiscount();
         double specialPrice = price - (discount/100)*price;
@@ -237,6 +235,42 @@ public class ProductsServiceImp implements ProductsService{
             pageDetails = PageRequest.of(pageNumber, pageSize, sortByAndOrder);
         }
         Page<Product> productsPage = productRepository.findAll(pageDetails);
+        List<Product> products = productsPage.getContent();
+
+        if(products.isEmpty()){
+            throw new APIExceptions("there are no products");
+        }
+        List<ProductsDTO> productsDTOs = products.stream()
+                .map(product ->{
+                    ProductsDTO productsDTO =  modelMapper.map(product, ProductsDTO.class);
+                    productsDTO.setImage(constructImageUrl(productsDTO.getImage()));
+                    return productsDTO;
+                })
+                .toList();
+        ProductResponse productResponse = new ProductResponse();
+        productResponse.setContent(productsDTOs);
+        productResponse.setPageNumber(productsPage.getNumber());
+        productResponse.setPageSize(productsPage.getSize());
+        productResponse.setTotalPages(productsPage.getTotalPages());
+        productResponse.setTotalItems(productsPage.getTotalElements());
+        productResponse.setLastPage(productsPage.isLast());
+        return productResponse;
+    }
+
+    @Override
+    public ProductResponse getAllProductsForSeller(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder) {
+        Pageable pageDetails;
+
+        if(sortBy.equalsIgnoreCase("price")){
+            pageDetails = PageRequest.of(pageNumber,pageSize,Sort.unsorted());
+        }else {
+            Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc")
+                    ? Sort.by(sortBy).ascending() :
+                    Sort.by(sortBy).descending();
+            pageDetails = PageRequest.of(pageNumber, pageSize, sortByAndOrder);
+        }
+        Page<Product> productsPage = productRepository.findByUser(authUtil.loggedInUser(),pageDetails);
+
         List<Product> products = productsPage.getContent();
 
         if(products.isEmpty()){

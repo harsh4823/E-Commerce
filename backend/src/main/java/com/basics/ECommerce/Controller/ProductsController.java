@@ -11,10 +11,9 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,13 +21,11 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class ProductsController {
 
-    @Autowired
-    private ProductsService service;
-
-    @Autowired
-    private FileService fileService;
+    private final ProductsService service;
+    private final FileService fileService;
 
     @Tag(name = "Products API's",description = "API for managing Products")
     @Operation(summary = "Add product to category",description = "Add product to category")
@@ -117,8 +114,9 @@ public class ProductsController {
         return new ResponseEntity<>(fileService.updateProductImage(productID,image),HttpStatus.OK);
     }
 
+    @Tag(name = "Products API's",description = "API for managing Products")
+    @Operation(summary = "Get all products for Admin",description = "Get all products")
     @GetMapping("/admin/products")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ProductResponse> getAllProductsForAdmin(
             @RequestParam(name = "pageNumber",defaultValue = ProductConst.PAGE_NUMBER,required = false) Integer pageNumber,
             @RequestParam(name = "pageSize",defaultValue = ProductConst.PAGE_SIZE,required = false) Integer pageSize,
@@ -126,6 +124,18 @@ public class ProductsController {
             @RequestParam(name = "sortOrder",defaultValue = ProductConst.SORT_ORDER,required = false) String sortOrder
     ){
         return new ResponseEntity<>(service.getAllProductsForAdmin(pageNumber,pageSize,sortBy,sortOrder),HttpStatus.OK);
+    }
+
+    @Tag(name = "Products API's",description = "API for managing Products")
+    @Operation(summary = "Get all products for Seller",description = "Get all products")
+    @GetMapping("/seller/products")
+    public ResponseEntity<ProductResponse> getAllProductsForSeller(
+            @RequestParam(name = "pageNumber",defaultValue = ProductConst.PAGE_NUMBER,required = false) Integer pageNumber,
+            @RequestParam(name = "pageSize",defaultValue = ProductConst.PAGE_SIZE,required = false) Integer pageSize,
+            @RequestParam(name = "sortBy",defaultValue = ProductConst.SORT_CATEGORIES_BY,required = false) String sortBy,
+            @RequestParam(name = "sortOrder",defaultValue = ProductConst.SORT_ORDER,required = false) String sortOrder
+    ){
+        return new ResponseEntity<>(service.getAllProductsForSeller(pageNumber,pageSize,sortBy,sortOrder),HttpStatus.OK);
     }
 
 }

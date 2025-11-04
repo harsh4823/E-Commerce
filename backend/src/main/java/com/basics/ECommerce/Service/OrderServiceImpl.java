@@ -8,9 +8,10 @@ import com.basics.ECommerce.Payload.OrderItemsDTO;
 import com.basics.ECommerce.Payload.OrderRequestDTO;
 import com.basics.ECommerce.Payload.OrderResponse;
 import com.basics.ECommerce.Repository.*;
+import com.basics.ECommerce.Security.Util.AuthUtil;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,31 +23,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService{
 
-    @Autowired
-    private AddressRepository addressRepository;
-
-    @Autowired
-    private CartRepository cartRepository;
-
-    @Autowired
-    private OrderRepository orderRepository;
-
-    @Autowired
-    private OrderItemsRepository orderItemsRepository;
-
-    @Autowired
-    private PaymentRepository paymentRepository;
-
-    @Autowired
-    private CartService cartService;
-
-    @Autowired
-    private ModelMapper modelMapper;
-
-    @Autowired
-    private ProductRepository productRepository;
+    private final AddressRepository addressRepository;
+    private final CartRepository cartRepository;
+    private final OrderRepository orderRepository;
+    private final OrderItemsRepository orderItemsRepository;
+    private final PaymentRepository paymentRepository;
+    private final CartService cartService;
+    private final ModelMapper modelMapper;
+    private final ProductRepository productRepository;
+    private final AuthUtil authUtil;
 
     @Override
     @Transactional
@@ -141,5 +129,27 @@ public class OrderServiceImpl implements OrderService{
         order.setOrderStatus(status);
         order = orderRepository.save(order);
         return modelMapper.map(order, OrderDTO.class);
+    }
+
+    @Override
+    public OrderResponse getAllSellerOrders(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder) {
+        Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc")
+                ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+        Pageable pageDetails = PageRequest.of(pageNumber,pageSize,sortByAndOrder);
+        Page<Orders> orders = orderRepository.findOrdersBySeller(authUtil.loggedInUser(),pageDetails);
+
+        List<Orders> ordersList = orders.getContent();
+
+        List<OrderDTO> orderDTOS = ordersList.stream()
+                .map(order->modelMapper.map(order, OrderDTO.class))
+                .toList();
+
+        return new OrderResponse(orderDTOS,
+                orders.getNumber(),
+                orders.getSize(),
+                orders.getTotalElements(),
+                orders.getTotalPages(),
+                orders.isLast());
     }
 }

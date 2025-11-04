@@ -2,6 +2,7 @@ package com.basics.ECommerce.Repository;
 
 import com.basics.ECommerce.Model.CategoryModel;
 import com.basics.ECommerce.Model.Product;
+import com.basics.ECommerce.Model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -23,4 +24,6 @@ public interface ProductRepository extends JpaRepository<Product,Long> , JpaSpec
     Page<Product> findAll(Specification<Product> specification, Pageable pageDetails);
 
     List<Product> findByCategory(CategoryModel category);
+
+    Page<Product> findByUser(User user, Pageable pageable);
 }

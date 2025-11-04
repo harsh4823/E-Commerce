@@ -18,4 +18,6 @@ public interface ProductsService {
     ProductsDTO deleteProduct(Long productId);
 
     ProductResponse getAllProductsForAdmin(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
+
+    ProductResponse getAllProductsForSeller(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
 }

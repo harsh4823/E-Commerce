@@ -2,8 +2,8 @@ package com.basics.ECommerce.Controller;
 
 import com.basics.ECommerce.Config.ProductConst;
 import com.basics.ECommerce.Payload.*;
-import com.basics.ECommerce.Service.OrderService;
 import com.basics.ECommerce.Security.Util.AuthUtil;
+import com.basics.ECommerce.Service.OrderService;
 import com.basics.ECommerce.Service.RazorPayService;
 import com.basics.ECommerce.Service.StripeService;
 import com.razorpay.RazorpayException;
@@ -12,7 +12,6 @@ import com.stripe.model.PaymentIntent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -66,7 +65,6 @@ public class OrderController {
     }
 
     @GetMapping("/admin/orders")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<OrderResponse> getAllOrders(
             @RequestParam(name = "pageNumber",defaultValue = ProductConst.PAGE_NUMBER,required = false) Integer pageNumber,
             @RequestParam(name = "pageSize",defaultValue = ProductConst.PAGE_SIZE,required = false) Integer pageSize,
@@ -78,10 +76,20 @@ public class OrderController {
     }
 
     @PutMapping("/admin/orders/{orderId}/status")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<OrderDTO> updateOrderStatus(@PathVariable Long orderId,
                                                       @RequestBody OrderStatusDTO orderStatusDTO){
         OrderDTO orderDTO = orderService.updateOrderStatus(orderId,orderStatusDTO.getStatus());
         return new ResponseEntity<>(orderDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("/seller/orders")
+    public ResponseEntity<OrderResponse> getAllSellerOrders(
+            @RequestParam(name = "pageNumber",defaultValue = ProductConst.PAGE_NUMBER,required = false) Integer pageNumber,
+            @RequestParam(name = "pageSize",defaultValue = ProductConst.PAGE_SIZE,required = false) Integer pageSize,
+            @RequestParam(name = "sortBy",defaultValue = ProductConst.SORT_ORDER_BY,required = false) String sortBy,
+            @RequestParam(name = "sortOrder",defaultValue = ProductConst.SORT_ORDER,required = false) String sortOrder
+    ){
+        OrderResponse orderResponse = orderService.getAllSellerOrders(pageNumber,pageSize,sortBy,sortOrder);
+        return new ResponseEntity<>(orderResponse, HttpStatus.OK);
     }
 }

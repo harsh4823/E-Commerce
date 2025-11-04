@@ -69,14 +69,17 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception{
         return http.authorizeHttpRequests(authorizeRequest ->
-                authorizeRequest.
-                        requestMatchers("/h2-console/**","/api/auth/sign-in","/api/auth/sign-up",
-                                "/images/**","/api/test/**","/v3/api-docs/**",
-                                "/api/public/**","/swagger-ui/**","/swagger-ui.html")
-                        .permitAll()
-                        .requestMatchers("/api/carts/**").authenticated()
-                        .anyRequest().authenticated()
-        ).sessionManagement(session->
+            authorizeRequest.
+                requestMatchers("/h2-console/**","/api/auth/sign-in","/api/auth/sign-up",
+                            "/images/**","/api/test/**","/v3/api-docs/**",
+                            "/api/public/**","/swagger-ui/**","/swagger-ui.html").permitAll()
+                .requestMatchers("/api/seller/orders").hasRole("SELLER")
+                .requestMatchers("/api/admin/orders/{orderId}/status",
+                        "/api/admin/products/{productID}/image", "/api/admin/products/{productId}",
+                        "/api/admin/categories/{category_id}/product").hasAnyRole("ADMIN","SELLER")
+                .requestMatchers("api/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated())
+                .sessionManagement(session->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(exception->
                         exception.authenticationEntryPoint(unauthorizedHandler))
@@ -140,38 +143,23 @@ public class SecurityConfig {
             Set<Role> sellerRoles = Set.of(sellerRole);
             Set<Role> adminRoles = Set.of(userRole, sellerRole, adminRole);
 
-
-            // Create users if not already present
             if (!userRepository.existsByUsername("user1")) {
                 User user1 = new User("user1", "user1@example.com", passwordEncoder.encode("password1"));
-                userRepository.save(user1);
+                user1.setRoles(userRoles); // Set roles *before* saving
+                userRepository.save(user1); // Save *only once*
             }
 
             if (!userRepository.existsByUsername("seller1")) {
                 User seller1 = new User("seller1", "seller1@example.com", passwordEncoder.encode("password2"));
-                userRepository.save(seller1);
+                seller1.setRoles(sellerRoles); // Set roles *before* saving
+                userRepository.save(seller1); // Save *only once*
             }
 
             if (!userRepository.existsByUsername("admin")) {
                 User admin = new User("admin", "admin@example.com", passwordEncoder.encode("adminPass"));
-                userRepository.save(admin);
+                admin.setRoles(adminRoles); // Set roles *before* saving
+                userRepository.save(admin); // Save *only once*
             }
-
-            // Update roles for existing users
-            userRepository.findByUsername("user1").ifPresent(user -> {
-                user.setRoles(userRoles);
-                userRepository.save(user);
-            });
-
-            userRepository.findByUsername("seller1").ifPresent(seller -> {
-                seller.setRoles(sellerRoles);
-                userRepository.save(seller);
-            });
-
-            userRepository.findByUsername("admin").ifPresent(admin -> {
-                admin.setRoles(adminRoles);
-                userRepository.save(admin);
-            });
         };
     }
 

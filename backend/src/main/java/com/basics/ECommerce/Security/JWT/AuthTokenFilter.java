@@ -31,18 +31,12 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             String email = null;
             if (token != null && jwtUtils.validateJwtToken(token)){
                  email = jwtUtils.getUserNameFromJwtToken(token);
-
-                System.out.println("Email: " + email);
-
             UserDetails userDetails = userDetailsService.loadUserByUsername(email);
-
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                     new UsernamePasswordAuthenticationToken(userDetails,
                             null,userDetails.getAuthorities());
-
             usernamePasswordAuthenticationToken.setDetails(
                     new WebAuthenticationDetailsSource().buildDetails(request));
-
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         } catch (Exception e) {
