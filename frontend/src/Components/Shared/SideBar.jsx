@@ -5,7 +5,7 @@ import { TbLayoutSidebarLeftCollapse, TbLayoutSidebarLeftExpand, TbLayoutSidebar
 import { RiAdminFill } from "react-icons/ri";
 import classNames from 'classnames';
 // A good practice is to use relative paths for your imports
-import { adminNavigation } from '/Users/HP/OneDrive/Desktop/Projects/E-Commerce/frontend/src/Utils/index'; 
+import { adminNavigation, sellerNavigation } from '/Users/HP/OneDrive/Desktop/Projects/E-Commerce/frontend/src/Utils/index'; 
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -13,7 +13,8 @@ import { useSelector } from 'react-redux';
 const SideBar = ({ open,setOpen }) => {
     const pathname = useLocation().pathname;
     const { user } = useSelector(state => state.auth);
-    const sideBarLayout = adminNavigation;
+    const isAdmin = user && user?.roles?.includes("ROLE_ADMIN");
+    const sideBarLayout = isAdmin ? adminNavigation : sellerNavigation;
 
     return (
         <>
@@ -30,7 +31,7 @@ const SideBar = ({ open,setOpen }) => {
                     <RiAdminFill className='text-white text-2xl' />
                     <h1 className={`text-white origin-left font-semibold text-xl ml-4 duration-200 ease-in-out
                     ${!open && "w-0 scale-0"}`}>
-                        Admin Panel
+                        {isAdmin ? "Admin Panel" : "Seller Panel"}
                     </h1>
                 </div>
                 {/* sidebar item section  */}

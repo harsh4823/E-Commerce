@@ -36,6 +36,7 @@ const UserMenu = ({user}) => {
   }
 
   const isAdmin = user.roles.some(item => item === "ROLE_ADMIN");
+  const isSeller = user.roles.some(item => item === "ROLE_SELLER");
 
   return (
     <div className='relative z-30'>
@@ -76,10 +77,18 @@ const UserMenu = ({user}) => {
                   </MenuItem>
               </Link>
 
-              {isAdmin &&
+              {
+              isAdmin &&
               <Link to={"/admin"}>
               <MenuItem onClick={handleClose} className='flex gap-2'>
                 <FaUserShield className='text-xl' /> <span className='font-semibold'>Admin Panel</span>
+              </MenuItem>
+              </Link>
+              || 
+              isSeller &&
+              <Link to={"/admin/orders"}>
+              <MenuItem onClick={handleClose} className='flex gap-2'>
+                <FaUserShield className='text-xl' /> <span className='font-semibold'>Seller Panel</span>
               </MenuItem>
               </Link>
               }

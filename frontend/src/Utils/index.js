@@ -25,10 +25,15 @@ export const banner = [
 ];
 
 export const adminNavigation = [
-    {name:"DashBoard",href:"/admin",icon:FaHome},
-    {name:"Orders",href:"/admin/orders",icon:FaShoppingCart},
-    {name:"Products",href:"/admin/products",icon:FaBoxOpen},
-    {name:"Categories",href:"/admin/categories",icon:FaThList},
-    {name:"Sellers",href:"/admin/sellers",icon:FaStore},
-]
+    { name: "DashBoard", href: "/admin", icon: FaHome },
+    { name: "Orders", href: "/admin/orders", icon: FaShoppingCart },
+    { name: "Products", href: "/admin/products", icon: FaBoxOpen },
+    { name: "Categories", href: "/admin/categories", icon: FaThList },
+    { name: "Sellers", href: "/admin/sellers", icon: FaStore },
+];
+
+export const sellerNavigation = [
+    { name: "Orders", href: "/admin/orders", icon: FaShoppingCart },
+    { name: "Products", href: "/admin/products", icon: FaBoxOpen },
+];
 

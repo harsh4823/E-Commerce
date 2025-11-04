@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { authenticateSignInUser } from "../../store/action/authAction";
 import toast from "react-hot-toast";
 import { SpinnerCircularFixed } from "spinners-react";
+import { FaEye } from "react-icons/fa";
 
 const Login = () => {
 
@@ -61,7 +62,7 @@ const Login = () => {
                         register={register}
                         errors={errors}
                         message="*Password is required"
-                        placeholder="Enter Your PassWord"
+                        placeholder="Enter Your Password"
                     />
                 </div>
                 <button className={`bg-button-gradient flex gap-2 items-center justify-center 

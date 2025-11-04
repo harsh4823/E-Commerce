@@ -14,13 +14,16 @@ export const fetchAnalyticsData = () => async (dispatch) => {
     }
 }
 
-export const fetchOrders = (queryString) => async (dispatch) => {
+export const fetchOrders = (queryString,isAdmin) => async (dispatch) => {
     try{
 
         dispatch({type : "Is_Fetching"});
 
-        const {data} = await api.get(`/admin/orders?${queryString}`);
-        // console.log(data);
+        const { data } = await (isAdmin 
+        ? api.get(`/admin/orders?${queryString}`)
+        : api.get(`/seller/orders?${queryString}`)
+        );
+        
         dispatch(
             {
                 type : "Fetch_Orders",
@@ -62,12 +65,15 @@ export const updateOrderStatusFromDashboard = (toast, orderId, orderStatus,setLo
         }
     };
 
-export const fetchAdminProducts = (queryString) => async (dispatch) => {
+export const fetchAdminProducts = (queryString,isAdmin) => async (dispatch) => {
 try{
 
     dispatch({type : "Is_Fetching"});
 
-    const {data} = await api.get(`/admin/products?${queryString}`);
+    const { data } = await (isAdmin 
+        ? api.get(`/admin/products?${queryString}`)
+        : api.get(`/seller/products?${queryString}`)
+        );
     // console.log(data);
     dispatch(
         {
