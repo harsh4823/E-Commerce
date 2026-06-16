@@ -183,8 +183,6 @@ CREATE DATABASE ecommerce;
 
 ### 3. Configure backend environment
 
-Do not hard-code real secrets in `application.properties`. Use environment variables instead.
-
 Example environment configuration:
 
 ```bash
@@ -395,38 +393,6 @@ npm run lint
 npm run preview
 ```
 
-## Development Notes
-
-- Keep backend and frontend environment files out of Git.
-- Use `.env.local` for frontend secrets and local URLs.
-- Prefer constructor injection over field injection in Spring services/controllers.
-- Keep DTOs separate from entities for API safety.
-- Use proper validation on request payloads.
-- Avoid printing payment or user-sensitive data using `System.out.println`; use structured logging instead.
-- Run backend tests before changing business logic.
-- Run frontend lint/build before pushing UI changes.
-- Keep commits small and meaningful.
-
-## Production Checklist
-
-Before deploying this project, fix these items:
-
-- Move all database credentials and JWT secrets out of `application.properties`.
-- Rotate any secrets that were previously committed.
-- Replace `spring.jpa.hibernate.ddl-auto=update` with proper database migrations using Flyway or Liquibase.
-- Disable SQL logging in production.
-- Use HTTPS only.
-- Set secure cookie settings such as `HttpOnly`, `Secure`, and proper `SameSite` policy.
-- Restrict CORS to the real production frontend domain.
-- Remove or secure development seed users.
-- Add rate limiting for authentication and payment APIs.
-- Add centralized exception handling.
-- Add request/response logging with sensitive-field masking.
-- Add monitoring, metrics, and distributed tracing.
-- Add CI/CD pipeline for backend and frontend builds.
-- Add Docker Compose for local PostgreSQL and application setup.
-- Verify payment webhooks server-side before marking orders as paid.
-
 ## Future Improvements
 
 - Add product reviews and ratings.
@@ -439,7 +405,3 @@ Before deploying this project, fix these items:
 - Add Docker support for backend, frontend, and PostgreSQL.
 - Add integration tests for auth, cart, order, and payment flows.
 - Add frontend unit tests using React Testing Library.
-
-## License
-
-No license has been added yet. Add a license file if this project is intended for public reuse.
