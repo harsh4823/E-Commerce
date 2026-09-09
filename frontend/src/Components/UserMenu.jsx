@@ -66,11 +66,11 @@ const UserMenu = ({user}) => {
           },
         }}
           >
-        <Link to={'/profile'}>
+        
                   <MenuItem className="flex gap-2" onClick={handleClose}>
                       <BiUser className='text-xl' /><span className='font-bold text-[16px] mt-1'>{ user?.username}</span>
                   </MenuItem>
-              </Link>
+              
               <Link to={"/cart"}>
                   <MenuItem onClick={handleClose} className='flex gap-2'>
                      <MdOutlineShoppingCart className='text-xl'/> <span className='font-semibold'>My Orders</span>
