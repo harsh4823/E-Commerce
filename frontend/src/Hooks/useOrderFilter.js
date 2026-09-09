@@ -1,7 +1,7 @@
 import {useSearchParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import { fetchOrders } from "c:/Users/HP/OneDrive/Desktop/Projects/E-Commerce/frontend/src/store/action/adminAction";
+import { fetchOrders } from "../store/action/adminAction";
 
 const useOrderFilter = () => {
     const [searchParams] = useSearchParams();

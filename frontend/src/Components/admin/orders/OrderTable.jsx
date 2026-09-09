@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { adminOrderTableColumns } from 'c:/Users/HP/OneDrive/Desktop/Projects/E-Commerce/frontend/src/Components/helper/tableColumn'; // Assumed correct path
+import { adminOrderTableColumns } from '../../../Components/helper/tableColumn'; 
 import { useLocation, useNavigate} from 'react-router-dom';
 import Modal from './../../Shared/Modal';
 import UpdateOrderForm from './UpdateOrderForm';

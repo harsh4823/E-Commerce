@@ -5,7 +5,7 @@ import { TbLayoutSidebarLeftCollapse, TbLayoutSidebarLeftExpand, TbLayoutSidebar
 import { RiAdminFill } from "react-icons/ri";
 import classNames from 'classnames';
 // A good practice is to use relative paths for your imports
-import { adminNavigation, sellerNavigation } from '/Users/HP/OneDrive/Desktop/Projects/E-Commerce/frontend/src/Utils/index'; 
+import { adminNavigation, sellerNavigation } from '../../Utils/index'; 
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 

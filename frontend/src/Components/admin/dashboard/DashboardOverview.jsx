@@ -1,4 +1,4 @@
-import { formatRevenue } from 'c:/Users/HP/OneDrive/Desktop/Projects/E-Commerce/frontend/src/Utils/formatPrice'
+import { formatRevenue } from '../../../Utils/formatPrice'
 import React from 'react'
 
 const DashboardOverview = ({ title, amount, Icon, revenue = false }) => {

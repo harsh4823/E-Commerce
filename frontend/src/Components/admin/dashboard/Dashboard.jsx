@@ -3,7 +3,7 @@ import DashboardOverview from './DashboardOverview'
 import { FaBox, FaShoppingCart } from 'react-icons/fa'
 import { RiMoneyRupeeCircleFill } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchAnalyticsData } from 'c:/Users/HP/OneDrive/Desktop/Projects/E-Commerce/frontend/src/store/action/adminAction'
+import { fetchAnalyticsData } from '../../../store/action/adminAction'
 
 const Dashboard = () => {
     const { productCount, totalRevenue, totalOrders } = useSelector(state => state.admin);

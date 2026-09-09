@@ -1,5 +1,5 @@
 import { fetchCategory } from "./categoryAction";
-import api from "c:/Users/HP/OneDrive/Desktop/Projects/E-Commerce/frontend/src/api/api"
+import api from "../../../src/api/api"
 
 export const fetchAnalyticsData = () => async (dispatch) => {
     try {
