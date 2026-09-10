@@ -9,6 +9,7 @@ import com.basics.ECommerce.Security.JWT.AuthEntryPointJWT;
 import com.basics.ECommerce.Security.JWT.AuthTokenFilter;
 import com.basics.ECommerce.Security.Services.UserDetailServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,6 +47,9 @@ public class SecurityConfig {
     public AuthTokenFilter authTokenFilter(){
         return new AuthTokenFilter();
     }
+
+    @Value("${frontend.url}")
+    private String frontendUrl;
 
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider(){
@@ -107,7 +111,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.setAllowedOrigins(List.of("http://localhost:3000"));
+        corsConfiguration.setAllowedOrigins(List.of(frontendUrl));
         corsConfiguration.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
         corsConfiguration.setAllowedHeaders(List.of("*"));
         corsConfiguration.setAllowCredentials(true);

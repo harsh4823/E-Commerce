@@ -74,6 +74,7 @@ const AddAddressForm = ({address,setOpenAddressModal}) => {
                     errors={errors}
                     message="*Country is required"
                     placeholder="Enter Country"
+                    min={2}
                     />
                     {/* State */}
                 <InputField
@@ -85,6 +86,7 @@ const AddAddressForm = ({address,setOpenAddressModal}) => {
                     errors={errors}
                     message="*State is required"
                     placeholder="Enter State"
+                    min={2}
                     />
                     {/* City */}
                 <InputField
@@ -96,6 +98,7 @@ const AddAddressForm = ({address,setOpenAddressModal}) => {
                     errors={errors}
                     message="*City is required"
                     placeholder="Enter City"
+                    min={2}
                     />
                     {/* PinCode */}
                 <InputField
@@ -119,6 +122,7 @@ const AddAddressForm = ({address,setOpenAddressModal}) => {
                     errors={errors}
                     message="*Street is required"
                     placeholder="Enter Street"
+                    min={3}
                     />
                   {/* Building Name */}
                 <InputField
@@ -130,6 +134,7 @@ const AddAddressForm = ({address,setOpenAddressModal}) => {
                     errors={errors}
                     message="*BuildingName is required"
                     placeholder="Enter BuildingName"
+                    min={5}
                     />
                 </div>
                 <button className={`text-white bg-custom-blue px-4 py-2 rounded-md mt-4 ${btnLoder?'cursor-default':'cursor-pointer'}`} disabled={btnLoder} type="submit">

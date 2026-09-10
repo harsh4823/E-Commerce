@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.basics</groupId>
-	<artifactId>E-Commerce</artifactId>
+	<artifactId>ecommerce</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring_basics</name>
 	<description>Demo project for Spring Boot</description>
@@ -130,6 +130,16 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<to>
+						<image>harsh20jain/${project.artifactId}:v1</image>
+					</to>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

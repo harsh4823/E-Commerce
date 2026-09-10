@@ -47,6 +47,7 @@ const AddCategoryForm = ({ setOpen, category, update }) => {
                     register={register}
                     placeholder="Category Name"
                     errors={errors}
+                    min={5}
                   /> 
               </div>
               <div className='flex w-full justify-between items-center absolute top-120'>
