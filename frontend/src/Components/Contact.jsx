@@ -1,9 +1,10 @@
-import {FaEnvelope, FaMapMarkedAlt, FaPhone} from 'react-icons/fa'
+import { FaEnvelope, FaMapMarkedAlt, FaPhone } from 'react-icons/fa'
+import contactImg from "../assets/images/bg.jpg"
 const Contact = () => {
     return(
         <div
             className="flex flex-col items-center justify-center min-h-screen py-12 bg-cover bg-center"
-            style={{backgroundImage: "url('src/assets/images/bg.jpg')"}}>
+            style={{backgroundImage: contactImg}}>
             
             <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
                 <h1 className="text-4xl font-bold text-center mb-6">Contact us</h1>

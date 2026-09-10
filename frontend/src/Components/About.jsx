@@ -2,7 +2,8 @@ import Loader from "./Shared/Loader.jsx";
 import ProductCard from "./Shared/ProductCard.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {fetchProducts} from "../store/action/productAction.js";
+import { fetchProducts } from "../store/action/productAction.js";
+import aboutImg from "../assets/images/about.jpg"
 
 const About = () => {
     const dispatch = useDispatch();
@@ -27,7 +28,7 @@ const About = () => {
                     </p>
                 </div>
                 <div className={'w-full md:w-1/2 mb-6 md:mb-0 ml-7'}>
-                <img src={'src/assets/images/about.jpg'} alt={'About Us'} className={'w-full h-auto rounded-lg transform transition-transform duration-300'}/>
+                <img src={aboutImg} alt={'About Us'} className={'w-full h-auto rounded-lg transform transition-transform duration-300'}/>
                 </div>
             </div>
             <div className={'py-7 space-y-8'}>
