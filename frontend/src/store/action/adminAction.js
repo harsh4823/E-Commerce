@@ -146,10 +146,15 @@ export const uploadProductImage = (productId, formData, toast, setLoader, setOpe
     }
 };
 
-export const addNewProduct = (sendData,toast,reset,setLoader,setOpen) => async (dispatch) => {
+export const addNewProduct = (categoryId, formData, toast, reset, setLoader, setOpen) => async (dispatch) => {
     try {
-        setLoader(true);
-        await api.post(`/admin/categories/${sendData.categoryId}/product`, sendData);
+        setLoader(true);        
+        await api.post(`/admin/categories/${categoryId}/product`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        
         toast.success("Product added Successfully");
         reset();
         await dispatch(fetchAdminProducts());
