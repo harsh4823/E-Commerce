@@ -2,10 +2,13 @@ package com.basics.ECommerce.Service;
 
 import com.basics.ECommerce.Payload.ProductResponse;
 import com.basics.ECommerce.Payload.ProductsDTO;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 public interface ProductsService {
 
-    ProductsDTO createProduct(ProductsDTO products, Long id);
+    ProductsDTO createProduct(ProductsDTO products, Long id, MultipartFile file) throws IOException;
 
     ProductResponse getAllProducts(String keyword,String category,Integer pageNumber,Integer pageSize,String sortBy,String sortOrder);
 

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -73,8 +74,9 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception{
         return http.authorizeHttpRequests(authorizeRequest ->
-            authorizeRequest.
-                requestMatchers("/h2-console/**","/api/auth/sign-in","/api/auth/sign-up",
+            authorizeRequest
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .requestMatchers("/h2-console/**","/api/auth/sign-in","/api/auth/sign-up",
                             "/images/**","/api/test/**","/v3/api-docs/**",
                             "/api/public/**","/swagger-ui/**","/swagger-ui.html").permitAll()
                 .requestMatchers("/api/seller/orders").hasRole("SELLER")

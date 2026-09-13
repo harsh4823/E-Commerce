@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,12 +30,14 @@ public class ProductsController {
 
     @Tag(name = "Products API's",description = "API for managing Products")
     @Operation(summary = "Add product to category",description = "Add product to category")
-    @PostMapping("/admin/categories/{category_id}/product")
+    @PostMapping(value = "/admin/categories/{category_id}/product",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ProductsDTO> addProducts(
             @Parameter(description = "Category ID to add product to")
-            @RequestBody ProductsDTO products
-            , @PathVariable Long category_id){
-        return new ResponseEntity<>(service.createProduct(products,category_id),HttpStatus.CREATED);
+            @ModelAttribute ProductsDTO products
+            , @PathVariable Long category_id,
+            @RequestParam MultipartFile imageFile
+            ) throws IOException {
+        return new ResponseEntity<>(service.createProduct(products,category_id,imageFile),HttpStatus.CREATED);
     }
 
     @Tag(name = "Products API's",description = "API for managing Products")

@@ -9,18 +9,21 @@ import com.basics.ECommerce.Payload.ProductsDTO;
 import com.basics.ECommerce.Repository.CategoryRepository;
 import com.basics.ECommerce.Repository.ProductRepository;
 import com.basics.ECommerce.Security.Util.AuthUtil;
+import com.basics.ECommerce.Security.Util.ImageUploadUtil;
 import jakarta.persistence.criteria.Expression;
 import jakarta.persistence.criteria.Predicate;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,11 +36,11 @@ public class ProductsServiceImp implements ProductsService{
     private final ModelMapper modelMapper;
     private final AuthUtil authUtil;
 
-    @Value("${image.base.url}")
-    private String url;
+    @Autowired
+    private ImageUploadUtil uploadUtil;
 
     @Override
-    public ProductsDTO createProduct(ProductsDTO productsDTO, Long id) {
+    public ProductsDTO createProduct(ProductsDTO productsDTO, Long id, MultipartFile image) throws IOException {
         CategoryModel category = categoryRepository.findById(id).
                 orElseThrow(()->new ResourceNotFoundException("Category","CategoryId",id));
         Product products = modelMapper.map(productsDTO, Product.class);
@@ -47,7 +50,7 @@ public class ProductsServiceImp implements ProductsService{
         }
 
         products.setCategory(category);
-        products.setImage("default.png");
+        products.setImage(uploadUtil.uploadImage(image));
         products.setUser(authUtil.loggedInUser());
         double price = products.getPrice();
         double discount = products.getDiscount();
@@ -122,9 +125,7 @@ public class ProductsServiceImp implements ProductsService{
         }
         List<ProductsDTO> productsDTOs = products.stream()
                 .map(product ->{
-                ProductsDTO productsDTO =  modelMapper.map(product, ProductsDTO.class);
-                productsDTO.setImage(constructImageUrl(productsDTO.getImage()));
-                return productsDTO;
+                    return modelMapper.map(product, ProductsDTO.class);
                 })
                 .toList();
         ProductResponse productResponse = new ProductResponse();
@@ -136,10 +137,6 @@ public class ProductsServiceImp implements ProductsService{
         productResponse.setLastPage(productsPage.isLast());
         productResponse.setFallback(isFallback);
         return productResponse;
-    }
-
-    private String constructImageUrl(String imageName){
-        return url.endsWith("/") ? url+imageName: url+"/"+imageName;
     }
 
     @Override
@@ -242,9 +239,7 @@ public class ProductsServiceImp implements ProductsService{
         }
         List<ProductsDTO> productsDTOs = products.stream()
                 .map(product ->{
-                    ProductsDTO productsDTO =  modelMapper.map(product, ProductsDTO.class);
-                    productsDTO.setImage(constructImageUrl(productsDTO.getImage()));
-                    return productsDTO;
+                    return modelMapper.map(product, ProductsDTO.class);
                 })
                 .toList();
         ProductResponse productResponse = new ProductResponse();
@@ -278,9 +273,7 @@ public class ProductsServiceImp implements ProductsService{
         }
         List<ProductsDTO> productsDTOs = products.stream()
                 .map(product ->{
-                    ProductsDTO productsDTO =  modelMapper.map(product, ProductsDTO.class);
-                    productsDTO.setImage(constructImageUrl(productsDTO.getImage()));
-                    return productsDTO;
+                    return modelMapper.map(product, ProductsDTO.class);
                 })
                 .toList();
         ProductResponse productResponse = new ProductResponse();

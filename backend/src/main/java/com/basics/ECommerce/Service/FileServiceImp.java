@@ -4,17 +4,13 @@ import com.basics.ECommerce.Exceptions.ResourceNotFoundException;
 import com.basics.ECommerce.Model.Product;
 import com.basics.ECommerce.Payload.ProductsDTO;
 import com.basics.ECommerce.Repository.ProductRepository;
+import com.basics.ECommerce.Security.Util.ImageUploadUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.UUID;
 
 @Service
 public class FileServiceImp implements FileService{
@@ -25,33 +21,17 @@ public class FileServiceImp implements FileService{
     @Autowired
     private ProductRepository productRepository;
 
-    @Value("${project.image}")
-    private String path;
+    @Autowired
+    private ImageUploadUtil uploadUtil;
 
 
     @Override
     public ProductsDTO updateProductImage(Long productID, MultipartFile image) throws IOException {
         Product product = productRepository.findById(productID)
                 .orElseThrow(()->new ResourceNotFoundException("Product","ProductID",productID));
-        String fileName = uploadImage(path,image);
+        String fileName = uploadUtil.uploadImage(image);
         product.setImage(fileName);
         return modelMapper.map(productRepository.save(product), ProductsDTO.class);
-    }
-
-    private String uploadImage(String path, MultipartFile image) throws IOException {
-
-        String originalFileName = image.getOriginalFilename();
-
-        String randomID = UUID.randomUUID().toString();
-        String fileName = randomID.concat(originalFileName.substring(originalFileName.lastIndexOf('.')));
-
-        File folder = new File(path);
-        if (!folder.exists()){
-            folder.mkdirs();
-        }
-        String filePath = path + File.separator + fileName;
-        Files.copy(image.getInputStream(), Path.of(filePath));
-        return fileName;
     }
 
 
